@@ -77,6 +77,21 @@
     },
     {
       "type": "plugin",
+      "slug": "wordpress-importer",
+      "name": "WordPress Importer",
+      "summary": {
+        "en": "Moves a WordPress site in from the admin: posts, pages, media, categories, tags, menus and authors, with redirects from the old addresses and a report.",
+        "it": "Porta un sito WordPress su Cleitext dall'amministrazione: articoli, pagine, media, categorie, tag, menu e autori, con i redirect dai vecchi indirizzi e un resoconto."
+      },
+      "tags": [
+        "import",
+        "wordpress",
+        "migration"
+      ],
+      "icon": "assets/wordpress-importer.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "forms",
       "name": "Forms",
       "summary": {
