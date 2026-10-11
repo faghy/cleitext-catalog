@@ -3,13 +3,32 @@
   "items": [
     {
       "type": "plugin",
+      "slug": "seo",
+      "name": "SEO",
+      "summary": {
+        "en": "Yoast-style SEO, included in Cleitext: XML sitemaps for Search Console, SEO and readability analysis in the editor, breadcrumbs, structured data, title templates and automatic redirects.",
+        "it": "SEO in stile Yoast, incluso in Cleitext: sitemap XML per Search Console, analisi SEO e di leggibilità nell'editor, briciole di pane, dati strutturati, modelli dei titoli e redirect automatici."
+      },
+      "tags": [
+        "seo",
+        "sitemap",
+        "schema"
+      ],
+      "icon": "assets/seo.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "multilingual",
       "name": "Multilingual",
       "summary": {
         "en": "Several languages on a site: translations of content, categories and menus, language addresses, hreflang, a language switcher and optional automatic translation.",
         "it": "Più lingue su un sito: traduzioni di contenuti, categorie e menu, indirizzi per lingua, hreflang, selettore della lingua e traduzione automatica facoltativa."
       },
-      "tags": ["languages", "translation", "seo"],
+      "tags": [
+        "languages",
+        "translation",
+        "seo"
+      ],
       "icon": "assets/multilingual.svg"
     },
     {
@@ -20,7 +39,11 @@
         "en": "Cookie banner following the Italian Garante's guidelines, scripts held until consent, consent log, privacy and cookie policies made of blocks, requests to export or erase personal data.",
         "it": "Banner dei cookie secondo le linee guida del Garante, script bloccati fino al consenso, registro dei consensi, privacy e cookie policy fatte di blocchi, richieste di esportazione o cancellazione dei dati personali."
       },
-      "tags": ["privacy", "gdpr", "cookies"],
+      "tags": [
+        "privacy",
+        "gdpr",
+        "cookies"
+      ],
       "icon": "assets/privacy.svg"
     },
     {
@@ -31,7 +54,11 @@
         "en": "Matomo, Google Analytics 4, Google Tag Manager, Meta Pixel, Search Console and Bing verification, with their privacy rules applied by Privacy & GDPR.",
         "it": "Matomo, Google Analytics 4, Google Tag Manager, Meta Pixel, verifica di Search Console e Bing, con le regole privacy applicate da Privacy e GDPR."
       },
-      "tags": ["analytics", "statistics", "seo"],
+      "tags": [
+        "analytics",
+        "statistics",
+        "seo"
+      ],
       "icon": "assets/analytics.svg"
     },
     {
@@ -42,8 +69,39 @@
         "en": "Blocks that show the plugins and themes of the Cleitext catalog on a site, with versions and downloads.",
         "it": "Blocchi che mostrano su un sito i plugin e i temi del catalogo di Cleitext, con versioni e download."
       },
-      "tags": ["catalog", "blocks"],
+      "tags": [
+        "catalog",
+        "blocks"
+      ],
       "icon": "assets/showcase.svg"
+    },
+    {
+      "type": "plugin",
+      "slug": "forms",
+      "name": "Forms",
+      "summary": {
+        "en": "A contact form block, included in Cleitext: messages are stored and emailed, with spam protection and a privacy notice.",
+        "it": "Un blocco modulo di contatto, incluso in Cleitext: i messaggi vengono salvati e inviati per email, con protezione dallo spam e informativa privacy."
+      },
+      "tags": [
+        "forms",
+        "contact"
+      ],
+      "icon": "assets/forms.svg"
+    },
+    {
+      "type": "plugin",
+      "slug": "hi-john",
+      "name": "Hi John",
+      "summary": {
+        "en": "A line by John Lennon on your dashboard, in the spirit of Hello Dolly. Also the smallest example of a Cleitext plugin.",
+        "it": "Una frase di John Lennon in bacheca, nello spirito di Hello Dolly. È anche il più piccolo esempio di plugin per Cleitext."
+      },
+      "tags": [
+        "fun",
+        "example"
+      ],
+      "icon": "assets/hi-john.svg"
     },
     {
       "type": "theme",
@@ -53,10 +111,16 @@
         "en": "A page-builder theme: full-width sections, cards, icons and ready-made patterns, all edited with ordinary blocks. Clean, light and mobile friendly.",
         "it": "Un tema page builder: sezioni a tutta larghezza, card, icone e pattern pronti, tutto modificabile con i blocchi. Pulito, leggero e mobile friendly."
       },
-      "tags": ["page-builder", "landing", "business"],
+      "tags": [
+        "page-builder",
+        "landing",
+        "business"
+      ],
       "requires": ">=0.9.0",
       "icon": "assets/canvas.svg",
-      "screenshots": ["assets/canvas.png"]
+      "screenshots": [
+        "assets/canvas.png"
+      ]
     },
     {
       "type": "theme",
@@ -66,10 +130,16 @@
         "en": "A dark landing theme for software and hardware projects, with gradient sections, terminal blocks and feature grids.",
         "it": "Un tema landing scuro per progetti software e hardware, con sezioni sfumate, blocchi terminale e griglie di funzionalità."
       },
-      "tags": ["landing", "dark", "software"],
+      "tags": [
+        "landing",
+        "dark",
+        "software"
+      ],
       "requires": ">=0.9.0",
       "icon": "assets/pulsar.svg",
-      "screenshots": ["assets/pulsar.png"]
+      "screenshots": [
+        "assets/pulsar.png"
+      ]
     }
   ]
 }
