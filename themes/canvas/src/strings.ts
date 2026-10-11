@@ -1,0 +1,57 @@
+/** Interface texts of the theme, by language (English is the fallback). */
+const STRINGS = {
+  en: {
+    skip: 'Skip to content',
+    menu: 'Menu',
+    mainMenu: 'Main menu',
+    footerMenu: 'Footer menu',
+    languages: 'Languages',
+    poweredBy: 'Made with',
+    search: 'Search',
+    searchPlaceholder: 'Search…',
+    resultsFor: (q: string) => `Results for “${q}”`,
+    noResults: 'Nothing found. Try other words.',
+    typeToSearch: 'Type something to search.',
+    nothingYet: 'Nothing here yet.',
+    notFoundTitle: 'Page not found',
+    notFoundText: 'The page you are looking for is not here. It may have moved.',
+    backHome: 'Back to the home page',
+    maintenanceTitle: 'Back soon',
+    maintenanceText: 'The site is being updated. Try again in a few minutes.',
+    newer: 'Newer',
+    older: 'Older',
+    pagination: 'Pages',
+    pageOf: (n: number, total: number) => `Page ${n} of ${total}`,
+    readMore: 'Read more',
+  },
+  it: {
+    skip: 'Vai al contenuto',
+    menu: 'Menu',
+    mainMenu: 'Menu principale',
+    footerMenu: 'Menu del piè di pagina',
+    languages: 'Lingue',
+    poweredBy: 'Realizzato con',
+    search: 'Cerca',
+    searchPlaceholder: 'Cerca…',
+    resultsFor: (q: string) => `Risultati per «${q}»`,
+    noResults: 'Nessun risultato. Prova con altre parole.',
+    typeToSearch: 'Scrivi qualcosa da cercare.',
+    nothingYet: 'Qui non c’è ancora niente.',
+    notFoundTitle: 'Pagina non trovata',
+    notFoundText: 'La pagina che cerchi non è qui. Forse è stata spostata.',
+    backHome: 'Torna alla home',
+    maintenanceTitle: 'Torniamo presto',
+    maintenanceText: 'Il sito è in aggiornamento. Riprova tra qualche minuto.',
+    newer: 'Più recenti',
+    older: 'Meno recenti',
+    pagination: 'Pagine',
+    pageOf: (n: number, total: number) => `Pagina ${n} di ${total}`,
+    readMore: 'Leggi tutto',
+  },
+};
+
+export type Strings = (typeof STRINGS)['en'];
+
+export function strings(locale: string): Strings {
+  return locale.startsWith('it') ? STRINGS.it : STRINGS.en;
+}

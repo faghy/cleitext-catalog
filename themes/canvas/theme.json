@@ -1,0 +1,8 @@
+{
+  "slug": "canvas",
+  "name": "Canvas",
+  "version": "1.0.3",
+  "description": "A page-builder theme: full-width sections, cards, icons and ready-made patterns, edited with blocks.",
+  "license": "GPL-2.0-or-later",
+  "entry": "dist/index.js"
+}

@@ -1,0 +1,51 @@
+@import url('https://fonts.bunny.net/css?family=inter:400,500,600,700,800|jetbrains-mono:400,600&display=swap');
+/* Canvas in the block editor: the same type, colors and sections as the site. */
+:root {
+  --cv-brand: #0369a1;
+  --cv-brand-2: #0ea5e9;
+  --cv-cursor: #7dd3fc;
+  --cv-ink: #0f172a;
+  --cv-text: #334155;
+  --cv-muted: #556070;
+  --cv-line: #e2e8f0;
+  --cv-soft: #f0f9ff;
+  --cv-gray: #f8fafc;
+  --cv-navy: #0b1730;
+  --cv-radius: 18px;
+  --cv-wide: 76rem;
+  --cv-gap: 1.25rem;
+  --cv-font: 'Inter', system-ui, sans-serif;
+  --cv-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --cv-shadow: 0 1px 2px #0f172a0d, 0 12px 32px -12px #0f172a26;
+}
+body {
+  font: 1.0625rem/1.7 var(--cv-font);
+  color: var(--cv-text);
+}
+h1,
+h2,
+h3 {
+  color: var(--cv-ink);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+}
+h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+}
+h2 {
+  font-size: 2rem;
+  font-weight: 800;
+}
+.wp-block-button__link {
+  background: var(--cv-brand);
+  color: #fff;
+  border-radius: 12px;
+  font-weight: 700;
+  padding: 0.8rem 1.4rem;
+}
+.is-style-outline .wp-block-button__link {
+  background: transparent;
+  color: var(--cv-brand);
+  border: 2px solid var(--cv-brand);
+}

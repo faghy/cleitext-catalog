@@ -1,0 +1,45 @@
+# Builds the themes, gathers the official plugins of the latest Cleitext
+# release, and publishes the signed catalog.json in the "catalog" release.
+name: Publish catalog
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */6 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: catalog
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cleitext of the latest release
+        run: |
+          tag=$(gh api repos/faghy/cleitext/releases/latest --jq .tag_name)
+          git clone --depth 1 --branch "$tag" https://github.com/faghy/cleitext.git cleitext
+      - uses: pnpm/action-setup@v6
+        with:
+          package_json_file: cleitext/package.json
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: cleitext/.nvmrc
+      - name: Build the Cleitext CLI
+        working-directory: cleitext
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm exec turbo run build --filter=@cleitext/cli...
+      - name: Build and publish
+        env:
+          CATALOG_SIGNING_KEY: ${{ secrets.CATALOG_SIGNING_KEY }}
+          CLEITEXT_CLI: ${{ github.workspace }}/cleitext/packages/cli/dist/bin.js
+        run: node tools/build.mjs

@@ -1,0 +1,864 @@
+/* Pulsar sections: styles for blocks marked with psx-* classes (Advanced → Additional CSS class). */
+/* Entries are not boxed in .container, so that sections can span the whole width. */
+.entry > .entry-featured,
+.entry > .entry-terms {
+  width: min(100% - 2 * var(--gap), var(--wide));
+  margin-inline: auto;
+}
+.entry-content > * {
+  width: min(100% - 2 * var(--gap), var(--content));
+}
+.entry-content > .alignwide {
+  width: min(100% - 2 * var(--gap), var(--wide));
+}
+.entry-content > .alignfull {
+  width: 100%;
+}
+.entry:has(.psx-hero) > .page-header {
+  display: none;
+}
+main:has(.psx-hero) {
+  padding-block: 0;
+}
+/* Colors and fonts of the Pulsar pages, inside the content only. */
+.entry-content:has(> .psx-section),
+.psx-section {
+  --bg: #06080f;
+  --panel: #0d1220;
+  --panel2: #121a2e;
+  --border: #1f2a44;
+  --fg: #e8edf7;
+  --muted: #9aa6bf;
+  --blue: #3b82ff;
+  --cyan: #22d3ee;
+  --violet: #a78bfa;
+  --amber: #ffb020;
+  --green: #3ddc84;
+  --red: #ff5a6a;
+  --display: 'Space Grotesk', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--display);
+  line-height: 1.6;
+  overflow: hidden;
+}
+.psx-section :is(h1, h2, h3) {
+  margin-top: 0;
+}
+.psx-section h3 {
+  font-size: 1.15rem;
+  margin: 0 0 0.4rem;
+}
+.psx-section :is(p, ul, figure, pre) {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+.psx-section :is(.wp-block-group, .wp-block-columns) {
+  margin-bottom: 0;
+}
+.psx-section a {
+  color: inherit;
+}
+.psx-section {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg);
+  padding: clamp(3.5rem, 8vw, 6.5rem) clamp(1.25rem, 4vw, 2rem);
+}
+.entry-content > .psx-section {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+.psx-section > * {
+  position: relative;
+  z-index: 1;
+  max-width: 72rem;
+  margin-inline: auto;
+}
+.psx-section h1,
+.psx-section h2 {
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin: 0 auto 1rem;
+}
+.psx-section h1 {
+  font-size: clamp(2.6rem, 6.4vw, 5rem);
+  line-height: 0.98;
+  margin-bottom: 1.3rem;
+}
+.psx-section h2 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+}
+.psx-section h1 strong,
+.psx-section h2 strong {
+  background: linear-gradient(90deg, var(--cyan), var(--blue) 45%, var(--violet));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.psx-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.78rem !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 0.9rem !important;
+}
+.psx-center .psx-eyebrow {
+  justify-content: center;
+}
+.psx-eyebrow::before {
+  content: '';
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+  animation: psx-blink 2.4s infinite;
+  flex: none;
+}
+.psx-lead {
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  color: var(--muted);
+}
+/* Short lines, aligned with the 72rem column of the section. */
+.psx-section > .psx-lead {
+  max-width: 40rem;
+  margin-inline: max(0px, (100% - 72rem) / 2) auto;
+}
+.psx-center > .psx-lead {
+  margin-inline: auto;
+}
+.wp-block-column > .psx-lead {
+  max-width: 40rem;
+}
+.psx-center {
+  text-align: center;
+}
+.psx-center .psx-lead {
+  margin-inline: auto;
+}
+.psx-center .wp-block-buttons {
+  justify-content: center;
+}
+
+/* Buttons: Fill = primary, Outline = secondary */
+.psx-section .wp-block-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.8rem;
+}
+.psx-section .wp-block-button__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1.35rem;
+  border-radius: 0.7rem;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  color: #04101f;
+  background: linear-gradient(135deg, var(--cyan), var(--blue));
+  border: 1px solid transparent;
+  box-shadow:
+    0 0 0 1px #7dd3fc55,
+    0 10px 35px -8px #22d3ee88;
+  transition:
+    transform 0.15s,
+    box-shadow 0.2s,
+    border-color 0.2s;
+}
+.psx-section .wp-block-button__link:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px #7dd3fc,
+    0 16px 45px -8px #22d3eebb;
+}
+.psx-section .is-style-outline .wp-block-button__link {
+  color: var(--fg);
+  background: #ffffff08;
+  border-color: var(--border);
+  box-shadow: none;
+}
+.psx-section .is-style-outline .wp-block-button__link:hover {
+  border-color: var(--cyan);
+}
+.psx-section a[href*='github.com']:not([href*='/releases/download/'], [href*='/issues'])::before,
+.psx-section a[href*='/releases']::before {
+  content: '';
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: none;
+  background: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+}
+.psx-section .wp-block-button a[href*='github.com'] {
+  --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z'/%3E%3C/svg%3E");
+}
+.psx-section .wp-block-button a[href*='/releases'] {
+  --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M12 3v12m0 0l-5-5m5 5l5-5M4 19h16'/%3E%3C/svg%3E");
+}
+.psx-section .wp-block-button a[href*='/releases/download/']::before {
+  content: '';
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: none;
+  background: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+}
+
+/* Hero */
+.psx-hero {
+  min-height: min(92vh, 52rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: clamp(3rem, 7vw, 5.5rem);
+  background-image:
+    radial-gradient(60rem 30rem at 85% 10%, #1d4ed855, transparent 60%),
+    radial-gradient(40rem 25rem at 0% 100%, #0891b244, transparent 60%);
+}
+.psx-hero > * {
+  width: 100%;
+}
+.psx-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(#ffffff0a 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff0a 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse at 60% 40%, #000 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse at 60% 40%, #000 30%, transparent 75%);
+}
+.psx-wave::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 140px;
+  opacity: 0.55;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 140' preserveAspectRatio='none'%3E%3Cpath d='M0 70 Q75 10 150 70 T300 70 T450 70 T600 70' stroke='%2322d3ee' stroke-width='1.5' fill='none' opacity='.6'/%3E%3Cpath d='M0 80 Q50 40 100 80 T200 80 T300 80 T400 80 T500 80 T600 80' stroke='%233b82ff' fill='none' opacity='.5'/%3E%3C/svg%3E")
+    0 0 / 600px 140px repeat-x;
+  animation: psx-wave 8s linear infinite;
+}
+.psx-hero .wp-block-columns {
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+}
+.psx-hero .wp-block-column:first-child {
+  flex-grow: 1.05;
+}
+.psx-try .wp-block-column:first-child {
+  flex-grow: 1.2;
+}
+.psx-try > .wp-block-buttons {
+  margin-top: 1.8rem;
+}
+.psx-status > .wp-block-column:first-child {
+  flex-grow: 1.3;
+}
+.psx-card-art img {
+  display: block;
+  width: 100%;
+  filter: drop-shadow(0 30px 60px #000a) drop-shadow(0 0 30px #3b82ff33);
+  animation: psx-float 6s ease-in-out infinite;
+}
+
+/* Numbers */
+.psx-stats-wrap {
+  background-color: transparent;
+  padding-block: 0;
+  margin-top: -2.5rem;
+  z-index: 2;
+}
+.psx-section .psx-stats.wp-block-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 1.1rem;
+  overflow: hidden;
+}
+.psx-stats .wp-block-column {
+  background: var(--panel);
+  padding: 1.4rem 1.2rem;
+  text-align: center;
+}
+.psx-stats h3 {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: clamp(1.9rem, 3.6vw, 2.7rem);
+  line-height: 1;
+  color: var(--cyan);
+  text-shadow: 0 0 18px #22d3ee66;
+}
+.psx-stats p {
+  margin: 0.3rem 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* A screenshot in an app window */
+.psx-window {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2.4rem !important;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
+  background: var(--panel);
+  box-shadow:
+    0 40px 90px -30px #000,
+    0 0 80px -20px #3b82ff55;
+}
+.psx-window figcaption,
+.psx-term .psx-titlebar {
+  order: -1;
+  margin: 0;
+  padding: 0.7rem 1rem 0.7rem 4.6rem;
+  text-align: left;
+  font: 0.78rem var(--mono);
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  background:
+    radial-gradient(circle at 1.3rem 50%, #ff5f57 0.35rem, transparent 0.38rem),
+    radial-gradient(circle at 2.4rem 50%, #febc2e 0.35rem, transparent 0.38rem),
+    radial-gradient(circle at 3.5rem 50%, #28c840 0.35rem, transparent 0.38rem),
+    var(--panel2);
+}
+.psx-window img {
+  display: block;
+  width: 100%;
+}
+
+/* Cards */
+.psx-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
+  gap: 1rem;
+  margin-top: 2.4rem !important;
+}
+.psx-card {
+  background: linear-gradient(180deg, var(--panel2), var(--panel));
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition:
+    border-color 0.2s,
+    transform 0.2s;
+}
+.psx-card:hover {
+  border-color: #22d3ee88;
+  transform: translateY(-3px);
+}
+.psx-card h3 {
+  font-size: 1.15rem;
+  margin: 0 0 0.4rem;
+}
+.psx-card p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin: 0;
+}
+.psx-card::before {
+  content: '';
+  display: block;
+  width: 2.8rem;
+  height: 2.8rem;
+  margin-bottom: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #22d3ee44;
+  background:
+    var(--icon, none) center / 1.5rem no-repeat,
+    #22d3ee14;
+}
+.psx-new h3::after {
+  content: 'NEW';
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: #04101f;
+  background: var(--amber);
+  border-radius: 0.3rem;
+  padding: 0.1rem 0.4rem;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+.psx-i-wave {
+  --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2322d3ee' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 12h3l3-8 4 16 3-8h5'/%3E%3C/svg%3E");
+}
+.psx-i-chip {
+  --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2322d3ee' stroke-width='1.8' stroke-linecap='round'%3E%3Crect x='6' y='6' width='12' height='12' rx='1.5'/%3E%3Cpath d='M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4'/%3E%3Crect x='9.5' y='9.5' width='5' height='5'/%3E%3C/svg%3E");
+}
+.psx-i-knobs {
+  --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2322d3ee' stroke-width='1.8' stroke-linecap='round'%3E%3Ccircle cx='7' cy='8' r='3'/%3E%3Ccircle cx='17' cy='8' r='3'/%3E%3Ccircle cx='12' cy='17' r='3'/%3E%3Cpath d='M7 5V4M17 5V4M12 14v-1'/%3E%3C/svg%3E");
+}
+.psx-i-rack {
+  --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2322d3ee' stroke-width='1.8' stroke-linecap='round'%3E%3Crect x='3' y='4' width='18' height='16' rx='2'/%3E%3Ccircle cx='8' cy='10' r='2'/%3E%3Ccircle cx='16' cy='10' r='2'/%3E%3Cpath d='M8 12c0 4 8 0 8 4'/%3E%3C/svg%3E");
+}
+.psx-i-keys {
+  --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2322d3ee' stroke-width='1.8' stroke-linecap='round'%3E%3Crect x='2' y='6' width='20' height='12' rx='1.5'/%3E%3Cpath d='M6 6v7M10 6v7M14 6v7M18 6v7'/%3E%3C/svg%3E");
+}
+.psx-i-bars {
+  --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2322d3ee' stroke-width='1.8' stroke-linecap='round'%3E%3Cpath d='M4 18V6M8 18v-8M12 18V4M16 18v-6M20 18V9'/%3E%3C/svg%3E");
+}
+.psx-i-ram {
+  --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2322d3ee' stroke-width='1.8' stroke-linecap='round'%3E%3Crect x='3' y='7' width='18' height='10' rx='1'/%3E%3Cpath d='M7 7V4M11 7V4M15 7V4M7 17v3M11 17v3M15 17v3'/%3E%3C/svg%3E");
+}
+/* Animated level meters instead of an icon */
+.psx-i-meters::before {
+  width: 5.2rem;
+  border: 0;
+  background-color: transparent;
+  --m: linear-gradient(0deg, var(--green) 0 60%, var(--amber) 60% 85%, var(--red) 85%);
+  background-image: var(--m), var(--m), var(--m), var(--m), var(--m), var(--m), var(--m), var(--m);
+  background-repeat: no-repeat;
+  background-position:
+    0 100%,
+    11px 100%,
+    22px 100%,
+    33px 100%,
+    44px 100%,
+    55px 100%,
+    66px 100%,
+    77px 100%;
+  background-size:
+    7px 30%,
+    7px 70%,
+    7px 50%,
+    7px 90%,
+    7px 40%,
+    7px 65%,
+    7px 25%,
+    7px 80%;
+  animation: psx-meters 0.9s steps(1) infinite alternate;
+}
+
+/* Signal flow */
+.psx-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.6rem;
+  margin-top: 2.4rem !important;
+}
+.psx-node {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  padding: 1.1rem;
+  font-size: 0.9rem;
+}
+.psx-node p {
+  margin: 0;
+  color: var(--muted);
+}
+.psx-node p:first-child {
+  font-family: var(--mono);
+  font-weight: 600;
+  color: var(--cyan);
+  margin-bottom: 0.3rem;
+}
+.psx-node p code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+.psx-node:first-child {
+  border-color: #3b82ff88;
+  background: linear-gradient(160deg, #16244a, var(--panel));
+}
+.psx-node:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -0.62rem;
+  top: 50%;
+  width: 0.62rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--blue));
+  box-shadow: 0 0 8px var(--cyan);
+}
+
+/* Terminal: comments and commands */
+.psx-term {
+  background: #03050a;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
+  padding-bottom: 1.2rem;
+  box-shadow: 0 30px 80px -30px #000;
+}
+.psx-term > * {
+  margin-inline: 1.3rem !important;
+}
+.psx-term > .psx-titlebar {
+  margin: 0 0 1.2rem !important;
+}
+.psx-term p:not(.psx-titlebar) {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: #5d6b88;
+  margin: 0.9rem 0 0.2rem;
+}
+.psx-term p:not(.psx-titlebar, .psx-output)::before {
+  content: '# ';
+}
+.psx-term pre.wp-block-code {
+  position: relative;
+  margin: 0;
+  padding: 0 4.2rem 0 1.1rem;
+  background: none;
+  border: 0;
+  font-size: 0.86rem;
+  line-height: 1.75;
+  color: #d5def0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.psx-term pre.wp-block-code::before {
+  content: '$';
+  position: absolute;
+  left: 0;
+  color: var(--green);
+}
+.psx-term pre code {
+  background: none;
+  padding: 0;
+}
+.psx-copy {
+  position: absolute;
+  right: 0;
+  top: 0.1rem;
+  font: 0.72rem var(--mono);
+  background: #ffffff0d;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 0.4rem;
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+}
+.psx-copy:hover {
+  color: var(--fg);
+  border-color: var(--cyan);
+}
+.psx-term p.psx-output {
+  color: var(--cyan);
+  margin-top: 1rem;
+}
+.psx-section .wp-block-columns {
+  gap: 2.5rem;
+  align-items: center;
+}
+
+/* Checklists */
+ul.psx-checks {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+ul.psx-checks li {
+  position: relative;
+  padding: 0.55rem 0 0.55rem 1.8rem;
+  border-bottom: 1px dashed var(--border);
+  color: var(--muted);
+}
+ul.psx-checks li strong {
+  color: var(--fg);
+  font-weight: 500;
+}
+ul.psx-checks li::before {
+  content: '›';
+  position: absolute;
+  left: 0.3rem;
+  color: var(--cyan);
+  font-family: var(--mono);
+  font-weight: 700;
+}
+.psx-note {
+  font-size: 0.88rem !important;
+  color: var(--muted);
+  border-left: 3px solid var(--amber);
+  padding: 0.6rem 0.9rem;
+  background: #ffb0200d;
+  border-radius: 0 0.5rem 0.5rem 0;
+  margin-top: 1.4rem;
+}
+
+/* Timeline */
+.psx-section .psx-timeline.wp-block-columns {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 1rem;
+  align-items: start;
+  margin-top: 2.4rem !important;
+}
+.psx-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0.55rem;
+  height: 2px;
+  background: linear-gradient(90deg, #22d3ee22, var(--cyan), var(--blue));
+}
+.psx-timeline .wp-block-column {
+  position: relative;
+  padding-top: 2rem;
+}
+.psx-timeline .wp-block-column::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--cyan);
+  box-shadow: 0 0 12px var(--cyan);
+}
+.psx-timeline .wp-block-column:first-child::before {
+  background: var(--cyan);
+}
+.psx-timeline p:first-child {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin: 0;
+}
+.psx-timeline p:first-child strong {
+  color: var(--cyan);
+  font-size: 1rem;
+  margin-right: 0.4rem;
+}
+.psx-timeline h3 {
+  font-size: 1.05rem;
+  margin: 0.3rem 0;
+}
+.psx-timeline p {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+/* Status boxes */
+.psx-section .psx-status.wp-block-columns {
+  align-items: stretch;
+  gap: 1.2rem;
+  margin-top: 2.4rem !important;
+}
+.psx-box {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem 1.6rem;
+}
+.psx-box h3 {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 1rem;
+}
+.psx-box ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: 2;
+  column-gap: 1.5rem;
+}
+.psx-box.psx-todo ul {
+  columns: 1;
+}
+.psx-box li {
+  break-inside: avoid;
+  position: relative;
+  padding: 0.35rem 0 0.35rem 1.4rem;
+  font-size: 0.93rem;
+  color: #c9d3e6;
+}
+.psx-box li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.85rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+}
+.psx-todo li::before {
+  background: var(--amber);
+  box-shadow: 0 0 8px var(--amber);
+}
+
+/* Developer */
+.psx-dev {
+  background: linear-gradient(135deg, #101a33, var(--panel));
+  border: 1px solid var(--border);
+  border-radius: 1.4rem;
+  padding: clamp(1.5rem, 4vw, 2.6rem);
+}
+.psx-dev .wp-block-columns {
+  gap: 2rem;
+}
+.psx-dev .wp-block-column:first-child {
+  flex: 0 0 auto;
+}
+.psx-avatar img {
+  width: 7.5rem;
+  height: 7.5rem;
+  border-radius: 50%;
+  border: 3px solid var(--bg);
+  box-shadow:
+    0 0 0 3px var(--cyan),
+    0 0 30px #22d3ee66;
+}
+.psx-dev h2 em {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--muted);
+}
+.psx-chips.wp-block-buttons {
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.psx-chips .wp-block-button__link,
+.psx-section .psx-chips .is-style-outline .wp-block-button__link {
+  font: 0.78rem var(--mono);
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #ffffff08;
+  color: var(--muted);
+  box-shadow: none;
+}
+.psx-chips .wp-block-button__link::before {
+  content: none !important;
+}
+.psx-chips .wp-block-button__link:hover {
+  color: var(--fg);
+  border-color: var(--cyan);
+  transform: none;
+  box-shadow: none;
+}
+
+/* Closing call to action */
+.psx-final {
+  background-image: radial-gradient(50rem 22rem at 50% 100%, #1d4ed866, transparent 70%);
+  padding-bottom: clamp(6rem, 12vw, 9rem);
+}
+.psx-final h2 {
+  font-size: clamp(2.2rem, 5.5vw, 4rem);
+}
+.psx-band {
+  background-image: linear-gradient(180deg, transparent, #0b1224 30%, #0b1224 70%, transparent);
+}
+
+@keyframes psx-blink {
+  50% {
+    opacity: 0.35;
+  }
+}
+@keyframes psx-wave {
+  to {
+    background-position: -600px 0;
+  }
+}
+@keyframes psx-float {
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes psx-meters {
+  0% {
+    background-size:
+      7px 30%,
+      7px 70%,
+      7px 50%,
+      7px 90%,
+      7px 40%,
+      7px 65%,
+      7px 25%,
+      7px 80%;
+  }
+  33% {
+    background-size:
+      7px 80%,
+      7px 40%,
+      7px 95%,
+      7px 55%,
+      7px 75%,
+      7px 30%,
+      7px 60%,
+      7px 45%;
+  }
+  66% {
+    background-size:
+      7px 50%,
+      7px 90%,
+      7px 35%,
+      7px 70%,
+      7px 20%,
+      7px 85%,
+      7px 45%,
+      7px 60%;
+  }
+  100% {
+    background-size:
+      7px 65%,
+      7px 55%,
+      7px 75%,
+      7px 35%,
+      7px 90%,
+      7px 50%,
+      7px 70%,
+      7px 30%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .psx-section *,
+  .psx-section::after,
+  .psx-section *::before {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+@media (max-width: 781px) {
+  .psx-node:not(:last-child)::after {
+    right: 50%;
+    top: auto;
+    bottom: -0.62rem;
+    width: 2px;
+    height: 0.62rem;
+  }
+  .psx-timeline::before {
+    display: none;
+  }
+  .psx-box ul {
+    columns: 1;
+  }
+  .psx-dev {
+    text-align: center;
+  }
+  .psx-avatar img {
+    margin-inline: auto;
+  }
+  .psx-dev .wp-block-buttons {
+    justify-content: center;
+  }
+}
