@@ -149,6 +149,21 @@
       "icon": "assets/click-to-chat.svg"
     },
     {
+      "type": "plugin",
+      "slug": "edge-cache",
+      "name": "Edge cache",
+      "summary": {
+        "en": "Public pages served by Varnish or Cloudflare in front of the site, and purged by tag as soon as they change. The admin and signed-in users are never cached.",
+        "it": "Pagine pubbliche servite da Varnish o Cloudflare davanti al sito, e tolte dalla cache per tag appena cambiano. L'admin e chi ha fatto il login non vanno mai in cache."
+      },
+      "tags": [
+        "cache",
+        "varnish",
+        "cloudflare"
+      ],
+      "icon": "assets/edge-cache.svg"
+    },
+    {
       "type": "theme",
       "slug": "canvas",
       "name": "Canvas",
