@@ -26,6 +26,7 @@ import { css as themeCss, editorCss } from './styles.js';
 
 interface Settings extends Record<string, unknown> {
   logo?: string;
+  favicon?: string;
   accentColor?: string;
   showTagline?: boolean;
   footerText?: string;
@@ -35,7 +36,7 @@ const FONTS =
   'https://fonts.bunny.net/css?family=inter:400,500,600,700,800|jetbrains-mono:400,600&display=swap';
 const HEX = /^#[0-9a-f]{6}$/i;
 
-/** The Cleitext mark, the default logo and site icon. */
+/** The Cleitext mark, the default logo and site icon (unless the favicon setting is set). */
 const MARK = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="15" fill="#0369a1"/><path d="M38.5 22.5 A13.5 13.5 0 1 0 38.5 41.5" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><rect x="43" y="19" width="5" height="26" rx="2.5" fill="#7dd3fc"/></svg>`;
 const ICON = `data:image/svg+xml,${encodeURIComponent(MARK)}`;
 
@@ -44,6 +45,7 @@ function Layout({ head, css, children }: LayoutProps) {
   const t = strings(page.locale);
   const settings = useThemeSettings<Settings>();
   const logo = settings.logo ? page.media.get(settings.logo) : undefined;
+  const favicon = settings.favicon ? page.media.get(settings.favicon) : undefined;
   const accent = settings.accentColor && HEX.test(settings.accentColor) ? settings.accentColor : null;
   const primary = page.menus.primary ?? [];
   const languages =
@@ -70,7 +72,8 @@ function Layout({ head, css, children }: LayoutProps) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href={ICON} />
+        <link rel="icon" href={favicon?.url ?? ICON} />
+        {favicon && <link rel="apple-touch-icon" href={favicon.url} />}
         <title>{head.title}</title>
         {head.description && <meta name="description" content={head.description} />}
         {head.robots && <meta name="robots" content={head.robots} />}
@@ -298,12 +301,21 @@ function PageLinks({ pagination }: { pagination: Pagination }) {
 export const theme = defineTheme({
   slug: 'canvas',
   name: 'Canvas',
-  version: '1.0.3',
+  version: '1.0.4',
   description:
     'A page-builder theme: full-width sections, cards, icons and ready-made patterns, edited with blocks.',
   menuLocations: { primary: 'Main menu', footer: 'Footer menu' },
   settings: [
     { name: 'logo', type: 'media', label: { en: 'Logo', it: 'Logo' } },
+    {
+      name: 'favicon',
+      type: 'media',
+      label: { en: 'Site icon (favicon)', it: 'Icona del sito (favicon)' },
+      help: {
+        en: 'A square PNG, at least 512×512 px. Empty: the Cleitext mark.',
+        it: 'Un PNG quadrato, almeno 512×512 px. Vuoto: il marchio di Cleitext.',
+      },
+    },
     {
       name: 'accentColor',
       type: 'text',
