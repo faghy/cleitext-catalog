@@ -119,6 +119,36 @@
       "icon": "assets/hi-john.svg"
     },
     {
+      "type": "plugin",
+      "slug": "maps",
+      "name": "Maps",
+      "summary": {
+        "en": "A Map block: paste a link from Google Maps, OpenStreetMap, Bing, Apple Maps or uMap, or write an address, with directions and \"Open in\" links. Google and Bing maps wait for cookie consent.",
+        "it": "Un blocco Mappa: incolla un link di Google Maps, OpenStreetMap, Bing, Apple Maps o uMap, o scrivi un indirizzo, con indicazioni stradali e link \"Apri in\". Le mappe di Google e Bing aspettano il consenso ai cookie."
+      },
+      "tags": [
+        "maps",
+        "google-maps",
+        "openstreetmap"
+      ],
+      "icon": "assets/maps.svg"
+    },
+    {
+      "type": "plugin",
+      "slug": "click-to-chat",
+      "name": "Click to Chat",
+      "summary": {
+        "en": "A WhatsApp button on every page, with a chat window, a QR code for computers, per-page numbers and messages, a button block and a click counter. Based on Joinchat.",
+        "it": "Un pulsante WhatsApp in ogni pagina, con finestra di chat, codice QR per i computer, numeri e messaggi per pagina, un blocco pulsante e il conteggio dei clic. Basato su Joinchat."
+      },
+      "tags": [
+        "whatsapp",
+        "chat",
+        "contact"
+      ],
+      "icon": "assets/click-to-chat.svg"
+    },
+    {
       "type": "theme",
       "slug": "canvas",
       "name": "Canvas",
