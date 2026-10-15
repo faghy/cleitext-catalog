@@ -164,6 +164,54 @@
       "icon": "assets/edge-cache.svg"
     },
     {
+      "type": "plugin",
+      "slug": "fresco",
+      "name": "Fresco",
+      "summary": {
+        "en": "A visual page builder, free: drag sections and widgets onto the page and style them per device, with site colors and fonts, templates and an atomic mode with classes and variables. Pages stay normal Cleitext entries.",
+        "it": "Un page builder visuale, gratuito: trascina sezioni e widget nella pagina e stilizzali per ogni dispositivo, con colori e font del sito, modelli e una modalità atomica con classi e variabili. Le pagine restano normali voci di Cleitext."
+      },
+      "tags": [
+        "page builder",
+        "design",
+        "layout"
+      ],
+      "icon": "assets/fresco.svg",
+      "screenshots": [
+        "assets/fresco.png"
+      ]
+    },
+    {
+      "type": "plugin",
+      "slug": "fresco-pro",
+      "name": "Fresco Pro",
+      "summary": {
+        "en": "Everything for Fresco: Theme Builder (header, footer, single, archive, popups), forms with integrations, loops, dynamic content, 40+ Pro widgets, motion effects, custom code, fonts and icons. Paid: €67 per site, a year of updates.",
+        "it": "Tutto per Fresco: Theme Builder (header, footer, singoli, archivi, popup), moduli con integrazioni, loop, contenuti dinamici, oltre 40 widget Pro, effetti di movimento, codice, font e icone personalizzati. A pagamento: 67 € per sito, un anno di aggiornamenti."
+      },
+      "tags": [
+        "page builder",
+        "theme builder",
+        "forms",
+        "popups"
+      ],
+      "source": "private",
+      "paid": {
+        "price": {
+          "amount": 67,
+          "currency": "EUR",
+          "per": "site"
+        },
+        "updatesMonths": 12,
+        "purchaseUrl": "https://cleitext.com/plugins/fresco-pro",
+        "licenseServer": "https://cleitext.com/api/v1/ext/store/v1"
+      },
+      "icon": "assets/fresco-pro.svg",
+      "screenshots": [
+        "assets/fresco-pro.png"
+      ]
+    },
+    {
       "type": "theme",
       "slug": "canvas",
       "name": "Canvas",
@@ -176,7 +224,7 @@
         "landing",
         "business"
       ],
-      "requires": ">=0.9.0",
+      "requires": ">=0.25.0",
       "icon": "assets/canvas.svg",
       "screenshots": [
         "assets/canvas.png"
@@ -195,7 +243,7 @@
         "dark",
         "software"
       ],
-      "requires": ">=0.9.0",
+      "requires": ">=0.25.0",
       "icon": "assets/pulsar.svg",
       "screenshots": [
         "assets/pulsar.png"
@@ -214,7 +262,7 @@
         "multipurpose",
         "portfolio"
       ],
-      "requires": ">=0.23.0",
+      "requires": ">=0.25.0",
       "source": "private",
       "paid": {
         "price": {
