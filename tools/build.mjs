@@ -9,12 +9,14 @@
  * $CLEITEXT_CLI (to build the themes). The signing key (PKCS#8 PEM, base64)
  * comes from $CATALOG_SIGNING_KEY; without it, nothing is published (--dry-run).
  *
- * Paid themes (items with `paid`, docs/paid-themes.md): their source is the
- * checkout of the private repository in $CATALOG_PRIVATE_DIR (`private/`) when
- * the item says `"source": "private"`, and their zips go to the releases of
+ * Paid themes and plugins (items with `paid`, docs/paid-themes.md): their
+ * source is the checkout of the private repository in $CATALOG_PRIVATE_DIR
+ * (`private/`, folders themes/<slug> and plugins/<slug>) when the item says
+ * `"source": "private"`, and their zips go to the releases of
  * $CATALOG_PRIVATE_REPO with the token $CATALOG_PRIVATE_TOKEN. The index lists
  * them with their SHA-256 like the others; the download address is the
  * license server's, which hands out short-lived addresses to licensed sites.
+ * Free plugins come from the latest Cleitext release.
  */
 import { createHash, createPrivateKey, sign } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
@@ -64,10 +66,78 @@ async function download(url, file) {
   writeFileSync(file, Buffer.from(await res.arrayBuffer()));
 }
 
+/**
+ * A theme, or a plugin of the private repository, built here: one release per
+ * version (never replaced), in this repository or, when paid, the private one.
+ */
+async function buildPackage(item) {
+  const kind = item.type;
+  const paid = item.paid ?? null;
+  const folder = kind === 'theme' ? 'themes' : 'plugins';
+  const manifestName = kind === 'theme' ? 'theme.json' : 'cleitext.plugin.json';
+  const dir = join(item.source === 'private' ? PRIVATE_DIR : root, folder, item.slug);
+  const manifest = JSON.parse(readFileSync(join(dir, manifestName), 'utf8'));
+  if (paid && manifest.paid?.licenseServer !== paid.licenseServer) {
+    throw new Error(`${item.slug}: ${manifestName} paid.licenseServer must be ${paid.licenseServer}`);
+  }
+  const repo = paid ? PRIVATE_REPO : REPO;
+  const call = paid ? ghPrivate : gh;
+  const tag = `${kind}-${item.slug}-${manifest.version}`;
+  const name = `cleitext-${kind}-${item.slug}-${manifest.version}.zip`;
+  const file = join(out, name);
+  let assets = releaseAssets(tag, repo);
+  if (assets?.some((a) => a.name === name)) {
+    // Published versions never change: same file, same checksum.
+    if (paid) call('release', 'download', tag, '-R', repo, '-p', name, '-D', out, '--clobber');
+    else await download(assets.find((a) => a.name === name).browser_download_url, file);
+  } else {
+    if (!process.env.CLEITEXT_CLI) throw new Error(`CLEITEXT_CLI is needed to build ${folder}`);
+    if (kind === 'plugin' && existsSync(join(dir, 'package-lock.json'))) {
+      run('npm', ['ci', '--ignore-scripts', '--no-audit', '--no-fund'], { cwd: dir, stdio: 'inherit' });
+    }
+    run('node', [process.env.CLEITEXT_CLI, `${kind}:build`, dir], { stdio: 'inherit' });
+    const stage = join(out, 'stage', item.slug);
+    mkdirSync(stage, { recursive: true });
+    const parts =
+      kind === 'theme'
+        ? ['theme.json', 'dist', 'README.md']
+        : ['cleitext.plugin.json', 'dist', 'migrations', 'README.md', 'LICENSE'];
+    for (const part of parts) {
+      if (existsSync(join(dir, part))) run('cp', ['-r', join(dir, part), stage]);
+    }
+    // Source maps stay out of the packages.
+    run('find', [join(stage, 'dist'), '-name', '*.map', '-delete']);
+    run('python3', ['-m', 'zipfile', '-c', file, item.slug], { cwd: join(out, 'stage') });
+    if (!dryRun) {
+      if (assets === null) {
+        call('release', 'create', tag, file, '-R', repo, '--title', `${manifest.name} ${manifest.version}`,
+          '--notes', `${manifest.name} ${manifest.version}, ${kind} for Cleitext.`);
+      } else {
+        call('release', 'upload', tag, file, '-R', repo, '--clobber');
+      }
+      assets = releaseAssets(tag, repo);
+    }
+  }
+  return {
+    version: manifest.version,
+    ...(kind === 'theme' ? { requires: item.requires } : { apiVersion: manifest.apiVersion }),
+    license: manifest.license,
+    author: manifest.author ?? 'Cleitext',
+    download: paid
+      ? `${paid.licenseServer.replace(/\/+$/, '')}/download/${item.slug}/${manifest.version}`
+      : `https://github.com/${REPO}/releases/download/${tag}/${name}`,
+    sha256: sha256(file),
+    size: statSync(file).size,
+    homepage: paid ? paid.purchaseUrl : `https://github.com/${REPO}/tree/main/${folder}/${item.slug}`,
+    updatedAt: assets?.find((a) => a.name === name)?.updated_at ?? new Date().toISOString(),
+    ...(paid ? { paid } : {}),
+  };
+}
+
 const items = [];
 for (const item of config.items) {
   let entry;
-  if (item.type === 'plugin') {
+  if (item.type === 'plugin' && item.source !== 'private') {
     const asset = core.assets.find(
       (a) => a.name.startsWith(`cleitext-plugin-${item.slug}-`) && a.name.endsWith('.zip'),
     );
@@ -86,60 +156,12 @@ for (const item of config.items) {
       download: asset.browser_download_url,
       sha256: sha256(file),
       size: statSync(file).size,
-      homepage: `https://github.com/${CORE}/tree/main/plugins/${item.slug}`,
+      homepage: item.paid?.purchaseUrl ?? `https://github.com/${CORE}/tree/main/plugins/${item.slug}`,
       updatedAt: asset.updated_at,
+      ...(item.paid ? { paid: item.paid } : {}),
     };
   } else {
-    const paid = item.paid ?? null;
-    const dir = join(item.source === 'private' ? PRIVATE_DIR : root, 'themes', item.slug);
-    const manifest = JSON.parse(readFileSync(join(dir, 'theme.json'), 'utf8'));
-    if (paid && manifest.paid?.licenseServer !== paid.licenseServer) {
-      throw new Error(`${item.slug}: theme.json paid.licenseServer must be ${paid.licenseServer}`);
-    }
-    const repo = paid ? PRIVATE_REPO : REPO;
-    const call = paid ? ghPrivate : gh;
-    const tag = `theme-${item.slug}-${manifest.version}`;
-    const name = `cleitext-theme-${item.slug}-${manifest.version}.zip`;
-    const file = join(out, name);
-    let assets = releaseAssets(tag, repo);
-    if (assets?.some((a) => a.name === name)) {
-      // Published versions never change: same file, same checksum.
-      if (paid) call('release', 'download', tag, '-R', repo, '-p', name, '-D', out, '--clobber');
-      else await download(assets.find((a) => a.name === name).browser_download_url, file);
-    } else {
-      if (!process.env.CLEITEXT_CLI) throw new Error('CLEITEXT_CLI is needed to build themes');
-      run('node', [process.env.CLEITEXT_CLI, 'theme:build', dir], { stdio: 'inherit' });
-      const stage = join(out, 'stage', item.slug);
-      mkdirSync(stage, { recursive: true });
-      for (const part of ['theme.json', 'dist', 'README.md']) {
-        if (existsSync(join(dir, part))) run('cp', ['-r', join(dir, part), stage]);
-      }
-      rmSync(join(stage, 'dist', 'index.js.map'), { force: true });
-      run('python3', ['-m', 'zipfile', '-c', file, item.slug], { cwd: join(out, 'stage') });
-      if (!dryRun) {
-        if (assets === null) {
-          call('release', 'create', tag, file, '-R', repo, '--title', `${manifest.name} ${manifest.version}`,
-            '--notes', `${manifest.name} ${manifest.version}, theme for Cleitext.`);
-        } else {
-          call('release', 'upload', tag, file, '-R', repo, '--clobber');
-        }
-        assets = releaseAssets(tag, repo);
-      }
-    }
-    entry = {
-      version: manifest.version,
-      requires: item.requires,
-      license: manifest.license,
-      author: manifest.author ?? 'Cleitext',
-      download: paid
-        ? `${paid.licenseServer.replace(/\/+$/, '')}/download/${item.slug}/${manifest.version}`
-        : `https://github.com/${REPO}/releases/download/${tag}/${name}`,
-      sha256: sha256(file),
-      size: statSync(file).size,
-      homepage: paid ? paid.purchaseUrl : `https://github.com/${REPO}/tree/main/themes/${item.slug}`,
-      updatedAt: assets?.find((a) => a.name === name)?.updated_at ?? new Date().toISOString(),
-      ...(paid ? { paid } : {}),
-    };
+    entry = await buildPackage(item);
   }
   items.push({
     type: item.type,

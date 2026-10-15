@@ -30,6 +30,16 @@ Status:
 | License server | The **Store** plugin, run on cleitext.com. |
 | Free themes | Canvas and Pulsar stay free. |
 
+## Paid plugins
+
+Since Cleitext 0.25 (plugin API 1.11) plugins are sold the same way:
+- the manifest (`cleitext.plugin.json`) has `paid { licenseServer, purchaseUrl }`;
+- the item in `catalog.config.json` has `"type": "plugin"`, `"source": "private"` and `paid`;
+- the source is in the private repository under `plugins/<slug>`; the build runs `npm ci` when there is a `package-lock.json`, then `plugin:build`, and releases `plugin-<slug>-<version>` with `cleitext-plugin-<slug>-<version>.zip`;
+- sites install the demo without a license; activation answers 402 until a key is entered in **Plugins** (`/api/v1/licenses/plugins/<slug>`, capability `activate_plugins`);
+- licenses of plugins are kept as `plugin:<slug>`, so a theme and a plugin with the same slug never collide;
+- the Store (1.1.0) finds `plugin-…` releases as well as `theme-…` ones: a product is a theme or a plugin by its release.
+
 ## How it works
 
 ```
@@ -165,5 +175,4 @@ The **Store** admin page covers:
 ## Not done yet
 
 - A live demo site, for example vitality.cleitext.com. It is only content, made with the theme.
-- Paid plugins. The same fields would work, but plugins are built from the Cleitext release, so their packages would need the same private path.
 - A buyer's account page on cleitext.com, to see and free one's own sites. Today the store admin does it on request.
