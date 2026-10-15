@@ -505,6 +505,61 @@ mark {
   border: 1px solid var(--cv-line);
   border-radius: 12px;
 }
+/* The Forms plugin's contact form. */
+.contact-form form {
+  max-width: none;
+  gap: 1rem;
+}
+.contact-form label {
+  font-weight: 600;
+  color: var(--cv-ink);
+}
+.contact-form :is(input, textarea) {
+  font: inherit;
+  font-weight: 400;
+  color: var(--cv-text);
+  background: #fff;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--cv-line);
+  border-radius: 12px;
+}
+.contact-form :is(input, textarea):focus {
+  outline: 2px solid var(--cv-brand-2);
+  outline-offset: 1px;
+  border-color: var(--cv-brand);
+}
+.contact-form textarea {
+  resize: vertical;
+}
+.contact-form .form-privacy {
+  color: var(--cv-muted);
+}
+.contact-form button[type='submit'] {
+  justify-self: start;
+  font: inherit;
+  font-weight: 700;
+  border: 2px solid var(--cv-brand);
+  background: var(--cv-brand);
+  color: #fff;
+  border-radius: 12px;
+  padding: 0.8rem 1.4rem;
+  cursor: pointer;
+}
+.contact-form button[type='submit']:hover {
+  box-shadow: 0 8px 20px -8px #0369a199;
+}
+.contact-form [role='status'] {
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  background: #ecfdf5;
+  color: #065f46;
+}
+.contact-form [role='alert'] {
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  background: #fef2f2;
+  color: #991b1b;
+}
 .cv-search button,
 .cv-button {
   font: inherit;

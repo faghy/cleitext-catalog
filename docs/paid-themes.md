@@ -3,7 +3,7 @@
 Status:
 - **Implemented** in Cleitext 0.23.0. Covers RF-CAT-03, plugin API 1.10, the Store 1.0.0 plugin and Showcase 1.1.0.
 - **Implemented** in this repository's build and workflow.
-- **Not live yet**. The first candidate is Vitality, whose source is now in the private repository: see [Going live](#going-live).
+- **Live** since 2026-10-15 with Vitality 1.0.0, €59 per site, sold on [cleitext.com/themes/vitality](https://cleitext.com/themes/vitality).
 
 ## Principles
 
@@ -26,7 +26,7 @@ Status:
 | --- | --- |
 | Code license | **GPL + paid access**: the code is GPL like the rest of Cleitext; the price buys downloads, updates and support. The source lives in a private repository. |
 | Price model | One-off purchase with **12 months of updates**, per site. Packs are variants with more sites: 1, 5, or 0 for no limit. Renewals are a separate variant. |
-| Payment provider | **Lemon Squeezy**, a merchant of record: they handle EU VAT and invoices. Other providers fit the same `OrderEvent` (Store `providers.ts`). |
+| Payment provider | **For now, by hand**: buyers fill in the form on the theme's page (messages to site@cleitext.com); after payment, the license is made in **Store → Licenses → New license by hand**, which emails the key. Later, **Lemon Squeezy** (merchant of record: EU VAT and invoices) through the webhook already in Store. |
 | License server | The **Store** plugin, run on cleitext.com. |
 | Free themes | Canvas and Pulsar stay free. |
 
@@ -136,17 +136,31 @@ The **Store** admin page covers:
 
 1. ✅ **Release Cleitext 0.23.0.** It carries the paid items, Live Preview, plugin API 1.10, Store 1.0.0 and Showcase 1.1.0. cleitext.com and pulsar.faghy.it run it.
 2. ✅ **Private repository.** `faghy/cleitext-catalog-private` holds `themes/vitality`, which is not in this public repository.
-3. **Tokens.** Create a fine-grained token with *Contents: read and write* on the private repository and add it to this repository as the secret `CATALOG_PRIVATE_TOKEN`. On cleitext.com the Store needs only *read*.
-4. **Store on cleitext.com.**
-   - Upload `cleitext-plugin-store-<version>.zip` and activate it.
-   - Settings → Store: repository `faghy/cleitext-catalog-private`.
-   - Store: the GitHub token, product `vitality` (12 months, demo on, renewal checkout).
-5. **Lemon Squeezy.**
-   - Create the product with its variants (1 site, 5 sites, renewal) and register each variant id in Store.
-   - Add a webhook to `https://cleitext.com/api/v1/ext/store/v1/webhooks/lemonsqueezy` (`order_created`, `order_refunded`) and copy its signing secret to Store.
-   - Try it in test mode.
-6. **Store page and terms** on cleitext.com (`/store/vitality`): price, what the license includes, refunds, and the link to the live demo site.
-7. **Catalog.** Add the Vitality item above to `catalog.config.json` with its icon and screenshot, raise its version to 1.0.0, and push to `main`.
+3. ✅ **Tokens.**
+   - `CATALOG_PRIVATE_TOKEN` (Contents: read and write) is a secret of this repository.
+   - The Store on cleitext.com has a read-only token.
+4. ✅ **Store on cleitext.com.** Product `vitality`: 12 months of updates, demo on, renewals to the theme's page.
+5. ✅ **Theme page** [cleitext.com/themes/vitality](https://cleitext.com/themes/vitality) (Italian: /it/temi/vitality). It has the price, the demo steps, what the license includes, questions, and the request form (Forms, messages to site@cleitext.com).
+6. ✅ **Catalog.** Vitality 1.0.0 is in `catalog.config.json` (`source: private`).
+
+### Selling a license (by hand)
+
+1. A request arrives by email from the theme's page.
+2. Reply with how to pay.
+3. Once paid, go to cleitext.com → **Store** → **New license by hand**:
+   - product Vitality;
+   - the buyer's email;
+   - sites;
+   - tick *Email the key*.
+4. The key is shown once and emailed with the instructions.
+5. **Renewal:** **+12 months** on the license; the buyer then uses **Check license** on their site.
+6. **More sites:** raise the sites with a new license, or make one with more sites.
+
+### Later: Lemon Squeezy
+
+- Create the product and its variants (1 site, 5 sites, renewal), and register the variant ids in Store.
+- Add a webhook to `https://cleitext.com/api/v1/ext/store/v1/webhooks/lemonsqueezy` with the events `order_created` and `order_refunded`, and copy its signing secret to Store.
+- Point the page's buttons at the checkout.
 
 ## Not done yet
 

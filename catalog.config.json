@@ -200,6 +200,36 @@
       "screenshots": [
         "assets/pulsar.png"
       ]
+    },
+    {
+      "type": "theme",
+      "slug": "vitality",
+      "name": "Vitality",
+      "summary": {
+        "en": "A multipurpose business theme: header variants, sliders, full-width sections, services, portfolio with filters, pricing, team, testimonials and blog layouts, with colors and fonts from the theme panel. Paid: try the demo with Live Preview.",
+        "it": "Un tema business multiuso: varianti di header, slider, sezioni a tutta larghezza, servizi, portfolio con filtri, prezzi, team, testimonianze e blog, con colori e font dal pannello del tema. A pagamento: prova la demo con l'Anteprima dal vivo."
+      },
+      "tags": [
+        "business",
+        "multipurpose",
+        "portfolio"
+      ],
+      "requires": ">=0.23.0",
+      "source": "private",
+      "paid": {
+        "price": {
+          "amount": 59,
+          "currency": "EUR",
+          "per": "site"
+        },
+        "updatesMonths": 12,
+        "purchaseUrl": "https://cleitext.com/themes/vitality",
+        "licenseServer": "https://cleitext.com/api/v1/ext/store/v1"
+      },
+      "icon": "assets/vitality.svg",
+      "screenshots": [
+        "assets/vitality.png"
+      ]
     }
   ]
 }
