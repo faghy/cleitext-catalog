@@ -149,7 +149,7 @@ function Layout({ head, css, children }: LayoutProps) {
             )}
             <p>
               {settings.footerText || `© ${new Date().getFullYear()} ${page.site.title}`} · {t.poweredBy}{' '}
-              <a href="https://github.com/faghy/cleitext">Cleitext</a>
+              <a href="https://cleitext.com">Cleitext</a>
             </p>
           </div>
         </footer>
@@ -301,7 +301,7 @@ function PageLinks({ pagination }: { pagination: Pagination }) {
 export const theme = defineTheme({
   slug: 'canvas',
   name: 'Canvas',
-  version: '1.0.5',
+  version: '1.0.6',
   description:
     'A page-builder theme: full-width sections, cards, icons and ready-made patterns, edited with blocks.',
   menuLocations: { primary: 'Main menu', footer: 'Footer menu' },
