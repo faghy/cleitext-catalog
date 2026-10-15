@@ -141,7 +141,7 @@ function Layout({ head, css, children }: LayoutProps) {
             )}
             <p>
               {settings.footerText || `© ${new Date().getFullYear()} ${page.site.title}`} ·{' '}
-              {t.poweredBy} <a href="https://github.com/faghy/cleitext">Cleitext</a>
+              {t.poweredBy} <a href="https://cleitext.com">Cleitext</a>
             </p>
           </div>
         </footer>
@@ -290,7 +290,7 @@ function PageLinks({ pagination }: { pagination: Pagination }) {
 export const theme = defineTheme({
   slug: 'pulsar',
   name: 'Pulsar',
-  version: '1.0.2',
+  version: '1.0.3',
   description: 'Aurora with the styles of the Pulsar pages (psx-* block classes).',
   menuLocations: { primary: 'Main menu', footer: 'Footer menu' },
   settings: [
