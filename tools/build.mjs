@@ -8,6 +8,13 @@
  * Needs: gh (authenticated), python3, unzip, and the Cleitext CLI built at
  * $CLEITEXT_CLI (to build the themes). The signing key (PKCS#8 PEM, base64)
  * comes from $CATALOG_SIGNING_KEY; without it, nothing is published (--dry-run).
+ *
+ * Paid themes (items with `paid`, docs/paid-themes.md): their source is the
+ * checkout of the private repository in $CATALOG_PRIVATE_DIR (`private/`) when
+ * the item says `"source": "private"`, and their zips go to the releases of
+ * $CATALOG_PRIVATE_REPO with the token $CATALOG_PRIVATE_TOKEN. The index lists
+ * them with their SHA-256 like the others; the download address is the
+ * license server's, which hands out short-lived addresses to licensed sites.
  */
 import { createHash, createPrivateKey, sign } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
@@ -19,24 +26,33 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const REPO = process.env.CATALOG_REPO ?? 'faghy/cleitext-catalog';
 const CORE = process.env.CLEITEXT_REPO ?? 'faghy/cleitext';
 const RAW = `https://raw.githubusercontent.com/${REPO}/main`;
+const PRIVATE_REPO = process.env.CATALOG_PRIVATE_REPO ?? 'faghy/cleitext-catalog-private';
+const PRIVATE_TOKEN = process.env.CATALOG_PRIVATE_TOKEN ?? process.env.GH_TOKEN;
+const PRIVATE_DIR = process.env.CATALOG_PRIVATE_DIR ?? join(root, 'private');
 const dryRun = process.argv.includes('--dry-run') || !process.env.CATALOG_SIGNING_KEY;
 const out = join(root, 'out');
 
 const run = (cmd, args, options = {}) =>
   execFileSync(cmd, args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'], ...options });
 const gh = (...args) => run('gh', args);
+/** gh on the private repository, with its own token. */
+const ghPrivate = (...args) =>
+  run('gh', args, { env: { ...process.env, ...(PRIVATE_TOKEN ? { GH_TOKEN: PRIVATE_TOKEN } : {}) } });
 const sha256 = (file) => createHash('sha256').update(readFileSync(file)).digest('hex');
 
 rmSync(out, { recursive: true, force: true });
 mkdirSync(out, { recursive: true });
 
-const config = JSON.parse(readFileSync(join(root, 'catalog.config.json'), 'utf8'));
+const config = JSON.parse(
+  readFileSync(process.env.CATALOG_CONFIG ?? join(root, 'catalog.config.json'), 'utf8'),
+);
 const core = JSON.parse(gh('api', `repos/${CORE}/releases/latest`));
 console.log(`Cleitext ${core.tag_name}`);
 
-function releaseAssets(tag) {
+function releaseAssets(tag, repo = REPO) {
   try {
-    return JSON.parse(gh('api', `repos/${REPO}/releases/tags/${tag}`)).assets ?? [];
+    const call = repo === REPO ? gh : ghPrivate;
+    return JSON.parse(call('api', `repos/${repo}/releases/tags/${tag}`)).assets ?? [];
   } catch {
     return null;
   }
@@ -74,15 +90,22 @@ for (const item of config.items) {
       updatedAt: asset.updated_at,
     };
   } else {
-    const dir = join(root, 'themes', item.slug);
+    const paid = item.paid ?? null;
+    const dir = join(item.source === 'private' ? PRIVATE_DIR : root, 'themes', item.slug);
     const manifest = JSON.parse(readFileSync(join(dir, 'theme.json'), 'utf8'));
+    if (paid && manifest.paid?.licenseServer !== paid.licenseServer) {
+      throw new Error(`${item.slug}: theme.json paid.licenseServer must be ${paid.licenseServer}`);
+    }
+    const repo = paid ? PRIVATE_REPO : REPO;
+    const call = paid ? ghPrivate : gh;
     const tag = `theme-${item.slug}-${manifest.version}`;
     const name = `cleitext-theme-${item.slug}-${manifest.version}.zip`;
     const file = join(out, name);
-    let assets = releaseAssets(tag);
+    let assets = releaseAssets(tag, repo);
     if (assets?.some((a) => a.name === name)) {
       // Published versions never change: same file, same checksum.
-      await download(assets.find((a) => a.name === name).browser_download_url, file);
+      if (paid) call('release', 'download', tag, '-R', repo, '-p', name, '-D', out, '--clobber');
+      else await download(assets.find((a) => a.name === name).browser_download_url, file);
     } else {
       if (!process.env.CLEITEXT_CLI) throw new Error('CLEITEXT_CLI is needed to build themes');
       run('node', [process.env.CLEITEXT_CLI, 'theme:build', dir], { stdio: 'inherit' });
@@ -95,12 +118,12 @@ for (const item of config.items) {
       run('python3', ['-m', 'zipfile', '-c', file, item.slug], { cwd: join(out, 'stage') });
       if (!dryRun) {
         if (assets === null) {
-          gh('release', 'create', tag, file, '-R', REPO, '--title', `${manifest.name} ${manifest.version}`,
+          call('release', 'create', tag, file, '-R', repo, '--title', `${manifest.name} ${manifest.version}`,
             '--notes', `${manifest.name} ${manifest.version}, theme for Cleitext.`);
         } else {
-          gh('release', 'upload', tag, file, '-R', REPO, '--clobber');
+          call('release', 'upload', tag, file, '-R', repo, '--clobber');
         }
-        assets = releaseAssets(tag);
+        assets = releaseAssets(tag, repo);
       }
     }
     entry = {
@@ -108,11 +131,14 @@ for (const item of config.items) {
       requires: item.requires,
       license: manifest.license,
       author: manifest.author ?? 'Cleitext',
-      download: `https://github.com/${REPO}/releases/download/${tag}/${name}`,
+      download: paid
+        ? `${paid.licenseServer.replace(/\/+$/, '')}/download/${item.slug}/${manifest.version}`
+        : `https://github.com/${REPO}/releases/download/${tag}/${name}`,
       sha256: sha256(file),
       size: statSync(file).size,
-      homepage: `https://github.com/${REPO}/tree/main/themes/${item.slug}`,
+      homepage: paid ? paid.purchaseUrl : `https://github.com/${REPO}/tree/main/themes/${item.slug}`,
       updatedAt: assets?.find((a) => a.name === name)?.updated_at ?? new Date().toISOString(),
+      ...(paid ? { paid } : {}),
     };
   }
   items.push({

@@ -9,4 +9,4 @@ The official catalog of plugins and themes for [Cleitext](https://github.com/fag
 
 To publish a new theme version, raise `version` in its `theme.json` and push. A new plugin version arrives with the next Cleitext release.
 
-Everything here is free software under GPL-compatible licenses.
+Everything here is free software under GPL-compatible licenses. Paid themes (see [docs/paid-themes.md](docs/paid-themes.md)) are GPL too: their source and packages live in a private repository, and the license buys downloads, updates and support from the Store on cleitext.com.

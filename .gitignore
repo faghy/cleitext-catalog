@@ -2,3 +2,4 @@ out/
 cleitext/
 node_modules/
 dist/
+private/

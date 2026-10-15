@@ -21,8 +21,14 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      CATALOG_PRIVATE_TOKEN: ${{ secrets.CATALOG_PRIVATE_TOKEN }}
     steps:
       - uses: actions/checkout@v4
+      # Paid themes (docs/paid-themes.md): their source and releases live in a
+      # private repository, read and written with its own token.
+      - name: Private themes
+        if: env.CATALOG_PRIVATE_TOKEN != ''
+        run: git clone --depth 1 "https://x-access-token:${CATALOG_PRIVATE_TOKEN}@github.com/faghy/cleitext-catalog-private.git" private
       - name: Cleitext of the latest release
         run: |
           tag=$(gh api repos/faghy/cleitext/releases/latest --jq .tag_name)
