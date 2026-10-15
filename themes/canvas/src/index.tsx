@@ -5,6 +5,7 @@ import {
   FormattedDate,
   HeadTags,
   Image,
+  Location,
   Menu,
   usePage,
   useThemeSettings,
@@ -96,63 +97,67 @@ function Layout({ head, css, children }: LayoutProps) {
         <a className="cv-skip" href="#content">
           {t.skip}
         </a>
-        <header className="cv-header">
-          <div className="cv-wrap cv-header-row">
-            <a className="cv-brand" href={page.urls.home}>
-              {logo ? (
-                <img className="cv-logo" src={logo.url} alt={page.site.title} />
-              ) : (
-                <>
-                  <span className="cv-mark" dangerouslySetInnerHTML={{ __html: MARK }} />
-                  <span className="cv-sitename">{page.site.title}</span>
-                </>
+        <Location name="header">
+          <header className="cv-header">
+            <div className="cv-wrap cv-header-row">
+              <a className="cv-brand" href={page.urls.home}>
+                {logo ? (
+                  <img className="cv-logo" src={logo.url} alt={page.site.title} />
+                ) : (
+                  <>
+                    <span className="cv-mark" dangerouslySetInnerHTML={{ __html: MARK }} />
+                    <span className="cv-sitename">{page.site.title}</span>
+                  </>
+                )}
+              </a>
+              {settings.showTagline === true && page.site.tagline && (
+                <span className="cv-tagline">{page.site.tagline}</span>
               )}
-            </a>
-            {settings.showTagline === true && page.site.tagline && (
-              <span className="cv-tagline">{page.site.tagline}</span>
-            )}
-            {/* Wide screens: a bar. Small screens: a panel that opens without JavaScript. */}
-            <div className="cv-desktop">
-              {primary.length > 0 && (
-                <nav className="cv-nav" aria-label={t.mainMenu}>
-                  <Menu items={primary} />
+              {/* Wide screens: a bar. Small screens: a panel that opens without JavaScript. */}
+              <div className="cv-desktop">
+                {primary.length > 0 && (
+                  <nav className="cv-nav" aria-label={t.mainMenu}>
+                    <Menu items={primary} />
+                  </nav>
+                )}
+                {languages}
+              </div>
+              {(primary.length > 0 || languages) && (
+                <details className="cv-menu cv-mobile">
+                  <summary>
+                    <span className="cv-burger" aria-hidden="true" />
+                    <span className="cv-sr">{t.menu}</span>
+                  </summary>
+                  <div className="cv-panel">
+                    {primary.length > 0 && (
+                      <nav className="cv-nav" aria-label={t.mainMenu}>
+                        <Menu items={primary} />
+                      </nav>
+                    )}
+                    {languages}
+                  </div>
+                </details>
+              )}
+            </div>
+          </header>
+        </Location>
+        <main id="content">{children}</main>
+        <Location name="footer">
+          <footer className="cv-footer">
+            <BlockArea name="footer" className="cv-wrap cv-footer-area" />
+            <div className="cv-wrap cv-footer-bottom">
+              {(page.menus.footer?.length ?? 0) > 0 && (
+                <nav aria-label={t.footerMenu}>
+                  <Menu items={page.menus.footer!} />
                 </nav>
               )}
-              {languages}
+              <p>
+                {settings.footerText || `© ${new Date().getFullYear()} ${page.site.title}`} · {t.poweredBy}{' '}
+                <a href="https://cleitext.com">Cleitext</a>
+              </p>
             </div>
-            {(primary.length > 0 || languages) && (
-              <details className="cv-menu cv-mobile">
-                <summary>
-                  <span className="cv-burger" aria-hidden="true" />
-                  <span className="cv-sr">{t.menu}</span>
-                </summary>
-                <div className="cv-panel">
-                  {primary.length > 0 && (
-                    <nav className="cv-nav" aria-label={t.mainMenu}>
-                      <Menu items={primary} />
-                    </nav>
-                  )}
-                  {languages}
-                </div>
-              </details>
-            )}
-          </div>
-        </header>
-        <main id="content">{children}</main>
-        <footer className="cv-footer">
-          <BlockArea name="footer" className="cv-wrap cv-footer-area" />
-          <div className="cv-wrap cv-footer-bottom">
-            {(page.menus.footer?.length ?? 0) > 0 && (
-              <nav aria-label={t.footerMenu}>
-                <Menu items={page.menus.footer!} />
-              </nav>
-            )}
-            <p>
-              {settings.footerText || `© ${new Date().getFullYear()} ${page.site.title}`} · {t.poweredBy}{' '}
-              <a href="https://cleitext.com">Cleitext</a>
-            </p>
-          </div>
-        </footer>
+          </footer>
+        </Location>
       </body>
     </html>
   );
@@ -166,55 +171,61 @@ function Index(props: TemplateProps) {
       const { entry } = props;
       const isPost = entry.type === 'article' || entry.type === 'post';
       return (
-        <article className="cv-entry">
-          <header className="cv-page-header cv-wrap">
-            {isPost && entry.publishedAt && (
-              <p className="cv-meta">
-                <FormattedDate iso={entry.publishedAt} />
-                {entry.author && ` · ${entry.author.displayName}`}
-              </p>
+        <Location name="single" entry={entry}>
+          <article className="cv-entry">
+            <header className="cv-page-header cv-wrap">
+              {isPost && entry.publishedAt && (
+                <p className="cv-meta">
+                  <FormattedDate iso={entry.publishedAt} />
+                  {entry.author && ` · ${entry.author.displayName}`}
+                </p>
+              )}
+              <h1>{entry.title}</h1>
+              {isPost && entry.excerpt && <p className="cv-page-lead">{entry.excerpt}</p>}
+            </header>
+            {entry.featuredImage && (
+              <figure className="cv-featured cv-wrap">
+                <Image media={entry.featuredImage} eager sizes="(min-width: 72rem) 72rem, 100vw" />
+              </figure>
             )}
-            <h1>{entry.title}</h1>
-            {isPost && entry.excerpt && <p className="cv-page-lead">{entry.excerpt}</p>}
-          </header>
-          {entry.featuredImage && (
-            <figure className="cv-featured cv-wrap">
-              <Image media={entry.featuredImage} eager sizes="(min-width: 72rem) 72rem, 100vw" />
-            </figure>
-          )}
-          <div className="entry-content">
-            <EntryContent document={entry.document} />
-          </div>
-        </article>
+            <div className="entry-content">
+              <EntryContent document={entry.document} />
+            </div>
+          </article>
+        </Location>
       );
     }
     case 'archive':
       return (
-        <div className="cv-listing">
-          <header className="cv-page-header cv-wrap">
-            <h1>{props.title}</h1>
-            {props.description && <p className="cv-page-lead">{props.description}</p>}
-          </header>
-          <EntryList entries={props.entries} empty={t.nothingYet} more={t.readMore} />
-          <PageLinks pagination={props.pagination} />
-        </div>
+        <Location name="archive">
+          <div className="cv-listing">
+            <header className="cv-page-header cv-wrap">
+              <h1>{props.title}</h1>
+              {props.description && <p className="cv-page-lead">{props.description}</p>}
+            </header>
+            <EntryList entries={props.entries} empty={t.nothingYet} more={t.readMore} />
+            <PageLinks pagination={props.pagination} />
+          </div>
+        </Location>
       );
     case 'search':
       return (
-        <div className="cv-listing">
-          <header className="cv-page-header cv-wrap">
-            <h1>{props.query ? t.resultsFor(props.query) : t.search}</h1>
-            <form className="cv-search" role="search" action={page.urls.search} method="get">
-              <label className="cv-sr" htmlFor="cv-q">
-                {t.search}
-              </label>
-              <input id="cv-q" type="search" name="q" defaultValue={props.query ?? ''} placeholder={t.searchPlaceholder} />
-              <button type="submit">{t.search}</button>
-            </form>
-          </header>
-          <EntryList entries={props.entries} empty={props.query ? t.noResults : t.typeToSearch} more={t.readMore} />
-          <PageLinks pagination={props.pagination} />
-        </div>
+        <Location name="archive">
+          <div className="cv-listing">
+            <header className="cv-page-header cv-wrap">
+              <h1>{props.query ? t.resultsFor(props.query) : t.search}</h1>
+              <form className="cv-search" role="search" action={page.urls.search} method="get">
+                <label className="cv-sr" htmlFor="cv-q">
+                  {t.search}
+                </label>
+                <input id="cv-q" type="search" name="q" defaultValue={props.query ?? ''} placeholder={t.searchPlaceholder} />
+                <button type="submit">{t.search}</button>
+              </form>
+            </header>
+            <EntryList entries={props.entries} empty={props.query ? t.noResults : t.typeToSearch} more={t.readMore} />
+            <PageLinks pagination={props.pagination} />
+          </div>
+        </Location>
       );
     case '404':
       return (
