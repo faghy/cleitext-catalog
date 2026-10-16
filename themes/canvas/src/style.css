@@ -431,6 +431,10 @@ mark {
 .cv-featured {
   margin-bottom: 2.5rem;
 }
+/* Product pages show their pictures beside the buy box (the shop's summary). */
+body:has(.shop-summary) .cv-featured {
+  display: none;
+}
 .entry-content {
   padding-bottom: clamp(3rem, 7vw, 5rem);
 }
