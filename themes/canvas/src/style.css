@@ -8,6 +8,11 @@
   --cv-muted: #556070;
   --cv-line: #e2e8f0;
   --cv-soft: #f0f9ff;
+  /* Tints and shades of the brand (the accent color replaces them). */
+  --cv-tint: #e0f2fe;
+  --cv-tint-2: #bae6fd;
+  --cv-deep: #075985;
+  --cv-deeper: #0c4a6e;
   --cv-gray: #f8fafc;
   --cv-navy: #0b1730;
   --cv-white: #ffffff;
@@ -546,7 +551,7 @@ mark {
   cursor: pointer;
 }
 .contact-form button[type='submit']:hover {
-  box-shadow: 0 8px 20px -8px #0369a199;
+  box-shadow: 0 8px 20px -8px color-mix(in srgb, var(--cv-brand) 60%, transparent);
 }
 .contact-form [role='status'] {
   padding: 0.8rem 1rem;
@@ -765,13 +770,13 @@ mark {
 }
 .cv-bg-mesh {
   background:
-    radial-gradient(38rem 24rem at 92% -10%, #bae6fd 0, transparent 65%),
-    radial-gradient(30rem 20rem at -5% 110%, #e0f2fe 0, transparent 70%),
+    radial-gradient(38rem 24rem at 92% -10%, var(--cv-tint-2) 0, transparent 65%),
+    radial-gradient(30rem 20rem at -5% 110%, var(--cv-tint) 0, transparent 70%),
     #fff;
 }
 .cv-bg-brand {
-  background: linear-gradient(135deg, var(--cv-brand), #075985 70%, #0c4a6e);
-  color: #e0f2fe;
+  background: linear-gradient(135deg, var(--cv-brand), var(--cv-deep) 70%, var(--cv-deeper));
+  color: var(--cv-tint);
 }
 .cv-bg-dark {
   background: var(--cv-navy);
@@ -816,7 +821,7 @@ mark {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--cv-brand);
-  background: #e0f2fe;
+  background: var(--cv-tint);
   border-radius: 999px;
   padding: 0.3rem 0.85rem;
   margin-bottom: 1rem !important;
@@ -831,7 +836,7 @@ mark {
   color: var(--cv-muted);
 }
 :is(.cv-bg-brand, .cv-bg-dark) .cv-lead {
-  color: #bae6fd;
+  color: var(--cv-tint-2);
 }
 .cv-section h2 + .cv-lead,
 .cv-section h1 + .cv-lead {
@@ -914,7 +919,7 @@ mark {
 .cv-card:hover {
   transform: translateY(-3px);
   box-shadow: var(--cv-shadow);
-  border-color: #bae6fd;
+  border-color: var(--cv-tint-2);
 }
 .cv-card :is(h2, h3) {
   font-size: 1.2rem;
@@ -944,7 +949,7 @@ mark {
 }
 .cv-card[class*='cv-i-'] {
   position: relative;
-  --cv-tile: #e0f2fe;
+  --cv-tile: var(--cv-tint);
 }
 /* The icon: a tinted tile (::before) and the glyph of the cv-i-<name> class (::after). */
 .cv-card[class*='cv-i-']::before {
@@ -973,7 +978,7 @@ mark {
   border-color: #ffffff1f;
 }
 :is(.cv-bg-brand, .cv-bg-dark) .cv-card p {
-  color: #bae6fd;
+  color: var(--cv-tint-2);
 }
 :is(.cv-bg-brand, .cv-bg-dark) .cv-card {
   --cv-tile: #ffffff1a;
@@ -1070,7 +1075,7 @@ ul.cv-checks li::after {
   font-weight: 800;
   color: #fff;
   background: linear-gradient(135deg, var(--cv-brand), var(--cv-brand-2));
-  box-shadow: 0 8px 18px -8px #0369a1aa;
+  box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--cv-brand) 67%, transparent);
 }
 .cv-center .cv-step::before {
   left: 50%;
@@ -1105,7 +1110,7 @@ ul.cv-checks li::after {
   font-weight: 600;
 }
 :is(.cv-bg-brand, .cv-bg-dark) .cv-stats p {
-  color: #bae6fd;
+  color: var(--cv-tint-2);
 }
 
 /* Quote */

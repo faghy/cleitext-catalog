@@ -95,7 +95,7 @@ function Layout({ head, css, children }: LayoutProps) {
           // The lighter tones (gradients, eyebrows, soft backgrounds) follow the accent too.
           <style
             dangerouslySetInnerHTML={{
-              __html: `:root{--cv-brand:${accent};--cv-brand-2:color-mix(in srgb,${accent} 70%,#fff);--cv-cursor:color-mix(in srgb,${accent} 45%,#fff);--cv-soft:color-mix(in srgb,${accent} 6%,#fff)}`,
+              __html: `:root{--cv-brand:${accent};--cv-brand-2:color-mix(in srgb,${accent} 70%,#fff);--cv-cursor:color-mix(in srgb,${accent} 45%,#fff);--cv-soft:color-mix(in srgb,${accent} 6%,#fff);--cv-tint:color-mix(in srgb,${accent} 14%,#fff);--cv-tint-2:color-mix(in srgb,${accent} 32%,#fff);--cv-deep:color-mix(in srgb,${accent} 70%,#000);--cv-deeper:color-mix(in srgb,${accent} 50%,var(--cv-navy))}`,
             }}
           />
         )}
