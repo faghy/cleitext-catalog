@@ -28,6 +28,7 @@ changing texts and images. Otherwise build sections from these classes (in "clas
 | cv-box | group | Highlighted white box (e.g. a download) |
 | cv-faq | group of groups (h3 + paragraph each) | Questions in two columns |
 | cv-pills | core/buttons | Small rounded links |
+| cv-small | core/buttons | Smaller buttons on one row; long labels end with … (they wrap on phones) |
 
 Icons (ICON): edit, blocks, plugin, palette, globe, layers, shield, rocket, refresh, code, users,
 search, image, zap, heart, download, book, lock, chat, check, github.

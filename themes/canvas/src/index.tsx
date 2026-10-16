@@ -91,7 +91,14 @@ function Layout({ head, css, children }: LayoutProps) {
         <link rel="preconnect" href="https://fonts.bunny.net" />
         <link rel="stylesheet" href={FONTS} />
         <style dangerouslySetInnerHTML={{ __html: css }} />
-        {accent && <style dangerouslySetInnerHTML={{ __html: `:root{--cv-brand:${accent}}` }} />}
+        {accent && (
+          // The lighter tones (gradients, eyebrows, soft backgrounds) follow the accent too.
+          <style
+            dangerouslySetInnerHTML={{
+              __html: `:root{--cv-brand:${accent};--cv-brand-2:color-mix(in srgb,${accent} 70%,#fff);--cv-cursor:color-mix(in srgb,${accent} 45%,#fff);--cv-soft:color-mix(in srgb,${accent} 6%,#fff)}`,
+            }}
+          />
+        )}
         <HeadTags tags={head.tags} />
       </head>
       <body>

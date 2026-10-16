@@ -671,15 +671,40 @@ mark {
 }
 .wp-block-button__link:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 20px -8px #0369a199;
+  /* Follows the brand color (the default blue gives #0369a199, as before). */
+  box-shadow: 0 8px 20px -8px color-mix(in srgb, var(--cv-brand) 60%, transparent);
 }
 .is-style-outline .wp-block-button__link {
   background: transparent;
   color: var(--cv-brand);
 }
 .is-style-outline .wp-block-button__link:hover {
-  background: var(--cv-soft);
+  background: color-mix(in srgb, var(--cv-brand) 8%, #fff);
   box-shadow: none;
+}
+/* Smaller buttons kept on one row (e.g. previous · index · next): long labels end with "…".
+   On phones they wrap again. */
+.cv-small.wp-block-buttons {
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+}
+.cv-small .wp-block-button {
+  min-width: 0;
+}
+.cv-small .wp-block-button__link {
+  display: block;
+  max-width: 100%;
+  padding: 0.55rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 640px) {
+  .cv-small.wp-block-buttons {
+    flex-wrap: wrap;
+  }
 }
 .wp-block-group {
   margin-bottom: 1.1rem;
