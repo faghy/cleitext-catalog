@@ -15,6 +15,9 @@
   --cv-deeper: #0c4a6e;
   --cv-gray: #f8fafc;
   --cv-navy: #0b1730;
+  /* Buttons of the core and plugins (comments, account, shop) follow the brand. */
+  --cx-accent: var(--cv-brand);
+  --cx-on-accent: #ffffff;
   --cv-white: #ffffff;
   --cv-radius: 18px;
   --cv-wide: 76rem;
