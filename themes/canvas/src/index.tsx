@@ -1,4 +1,5 @@
 import {
+  AuthorBox,
   BlockArea,
   defineTheme,
   EntryContent,
@@ -177,7 +178,18 @@ function Index(props: TemplateProps) {
               {isPost && entry.publishedAt && (
                 <p className="cv-meta">
                   <FormattedDate iso={entry.publishedAt} />
-                  {entry.author && ` · ${entry.author.displayName}`}
+                  {entry.author && (
+                    <>
+                      {' · '}
+                      {entry.author.url ? (
+                        <a href={entry.author.url} rel="author">
+                          {entry.author.displayName}
+                        </a>
+                      ) : (
+                        entry.author.displayName
+                      )}
+                    </>
+                  )}
                 </p>
               )}
               <h1>{entry.title}</h1>
@@ -201,8 +213,15 @@ function Index(props: TemplateProps) {
           <div className="cv-listing">
             <header className="cv-page-header cv-wrap">
               <h1>{props.title}</h1>
-              {props.description && <p className="cv-page-lead">{props.description}</p>}
+              {props.description && !props.author && (
+                <p className="cv-page-lead">{props.description}</p>
+              )}
             </header>
+            {props.author && (
+              <div className="cv-wrap">
+                <AuthorBox author={props.author} variant="page" />
+              </div>
+            )}
             <EntryList entries={props.entries} empty={t.nothingYet} more={t.readMore} />
             <PageLinks pagination={props.pagination} />
           </div>

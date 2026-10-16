@@ -224,7 +224,7 @@
         "landing",
         "business"
       ],
-      "requires": ">=0.25.0",
+      "requires": ">=0.26.0",
       "icon": "assets/canvas.svg",
       "screenshots": [
         "assets/canvas.png"
@@ -243,7 +243,7 @@
         "dark",
         "software"
       ],
-      "requires": ">=0.25.0",
+      "requires": ">=0.26.0",
       "icon": "assets/pulsar.svg",
       "screenshots": [
         "assets/pulsar.png"
@@ -262,7 +262,7 @@
         "multipurpose",
         "portfolio"
       ],
-      "requires": ">=0.25.0",
+      "requires": ">=0.26.0",
       "source": "private",
       "paid": {
         "price": {
