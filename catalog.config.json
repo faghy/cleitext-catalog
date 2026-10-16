@@ -165,6 +165,24 @@
     },
     {
       "type": "plugin",
+      "slug": "shop",
+      "name": "Cleishop",
+      "summary": {
+        "en": "Sell from your site, free: a fast catalog for shop managers, cart and checkout, orders and emails, shipping zones, taxes, coupons, bank transfer, cash on delivery, Stripe and PayPal, reviews and the customer account.",
+        "it": "Vendi dal tuo sito, gratis: un catalogo veloce per chi gestisce il negozio, carrello e cassa, ordini ed email, zone di spedizione, imposte, coupon, bonifico, contrassegno, Stripe e PayPal, recensioni e l’area clienti."
+      },
+      "tags": [
+        "shop",
+        "e-commerce",
+        "payments"
+      ],
+      "icon": "assets/shop.svg",
+      "screenshots": [
+        "assets/shop.png"
+      ]
+    },
+    {
+      "type": "plugin",
       "slug": "fresco",
       "name": "Fresco",
       "summary": {
