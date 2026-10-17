@@ -179,8 +179,15 @@ function Index(props: TemplateProps) {
       const { entry } = props;
       const isPost = entry.type === 'article' || entry.type === 'post';
       // A visual editor (Fresco) may hide the title: then no header, and no second h1.
-      const hideTitle =
-        (entry.document.editor?.data as { hideTitle?: unknown } | undefined)?.hideTitle === true;
+      const editorData = entry.document.editor?.data as
+        | { hideTitle?: unknown; hideFeatured?: unknown; layout?: unknown }
+        | undefined;
+      const hideTitle = editorData?.hideTitle === true;
+      // Nor the featured image when the editor asks, or on its full-width and canvas layouts.
+      const hideFeatured =
+        editorData?.hideFeatured === true ||
+        editorData?.layout === 'full' ||
+        editorData?.layout === 'canvas';
       return (
         <Location name="single" entry={entry}>
           <article className="cv-entry">
@@ -207,7 +214,7 @@ function Index(props: TemplateProps) {
                 {isPost && entry.excerpt && <p className="cv-page-lead">{entry.excerpt}</p>}
               </header>
             )}
-            {entry.featuredImage && (
+            {entry.featuredImage && !hideFeatured && (
               <figure className="cv-featured cv-wrap">
                 <Image media={entry.featuredImage} eager sizes="(min-width: 72rem) 72rem, 100vw" />
               </figure>
