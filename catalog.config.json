@@ -302,15 +302,15 @@
       "slug": "vitality",
       "name": "Vitality",
       "summary": {
-        "en": "A multipurpose business theme: header variants, sliders, full-width sections, services, portfolio with filters, pricing, team, testimonials and blog layouts, with colors and fonts from the theme panel. Paid: try the demo with Live Preview.",
-        "it": "Un tema business multiuso: varianti di header, slider, sezioni a tutta larghezza, servizi, portfolio con filtri, prezzi, team, testimonianze e blog, con colori e font dal pannello del tema. A pagamento: prova la demo con l'Anteprima dal vivo."
+        "en": "A multipurpose business theme: header variants, sliders, full-width sections, services, portfolio with filters, pricing, team, testimonials and blog layouts, with a full theme panel (layout, colors per area, fonts, header, menu, sidebars, footer, blog), ready-made styles and options per page. Paid: try the demo with Live Preview.",
+        "it": "Un tema business multiuso: varianti di header, slider, sezioni a tutta larghezza, servizi, portfolio con filtri, prezzi, team, testimonianze e blog, con un pannello del tema completo (impaginazione, colori per area, caratteri, intestazione, menu, barre laterali, piè di pagina, blog), stili pronti e opzioni per pagina. A pagamento: prova la demo con l'Anteprima dal vivo."
       },
       "tags": [
         "business",
         "multipurpose",
         "portfolio"
       ],
-      "requires": ">=0.26.0",
+      "requires": ">=0.34.0",
       "source": "private",
       "paid": {
         "price": {
