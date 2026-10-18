@@ -150,6 +150,21 @@
     },
     {
       "type": "plugin",
+      "slug": "prisma",
+      "name": "Prisma",
+      "summary": {
+        "en": "Design blocks with a live preview in the editor: containers with backgrounds and shape dividers, headings, images with masks, info boxes, buttons and image galleries with a lightbox, responsive and animated. Converts Spectra blocks when importing from WordPress.",
+        "it": "Blocchi di design con anteprima dal vivo nell'editor: contenitori con sfondi e divisori sagomati, titoli, immagini con maschere, info box, pulsanti e gallerie di immagini con lightbox, responsive e animati. Converte i blocchi Spectra nell'import da WordPress."
+      },
+      "tags": [
+        "blocks",
+        "design",
+        "gallery"
+      ],
+      "icon": "assets/prisma.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "click-to-chat",
       "name": "Click to Chat",
       "summary": {
