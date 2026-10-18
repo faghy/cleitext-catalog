@@ -135,6 +135,21 @@
     },
     {
       "type": "plugin",
+      "slug": "widgets",
+      "name": "Widgets",
+      "summary": {
+        "en": "Blog widgets for pages, sidebars and footers: recent posts as a list, grid or magazine (also by category or tag), recent comments, a tag cloud, categories with their counts and a search form.",
+        "it": "Widget per il blog in pagine, barre laterali e piè di pagina: articoli recenti in elenco, griglia o stile rivista (anche per categoria o tag), commenti recenti, nuvola di tag, categorie con i conteggi e modulo di ricerca."
+      },
+      "tags": [
+        "widgets",
+        "blog",
+        "sidebar"
+      ],
+      "icon": "assets/widgets.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "click-to-chat",
       "name": "Click to Chat",
       "summary": {
