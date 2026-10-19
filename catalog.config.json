@@ -165,6 +165,21 @@
     },
     {
       "type": "plugin",
+      "slug": "vetta",
+      "name": "Vetta SEO",
+      "summary": {
+        "en": "Complete SEO: search titles and descriptions with variables, a content analysis with a score out of 100 for up to five keywords, social cards, schema.org with local business data, sitemap rules, a log of pages not found, IndexNow, llms.txt and robots.txt. Free, a full alternative to the SEO plugin.",
+        "it": "SEO completa: titoli e descrizioni per i motori con variabili, un'analisi dei contenuti con punteggio su 100 per fino a cinque parole chiave, schede social, schema.org con i dati dell'attività locale, regole della sitemap, registro delle pagine non trovate, IndexNow, llms.txt e robots.txt. Gratuito, un'alternativa completa al plugin SEO."
+      },
+      "tags": [
+        "seo",
+        "schema",
+        "sitemap"
+      ],
+      "icon": "assets/vetta.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "click-to-chat",
       "name": "Click to Chat",
       "summary": {
