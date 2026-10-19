@@ -210,6 +210,36 @@
     },
     {
       "type": "plugin",
+      "slug": "classic-editor",
+      "name": "Classic Editor",
+      "summary": {
+        "en": "The editor WordPress had before blocks: a word processor with Visual and Text tabs, two rows of buttons and Add Media. Pages stay ordinary blocks, so you can switch back at any time.",
+        "it": "L'editor che WordPress aveva prima dei blocchi: un elaboratore di testi con le schede Visuale e Testo, due file di pulsanti e Aggiungi media. Le pagine restano normali blocchi, quindi puoi tornare indietro quando vuoi."
+      },
+      "tags": [
+        "editor",
+        "classic",
+        "writing"
+      ],
+      "icon": "assets/classic-editor.svg"
+    },
+    {
+      "type": "plugin",
+      "slug": "editor-convert",
+      "name": "Convert Editors",
+      "summary": {
+        "en": "Move pages and posts between the block editor, Classic Editor, Fresco and Vitality Builder, many at a time: see first what is kept, then convert in place (undo from Revisions) or as a new draft.",
+        "it": "Sposta pagine e articoli tra l'editor a blocchi, l'Editor classico, Fresco e Vitality Builder, anche molti insieme: vedi prima cosa resta, poi converti al loro posto (annullabile dalle Revisioni) o come nuova bozza."
+      },
+      "tags": [
+        "editor",
+        "page builder",
+        "migration"
+      ],
+      "icon": "assets/editor-convert.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "shop",
       "name": "Cleishop",
       "summary": {
