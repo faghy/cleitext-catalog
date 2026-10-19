@@ -1,0 +1,29 @@
+name: Theme feature missing
+description: Something another theme you used (Enfold, Astra, Hello…) does, and a catalog theme does not yet.
+labels: [missing feature, needs-triage]
+body:
+  - type: dropdown
+    id: theme
+    attributes:
+      label: Theme
+      options:
+        - Vitality
+        - Vitality Builder
+        - Canvas
+        - Pulsar
+    validations:
+      required: true
+  - type: input
+    id: tool
+    attributes:
+      label: Where you saw it
+      placeholder: e.g. Enfold, Astra
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What it does
+      description: How it works there; screenshots and links help a lot.
+    validations:
+      required: true
