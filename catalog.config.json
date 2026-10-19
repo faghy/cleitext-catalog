@@ -325,7 +325,7 @@
         "multipurpose",
         "portfolio"
       ],
-      "requires": ">=0.34.0",
+      "requires": ">=0.36.0",
       "source": "private",
       "paid": {
         "price": {

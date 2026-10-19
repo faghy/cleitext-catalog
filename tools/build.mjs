@@ -105,20 +105,12 @@ async function buildPackage(item) {
     for (const part of parts) {
       if (existsSync(join(dir, part))) run('cp', ['-r', join(dir, part), stage]);
     }
-    // Plugins that come with a theme (theme.json `plugins`): built from plugins/<slug>, packed in;
-    // an official plugin the theme needs (Fresco) comes from the latest Cleitext release.
+    // Plugins that come with a theme (theme.json `plugins`): built from plugins/<slug>, packed in.
     for (const plugin of kind === 'theme' ? (manifest.plugins ?? []) : []) {
       const source = join(dir, 'plugins', plugin);
-      if (!existsSync(join(source, 'cleitext.plugin.json'))) {
-        const asset = core.assets.find(
-          (a) => a.name.startsWith(`cleitext-plugin-${plugin}-`) && a.name.endsWith('.zip'),
-        );
-        if (!asset) throw new Error(`${item.slug}: plugins/${plugin} is missing, and ${core.tag_name} has no such plugin`);
-        const zip = join(out, asset.name);
-        await download(asset.browser_download_url, zip);
-        mkdirSync(join(stage, 'plugins'), { recursive: true });
-        run('unzip', ['-q', '-o', zip, '-d', join(stage, 'plugins')]);
-        continue;
+      if (!existsSync(join(source, 'cleitext.plugin.json'))) throw new Error(`${item.slug}: plugins/${plugin} is missing`);
+      if (existsSync(join(source, 'package-lock.json'))) {
+        run('npm', ['ci', '--ignore-scripts', '--no-audit', '--no-fund'], { cwd: source, stdio: 'inherit' });
       }
       run('node', [process.env.CLEITEXT_CLI, 'plugin:build', source], { stdio: 'inherit' });
       const target = join(stage, 'plugins', plugin);
