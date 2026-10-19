@@ -105,6 +105,18 @@ async function buildPackage(item) {
     for (const part of parts) {
       if (existsSync(join(dir, part))) run('cp', ['-r', join(dir, part), stage]);
     }
+    // Plugins that come with a theme (theme.json `plugins`): built from plugins/<slug>, packed in.
+    for (const plugin of kind === 'theme' ? (manifest.plugins ?? []) : []) {
+      const source = join(dir, 'plugins', plugin);
+      if (!existsSync(join(source, 'cleitext.plugin.json'))) throw new Error(`${item.slug}: plugins/${plugin} is missing`);
+      run('node', [process.env.CLEITEXT_CLI, 'plugin:build', source], { stdio: 'inherit' });
+      const target = join(stage, 'plugins', plugin);
+      mkdirSync(target, { recursive: true });
+      for (const part of ['cleitext.plugin.json', 'dist', 'migrations', 'README.md', 'LICENSE']) {
+        if (existsSync(join(source, part))) run('cp', ['-r', join(source, part), target]);
+      }
+      run('find', [join(target, 'dist'), '-name', '*.map', '-delete']);
+    }
     // Source maps stay out of the packages.
     run('find', [join(stage, 'dist'), '-name', '*.map', '-delete']);
     run('python3', ['-m', 'zipfile', '-c', file, item.slug], { cwd: join(out, 'stage') });
