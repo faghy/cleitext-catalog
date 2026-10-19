@@ -240,6 +240,21 @@
     },
     {
       "type": "plugin",
+      "slug": "layout-import",
+      "name": "Layout Import",
+      "summary": {
+        "en": "Moving from a WordPress theme whose page builder left codes like [av_section] in your pages? Turn those pages into ordinary blocks you can edit, with sections, columns, texts, images and buttons.",
+        "it": "Arrivi da un tema WordPress il cui page builder lasciava codici come [av_section] nelle pagine? Trasforma quelle pagine in normali blocchi modificabili, con sezioni, colonne, testi, immagini e pulsanti."
+      },
+      "tags": [
+        "import",
+        "wordpress",
+        "migration"
+      ],
+      "icon": "assets/layout-import.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "shop",
       "name": "Cleishop",
       "summary": {
