@@ -1,0 +1,55 @@
+name: Theme problem
+description: Something does not look or work right in a catalog theme (Canvas, Pulsar, Vitality…) or its builder.
+labels: [bug, needs-triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting it. You may write in English or Italian.
+        Vitality's code is not public, but its problems and their fixes are tracked here in the open.
+        Problems with Cleitext itself or its plugins go to [cleitext](https://github.com/faghy/cleitext/issues/new/choose).
+  - type: dropdown
+    id: theme
+    attributes:
+      label: Theme
+      options:
+        - Vitality
+        - Vitality Builder
+        - Canvas
+        - Pulsar
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: The theme's version (Appearance → Themes) and Cleitext's (Dashboard → Updates).
+      placeholder: e.g. Vitality 1.4.0, Cleitext 0.37.0
+    validations:
+      required: true
+  - type: input
+    id: page
+    attributes:
+      label: Page where it can be seen
+      placeholder: https://example.com/page
+  - type: textarea
+    id: what
+    attributes:
+      label: What happens
+      description: What you expected and what you see instead. Screenshots (desktop and phone) help a lot.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to see it
+      placeholder: |
+        1. Open …
+        2. Change the setting …
+        3. See …
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device
+      placeholder: e.g. Safari on iPhone 15

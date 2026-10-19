@@ -1,0 +1,23 @@
+name: Theme request
+description: A feature or option a catalog theme should have.
+labels: [enhancement, needs-triage]
+body:
+  - type: dropdown
+    id: theme
+    attributes:
+      label: Theme
+      options:
+        - Vitality
+        - Vitality Builder
+        - Canvas
+        - Pulsar
+        - A new theme
+    validations:
+      required: true
+  - type: textarea
+    id: need
+    attributes:
+      label: What you need
+      description: What the site should show or do; links to examples are welcome.
+    validations:
+      required: true

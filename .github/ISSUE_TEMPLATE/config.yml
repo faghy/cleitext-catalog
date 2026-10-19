@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Cleitext and its plugins
+    url: https://github.com/faghy/cleitext/issues/new/choose
+    about: Problems and requests about the CMS, the admin and the official plugins.
+  - name: Security problem
+    url: https://github.com/faghy/cleitext/blob/main/SECURITY.md
+    about: Report it privately, not in a public issue.
