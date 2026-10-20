@@ -2643,3 +2643,18 @@ input[type="color"]::-webkit-color-swatch {
 .zn-header-woo-cart .shop-cart-link:hover {
   color: var(--zn-global-color-0);
 }
+/* The shop's wide pages: the container is already wide. */
+.entry-content .shop-wide {
+  width: auto;
+  left: auto;
+  transform: none;
+}
+/* A product's title is a heading of the page, as big as the H1s. */
+.single-product .entry-header .entry-title {
+  font-size: 2.25rem;
+}
+@media (max-width: 921px) {
+  .single-product .entry-header .entry-title {
+    font-size: 1.875rem;
+  }
+}

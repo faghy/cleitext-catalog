@@ -73,3 +73,6 @@ export function useR(): R {
   }
   return r;
 }
+
+/** An id usable in classes and anchors (plugin pages have ids like `plugin-page:/shop`). */
+export const slugId = (id: string) => id.replace(/[^A-Za-z0-9_-]+/g, '-').replace(/^-|-$/g, '');

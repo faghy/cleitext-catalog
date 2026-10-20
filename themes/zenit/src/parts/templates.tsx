@@ -17,7 +17,7 @@ import { str } from '../core/php.js';
 import { Breadcrumbs, breadcrumbPosition } from './breadcrumbs.js';
 import { ICONS, svg } from './icons.js';
 import { sidebarLayout } from '../css/lib/main.js';
-import { cx, useR, type R } from './render.js';
+import { cx, slugId, useR, type R } from './render.js';
 import { Sidebar } from './sidebar.js';
 
 /** `<div id="primary">` with the blog layout classes, and the sidebar beside it. */
@@ -186,7 +186,10 @@ function EntryHeader({ r, entry }: { r: R; entry: PublicEntry }) {
     `zn-dynamic-single-${pt}-structure`,
     pt === 'page'
       ? [`zn-dynamic-single-${pt}-image`, `zn-dynamic-single-${pt}-title`]
-      : [`zn-dynamic-single-${pt}-title`, `zn-dynamic-single-${pt}-meta`],
+      : // A product shows its title only: price and details are the shop's.
+        pt === 'product'
+        ? [`zn-dynamic-single-${pt}-title`]
+        : [`zn-dynamic-single-${pt}-title`, `zn-dynamic-single-${pt}-meta`],
   ) as string[];
   const metadata = o.get<string[]>(`zn-dynamic-single-${pt}-metadata`, ['author', 'date']);
   const separator = str(o.get(`zn-dynamic-single-${pt}-metadata-separator`, '/'));
@@ -438,7 +441,7 @@ function SingleEntry({ r, entry }: { r: R; entry: PublicEntry }) {
     <>
       <article
         className={cx(
-          `post-${entry.id}`,
+          `post-${slugId(entry.id)}`,
           c.postType,
           `type-${c.postType}`,
           'status-publish',
@@ -446,7 +449,7 @@ function SingleEntry({ r, entry }: { r: R; entry: PublicEntry }) {
           post && termClasses(entry),
           'zn-article-single',
         )}
-        id={`post-${entry.id}`}
+        id={`post-${slugId(entry.id)}`}
         itemType="https://schema.org/CreativeWork"
         itemScope
       >
@@ -478,8 +481,8 @@ function ListedPost({ r, entry, index }: { r: R; entry: PublicEntrySummary; inde
   const layout = blogLayout(o, r.c);
   return (
     <article
-      className={`post-${entry.id} post type-post status-publish format-standard hentry zn-grid-common-col zn-full-width zn-article-post remove-featured-img-padding`}
-      id={`post-${entry.id}`}
+      className={`post-${slugId(entry.id)} post type-post status-publish format-standard hentry zn-grid-common-col zn-full-width zn-article-post remove-featured-img-padding`}
+      id={`post-${slugId(entry.id)}`}
       itemType="https://schema.org/CreativeWork"
       itemScope
     >

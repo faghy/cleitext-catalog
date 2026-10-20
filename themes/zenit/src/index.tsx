@@ -17,7 +17,7 @@ import { Breadcrumbs, breadcrumbPosition } from './parts/breadcrumbs.js';
 import { Footer, ScrollTop } from './parts/footer.js';
 import { Header, MobilePopup } from './parts/header.js';
 import { Index } from './parts/templates.js';
-import { cx, useR, type R } from './parts/render.js';
+import { cx, slugId, useR, type R } from './parts/render.js';
 import { importSettings } from './import.js';
 import { SCRIPT } from './script.js';
 import { HEADER_PRESETS } from './settings/builder.js';
@@ -37,7 +37,10 @@ function bodyClasses(r: R): string {
   if (c.isFrontPage) classes.push('home');
   if (c.isHome) classes.push('blog');
   if (view?.kind === 'entry') {
-    classes.push(isPage(c) ? 'page' : `single single-${c.postType}`, `postid-${view.entry.id}`);
+    classes.push(
+      isPage(c) ? 'page' : `single single-${c.postType}`,
+      `postid-${slugId(view.entry.id)}`,
+    );
   } else if (view?.kind === 'archive' && !c.isHome) {
     classes.push(
       'archive',
