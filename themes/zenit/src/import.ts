@@ -1,13 +1,15 @@
 /**
- * Settings of a WordPress site using the theme Zenit ports (the
- * `astra-settings` option, as `wp option get astra-settings --format=json`
- * prints it, or an object holding it under that name): the option keys
+ * Settings of a WordPress site using the theme Zenit ports (its settings
+ * option as `wp option get <option> --format=json` prints it, serialized,
+ * an object holding it under the option's name, or a customizer export
+ * `.dat` file): the option keys
  * and values are renamed to Zenit's, turned into Customize values where a
  * setting can read them, and also kept whole in `importedOptions`, so the
  * site looks the same even where no Customize field shows the option.
  */
 import { DEFAULTS } from './core/defaults.js';
 import { rec } from './core/php.js';
+import { unserialize } from './core/unserialize.js';
 import { SETTINGS } from './settings/index.js';
 
 const SOURCE = ['astra', 'settings'].join('-');
@@ -36,9 +38,28 @@ function changed(options: Record<string, unknown>): Record<string, unknown> {
   );
 }
 
+/**
+ * The settings in what was imported: JSON (parsed by Customize), or the
+ * text of a WordPress customizer export (`.dat`: `{ template, mods,
+ * options }` serialized) or of the option itself, serialized.
+ */
+function settingsOf(data: unknown): Record<string, unknown> {
+  let root = typeof data === 'string' ? rec(unserialize(data.trim())) : rec(data);
+  // Customizer exports keep the theme's option among the site options.
+  if (root.options && typeof root.options === 'object' && SOURCE in rec(root.options))
+    root = rec(root.options);
+  const inner = root[SOURCE];
+  if (typeof inner === 'string') return rec(unserialize(inner) ?? JSON.parse(inner || '{}'));
+  return inner && typeof inner === 'object' ? rec(inner) : root;
+}
+
 export function importSettings(data: unknown): Record<string, unknown> | null {
-  const root = rec(data);
-  const source = root[SOURCE] && typeof root[SOURCE] === 'object' ? rec(root[SOURCE]) : root;
+  let source: Record<string, unknown>;
+  try {
+    source = settingsOf(data);
+  } catch {
+    return null;
+  }
   const options = rec(JSON.parse(rename(JSON.stringify(source))));
   const known = Object.keys(options).filter((k) => k in DEFAULTS);
   // Not settings of this kind: too few of the known options.
