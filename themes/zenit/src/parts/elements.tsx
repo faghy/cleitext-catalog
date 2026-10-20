@@ -9,6 +9,7 @@ import { ICONS, svg } from './icons.js';
 import { FlatMenuItems, MenuItems } from './menu.js';
 import { cx, type R } from './render.js';
 import { socialIcon } from './social-icons.js';
+import { elementSection, proOnly } from '../pro/elements.js';
 
 export type Device = 'desktop' | 'mobile';
 
@@ -449,7 +450,9 @@ function Account({ r }: { r: R }) {
 
 /** A header element in its wrapper. */
 export function HeaderElement({ r, id, device }: { r: R; id: string; device: Device }): ReactNode {
-  const section = SECTIONS[id] ?? '';
+  // Zenit Pro's elements show only where the plugin is active.
+  if (proOnly('header', id) && !r.o.get('zenit-pro')) return null;
+  const section = SECTIONS[id] ?? elementSection('header', id);
   const base = 'zn-builder-layout-element zn-flex site-header-focus-item';
   if (id === 'logo')
     return (
@@ -546,6 +549,7 @@ export function HeaderElement({ r, id, device }: { r: R; id: string; device: Dev
 /** Footer element wrappers. */
 export function FooterElement({ r, id }: { r: R; id: string }): ReactNode {
   const { o, page } = r;
+  if (proOnly('footer', id) && !o.get('zenit-pro')) return null;
   if (id === 'copyright') {
     const text = str(o.get('footer-copyright-editor'));
     return (

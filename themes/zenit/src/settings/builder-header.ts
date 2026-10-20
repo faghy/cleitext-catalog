@@ -554,9 +554,9 @@ function toggleButton(): Setting[] {
 }
 
 /** The header button. */
-function button(): Setting[] {
-  const s = 'section-hb-button-1';
-  const k = 'header-button1';
+export function button(n = 1): Setting[] {
+  const s = `section-hb-button-${n}`;
+  const k = `header-button${n}`;
   const textColor = { en: 'Text color', it: 'Colore del testo' };
   const bg = { en: 'Background color', it: 'Colore di sfondo' };
   const border = { en: 'Border color', it: 'Colore del bordo' };
@@ -571,7 +571,7 @@ function button(): Setting[] {
     deviceColor(`${k}-border-color`, L.normal, d(s, { group: border })),
     deviceColor(`${k}-border-h-color`, L.hover, d(s, { group: border })),
     typography(
-      'headerButton1Font',
+      `headerButton${n}Font`,
       {
         family: `${k}-font-family`,
         weight: `${k}-font-weight`,
@@ -674,18 +674,20 @@ function search(): Setting[] {
 }
 
 /** The social icons (header or footer). */
-export function social(type: 'header' | 'footer'): Setting[] {
-  const s = `section-${type === 'header' ? 'hb' : 'fb'}-social-icons-1`;
-  const k = `${type}-social-1`;
-  const kind = `${type}Social1ColorType`;
+export function social(type: 'header' | 'footer', n = 1): Setting[] {
+  const s = `section-${type === 'header' ? 'hb' : 'fb'}-social-icons-${n}`;
+  const k = `${type}-social-${n}`;
+  const kind = `${type}Social${n}ColorType`;
   const official = { field: kind, equals: 'official' };
   const custom = { field: kind, equals: 'custom' };
-  const brandHover = { all: [official, { field: `${type}Social1BrandHoverToggle`, equals: true }] };
+  const brandHover = {
+    all: [official, { field: `${type}Social${n}BrandHoverToggle`, equals: true }],
+  };
   const iconColor = { en: 'Icon color', it: 'Colore delle icone' };
   const labelColor = { en: 'Label color', it: 'Colore delle etichette' };
   const bg = { en: 'Background color', it: 'Colore di sfondo' };
   return [
-    socialIcons(`${type}-social-icons-1`, { en: 'Social icons', it: 'Icone social' }, g(s)),
+    socialIcons(`${type}-social-icons-${n}`, { en: 'Social icons', it: 'Icone social' }, g(s)),
     toggle(`${k}-label-toggle`, { en: 'Show label', it: 'Mostra le etichette' }, g(s)),
     ...(type === 'footer'
       ? [
@@ -735,7 +737,7 @@ export function social(type: 'header' | 'footer'): Setting[] {
     fontSize(
       `font-size-${s}`,
       { en: 'Label font size', it: 'Dimensione delle etichette' },
-      d(s, { showIf: { field: `${type}Social1LabelToggle`, equals: true } }),
+      d(s, { showIf: { field: `${type}Social${n}LabelToggle`, equals: true } }),
     ),
     spacing(`${s}-margin`, L.margin, d(s, { group: L.spacing }), { responsive: true }),
   ];

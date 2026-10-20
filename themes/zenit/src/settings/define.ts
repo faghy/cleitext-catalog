@@ -626,9 +626,12 @@ export function builder(
       stacked?: boolean;
     }[];
     items: BuilderItem[];
+    /** Items another plugin adds to the field (Zenit Pro), known to the layout. */
+    extraItems?: BuilderItem[];
   },
 ): Setting {
-  const byName = new Map(spec.items.map((i) => [itemName(i.id), i.id]));
+  const known = [...spec.items, ...(spec.extraItems ?? [])];
+  const byName = new Map(known.map((i) => [itemName(i.id), i.id]));
   const devices = Object.keys(spec.options) as ('desktop' | 'mobile')[];
   const onDevice = (x: { devices?: ('desktop' | 'mobile')[] }, d: 'desktop' | 'mobile') =>
     !x.devices || x.devices.includes(d);
@@ -663,7 +666,7 @@ export function builder(
         if (Array.isArray(list) && list.length) {
           zones[z.name] = list
             .map(String)
-            .filter((id) => spec.items.some((i) => i.id === id))
+            .filter((id) => known.some((i) => i.id === id))
             .map(itemName);
         }
       }

@@ -1,5 +1,6 @@
 /** The header and footer builders, their rows and their elements' settings. */
 import { builder, type BuilderItem, type Setting } from './define.js';
+import { PRO_ITEMS } from '../pro/elements.js';
 import { settled, type Section } from './define-builder.js';
 import { H, headerSettings } from './builder-header.js';
 import { F, footerSettings } from './builder-footer.js';
@@ -235,6 +236,7 @@ export function builderSettings(): Setting[] {
           },
         ],
         items: HEADER_ITEMS,
+        extraItems: PRO_ITEMS.header,
       },
     ),
     builder(
@@ -258,6 +260,7 @@ export function builderSettings(): Setting[] {
           })),
         })),
         items: FOOTER_ITEMS,
+        extraItems: PRO_ITEMS.footer,
       },
     ),
     ...headerSettings(),

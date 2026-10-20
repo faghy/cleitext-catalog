@@ -15,16 +15,17 @@ import {
   type Rules,
 } from '../../core/css.js';
 import type { Options } from '../../core/options.js';
+import { PRO_MAX } from '../../pro/elements.js';
 import { at, empty, intval, isset } from '../../core/php.js';
 import { marginPaddingCss, typographyCss, visibilityCss } from '../base.js';
 
 export type Builder = 'header' | 'footer';
 
-/** How many instances of each element the free theme has. */
-export const COUNTS = {
-  header: { button: 1, html: 2, social: 1, widget: 2 },
-  footer: { button: 0, html: 2, social: 1, widget: 4 },
-} as const;
+/**
+ * How many instances of each element there can be (Zenit Pro adds some):
+ * the CSS covers only those placed in the layout.
+ */
+export const COUNTS = PRO_MAX;
 
 /**
  * One device's value of a responsive option: `def` when it is empty (and a
