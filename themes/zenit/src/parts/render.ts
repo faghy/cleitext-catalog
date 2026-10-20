@@ -3,6 +3,7 @@ import { usePage, type PageContext } from '@cleitext/theme-sdk';
 import type { Ctx } from '../core/context.js';
 import { Options } from '../core/options.js';
 import { ENTRY_SETTINGS, SETTINGS } from '../settings/index.js';
+import { importedOptions } from '../import.js';
 import { strings, type Strings } from '../strings.js';
 
 export interface R {
@@ -62,7 +63,11 @@ export function useR(): R {
   let r = cache.get(page);
   if (!r) {
     const values = { ...(page.themeSettings ?? {}) } as Record<string, unknown>;
-    const o = new Options(SETTINGS.toOptions(values, (id) => page.media.get(id)?.url));
+    // Options of an imported site first, then what Customize sets.
+    const o = new Options({
+      ...importedOptions(values),
+      ...SETTINGS.toOptions(values, (id) => page.media.get(id)?.url),
+    });
     r = { o, c: contextOf(page, o), page, t: strings(page.locale) };
     cache.set(page, r);
   }

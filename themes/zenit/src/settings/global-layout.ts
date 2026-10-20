@@ -49,6 +49,7 @@ function surface(key: string, label: Label, place: Place): Setting {
   const base = rec(DEFAULTS[key]);
   return {
     fields: s.fields,
+    read: s.read,
     write(values, media) {
       const out = s.write(values, media);
       const v = out[key];

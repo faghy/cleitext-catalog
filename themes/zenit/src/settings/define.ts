@@ -16,6 +16,11 @@ export interface Setting {
   fields: FieldDefinition[];
   /** The options of the values set (none: the defaults stay). */
   write(values: Record<string, unknown>, media: MediaUrl): Record<string, unknown>;
+  /**
+   * The field values of some options (an imported site's): only for the
+   * options present. Settings without it keep the options as imported.
+   */
+  read?(options: Record<string, unknown>): Record<string, unknown>;
 }
 
 /** Where a field is shown. */
@@ -61,6 +66,11 @@ function single(
     write(values, media) {
       const v = values[name];
       return set(v) ? { [key]: toOption(v, media) } : {};
+    },
+    read(options) {
+      if (!(key in options)) return {};
+      const v = fromOption(options[key]);
+      return v === undefined ? {} : { [name]: v };
     },
   };
 }
@@ -380,23 +390,36 @@ export interface FontKeys {
 export function typography(name: string, keys: FontKeys, label: Label, place: Place): Setting {
   const extras = rec(keys.extras ? DEFAULTS[keys.extras] : {});
   const size = rec(keys.size ? DEFAULTS[keys.size] : {});
-  const def: Record<string, unknown> = {};
-  if (keys.family && set(DEFAULTS[keys.family]))
-    def.family = str(DEFAULTS[keys.family]).replace(/^'([^']+)'.*$/, '$1');
-  if (keys.weight && set(DEFAULTS[keys.weight])) def.weight = str(DEFAULTS[keys.weight]);
-  const sizeDef: Record<string, unknown> = {};
-  for (const d of DEVICES) {
-    if (set(size[d]) && !Number.isNaN(Number(size[d]))) sizeDef[d] = Number(size[d]);
-    if (set(size[`${d}-unit`]) && size[`${d}-unit`] !== 'px')
-      sizeDef[`${d}Unit`] = size[`${d}-unit`];
-  }
-  if (Object.keys(sizeDef).length) def.size = sizeDef;
-  if (set(extras['line-height'])) def.lineHeight = Number(extras['line-height']);
-  if (set(extras['line-height-unit'])) def.lineHeightUnit = str(extras['line-height-unit']);
-  if (set(extras['letter-spacing'])) def.letterSpacing = Number(extras['letter-spacing']);
-  if (set(extras['text-transform'])) def.transform = extras['text-transform'];
-  if (set(extras['text-decoration'])) def.decoration = extras['text-decoration'];
+  /** The field's value from options (an imported site's, or the defaults). */
+  const valueOf = (get: (key: string) => unknown) => {
+    const out: Record<string, unknown> = {};
+    const x = rec(keys.extras ? get(keys.extras) : {});
+    const z = rec(keys.size ? get(keys.size) : {});
+    if (keys.family && set(get(keys.family)))
+      out.family = str(get(keys.family)).replace(/^'([^']+)'.*$/, '$1');
+    if (keys.weight && set(get(keys.weight))) out.weight = str(get(keys.weight));
+    const sz: Record<string, unknown> = {};
+    for (const d of DEVICES) {
+      if (set(z[d]) && !Number.isNaN(Number(z[d]))) sz[d] = Number(z[d]);
+      if (set(z[`${d}-unit`]) && z[`${d}-unit`] !== 'px') sz[`${d}Unit`] = z[`${d}-unit`];
+    }
+    if (Object.keys(sz).length) out.size = sz;
+    if (set(x['line-height']) && !Number.isNaN(Number(x['line-height'])))
+      out.lineHeight = Number(x['line-height']);
+    if (set(x['line-height-unit'])) out.lineHeightUnit = str(x['line-height-unit']);
+    if (set(x['letter-spacing']) && !Number.isNaN(Number(x['letter-spacing'])))
+      out.letterSpacing = Number(x['letter-spacing']);
+    if (set(x['text-transform'])) out.transform = x['text-transform'];
+    if (set(x['text-decoration'])) out.decoration = x['text-decoration'];
+    return out;
+  };
+  const def = valueOf((k) => DEFAULTS[k]);
+  const own = [keys.family, keys.weight, keys.size, keys.extras].filter(Boolean) as string[];
   return {
+    read(options) {
+      if (!own.some((k) => k in options)) return {};
+      return { [name]: valueOf((k) => (k in options ? options[k] : DEFAULTS[k])) };
+    },
     fields: [
       {
         ...place,
@@ -464,6 +487,11 @@ export function link(key: string, label: Label, place: Place): Setting {
         default: Boolean(def.new_tab),
       } as FieldDefinition,
     ],
+    read(options) {
+      if (!(key in options)) return {};
+      const l = rec(options[key]);
+      return { [`${name}Url`]: str(l.url), [`${name}NewTab`]: Boolean(l.new_tab) };
+    },
     write(values) {
       const url = values[`${name}Url`];
       const tab = values[`${name}NewTab`];
@@ -511,6 +539,24 @@ function nonEmpty<T extends Record<string, unknown>>(v: T): T | undefined {
 export function collect(settings: Setting[]) {
   return {
     fields: settings.flatMap((s) => s.fields),
+    /** The field values of an imported site's options (settings that can read them). */
+    fromOptions(options: Record<string, unknown>) {
+      const out: Record<string, unknown> = {};
+      // Fields of settings without their own reading: an option of the same name, as it is
+      // (values the field does not accept are dropped when they are saved).
+      const byName = new Map(Object.keys(options).map((k) => [camel(k), k]));
+      for (const setting of settings) {
+        if (setting.read) {
+          Object.assign(out, setting.read(options));
+          continue;
+        }
+        for (const field of setting.fields) {
+          const key = byName.get(field.name);
+          if (key !== undefined) out[field.name] = options[key];
+        }
+      }
+      return out;
+    },
     toOptions(values: Record<string, unknown>, media: MediaUrl) {
       return Object.assign({}, ...settings.map((s) => s.write(values, media))) as Record<
         string,
@@ -604,6 +650,17 @@ export function builder(
     devices.map((d) => [d, fromLayout(DEFAULTS[spec.options[d]!], d)]),
   );
   return {
+    read(options) {
+      if (!devices.some((d) => spec.options[d]! in options)) return {};
+      return {
+        [name]: Object.fromEntries(
+          devices.map((d) => [
+            d,
+            fromLayout(options[spec.options[d]!] ?? DEFAULTS[spec.options[d]!], d),
+          ]),
+        ),
+      };
+    },
     fields: [
       {
         ...place,
@@ -661,6 +718,16 @@ export function palette(place: Place): Setting {
         default: colors.map((color, i) => ({ name: NAMES[i]?.en ?? `Color ${i + 1}`, color })),
       } as FieldDefinition,
     ],
+    read(options) {
+      const list = at(options['global-color-palette'], 'palette');
+      if (!Array.isArray(list)) return {};
+      return {
+        [PALETTE.field]: list.map((color, n) => ({
+          name: NAMES[n]?.en ?? `Color ${n + 1}`,
+          color: str(color),
+        })),
+      };
+    },
     write(values) {
       const list = values[PALETTE.field];
       if (!Array.isArray(list)) return {};
@@ -681,4 +748,9 @@ export function image(key: string, label: Label, place: Place): Setting {
       return { [key]: media(str(id)) ?? '', [`${key}-id`]: id };
     },
   };
+}
+
+/** CSS written by the site owner. */
+export function code(key: string, label: Label, place: Place): Setting {
+  return single(key, { type: 'code', label, language: 'css' }, place, same, defined);
 }

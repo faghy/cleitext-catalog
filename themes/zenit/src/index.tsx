@@ -18,6 +18,7 @@ import { Footer, ScrollTop } from './parts/footer.js';
 import { Header, MobilePopup } from './parts/header.js';
 import { Index } from './parts/templates.js';
 import { cx, useR, type R } from './parts/render.js';
+import { importSettings } from './import.js';
 import { SCRIPT } from './script.js';
 import { HEADER_PRESETS } from './settings/builder.js';
 import { ENTRY_SETTINGS, SECTIONS, SETTINGS } from './settings/index.js';
@@ -179,6 +180,7 @@ export const theme = defineTheme({
   templates: { index: Index },
   comments: 'manual',
   listTerms: true,
+  importSettings,
   adjacentEntries: true,
   Layout,
   css: '',

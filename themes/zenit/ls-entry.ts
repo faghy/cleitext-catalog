@@ -1,0 +1,1 @@
+export { SECTIONS, SETTINGS } from '/home/faghy/Progetti/Claude-project/CMS/cleitext-catalog/themes/zenit/src/settings/index.ts';

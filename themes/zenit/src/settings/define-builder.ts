@@ -494,6 +494,7 @@ export function settled(setting: Setting): Setting {
   );
   return {
     fields,
+    read: setting.read,
     write(values, media) {
       const own = { ...values };
       for (const [name, def] of defaults)

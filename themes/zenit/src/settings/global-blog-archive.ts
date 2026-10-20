@@ -53,6 +53,7 @@ function withDefault(setting: Setting, def: unknown): Setting {
   const name = field!.name;
   return {
     fields: [{ ...field, default: def } as FieldDefinition, ...rest],
+    read: setting.read,
     write(values, media) {
       if (JSON.stringify(values[name]) === JSON.stringify(def)) return {};
       return setting.write(values, media);
@@ -64,6 +65,7 @@ function withDefault(setting: Setting, def: unknown): Setting {
 function dropEmpty(setting: Setting): Setting {
   return {
     fields: setting.fields,
+    read: setting.read,
     write(values, media) {
       const out = setting.write(values, media);
       return Object.fromEntries(
@@ -90,6 +92,7 @@ const spacingShape = (u: string) => ({
 function fill(setting: Setting, shapes: Record<string, Record<string, unknown>>): Setting {
   return {
     fields: setting.fields,
+    read: setting.read,
     write(values, media) {
       const out = setting.write(values, media);
       for (const [k, shape] of Object.entries(shapes)) {

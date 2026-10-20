@@ -94,6 +94,7 @@ function withFallback(s: Setting, fallbacks: Record<string, unknown>, ui?: unkno
   });
   return {
     fields,
+    read: s.read,
     write(values, media) {
       const out = s.write(values, media);
       for (const [k, fb] of Object.entries(fallbacks)) {
