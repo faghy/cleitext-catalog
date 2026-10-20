@@ -179,6 +179,21 @@ mark {
   align-items: center;
   gap: 1.25rem;
 }
+/* Blocks of the site in the header (Appearance → Areas), e.g. a shop's cart and search. */
+.cv-header-area {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+.cv-header-area > * {
+  margin: 0;
+}
+@media (max-width: 600px) {
+  /* Phones: the cart stays, a search box would crowd the bar. */
+  .cv-header-area .shop-search {
+    display: none;
+  }
+}
 .cv-nav ul {
   list-style: none;
   margin: 0;

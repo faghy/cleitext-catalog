@@ -130,6 +130,8 @@ function Layout({ head, css, children }: LayoutProps) {
                 )}
                 {languages}
               </div>
+              {/* Blocks of the site in the header (Appearance → Areas), e.g. a shop's cart and search. */}
+              <BlockArea name="header" className="cv-header-area" />
               {(primary.length > 0 || languages) && (
                 <details className="cv-menu cv-mobile">
                   <summary>
@@ -385,7 +387,7 @@ export const theme = defineTheme({
       maxLength: 200,
     },
   ],
-  areas: { footer: 'Footer' },
+  areas: { header: 'Header (right side)', footer: 'Footer' },
   templates: { index: Index },
   Layout,
   css: themeCss,

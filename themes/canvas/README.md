@@ -5,6 +5,10 @@ Pages are stacks of full-width **sections** made of normal blocks; the look come
 (block sidebar → *Advanced* → *Additional CSS class*). Editors usually insert ready sections from
 **Patterns** (*Canvas · …*) and only change texts and images.
 
+## Areas
+
+**Appearance → Areas** has two block areas: **Header (right side)**, next to the menu and still visible on phones beside the menu button (shops put Cleishop's **Cart link** and **Product search** there; the search box hides on phones), and **Footer**.
+
 ## Classes
 
 | Class | On | Effect |
