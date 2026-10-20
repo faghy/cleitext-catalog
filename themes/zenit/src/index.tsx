@@ -1,4 +1,11 @@
-import { defineTheme, HeadTags, Location, type LayoutProps } from '@cleitext/theme-sdk';
+import {
+  defineTheme,
+  googleFonts,
+  HeadTags,
+  Location,
+  type LayoutProps,
+} from '@cleitext/theme-sdk';
+import { setGoogleFonts } from './settings/font-source.js';
 import {
   applyBoxedLayouts,
   contentLayout,
@@ -158,6 +165,8 @@ function Layout({ head, children }: LayoutProps) {
     </html>
   );
 }
+
+setGoogleFonts(googleFonts);
 
 export const theme = defineTheme({
   slug: 'zenit',

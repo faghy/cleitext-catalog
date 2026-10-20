@@ -5,7 +5,7 @@
  * A field's name is its option's key in camelCase.
  */
 import type { FieldCondition, FieldDefinition, Label } from '@cleitext/shared';
-import { googleFonts } from '@cleitext/theme-sdk';
+import { googleFonts } from './font-source.js';
 import { DEFAULTS } from '../core/defaults.js';
 import { at, rec, str } from '../core/php.js';
 
