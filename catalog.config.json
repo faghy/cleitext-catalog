@@ -224,6 +224,23 @@
     },
     {
       "type": "plugin",
+      "slug": "kross-booking",
+      "name": "Kross Booking",
+      "summary": {
+        "en": "The Kross Booking widget on your pages: a block for rooms and availability in every language, loaded only where it is shown, and the [kross-booking] shortcodes of WordPress sites converted on import.",
+        "it": "Il widget di Kross Booking nelle tue pagine: un blocco per camere e disponibilità in ogni lingua, caricato solo dove serve, e gli shortcode [kross-booking] dei siti WordPress convertiti all'importazione."
+      },
+      "tags": [
+        "booking",
+        "hotel",
+        "widget"
+      ],
+      "category": "tools",
+      "requires": ">=0.48.0",
+      "icon": "assets/kross-booking.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "edge-cache",
       "name": "Edge cache",
       "summary": {
