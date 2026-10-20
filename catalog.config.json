@@ -208,6 +208,22 @@
     },
     {
       "type": "plugin",
+      "slug": "maintenance",
+      "name": "Maintenance",
+      "summary": {
+        "en": "A maintenance or coming-soon page for visitors, whatever the theme: logo, message in every language, return date and contact. Signed-in users still see the site.",
+        "it": "Una pagina di manutenzione o «prossimamente» per i visitatori, con qualsiasi tema: logo, messaggio in ogni lingua, data di ritorno e contatto. Chi ha fatto l'accesso vede il sito."
+      },
+      "tags": [
+        "maintenance",
+        "coming soon"
+      ],
+      "category": "tools",
+      "requires": ">=0.47.0",
+      "icon": "assets/maintenance.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "edge-cache",
       "name": "Edge cache",
       "summary": {
