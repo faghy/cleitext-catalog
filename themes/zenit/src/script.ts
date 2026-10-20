@@ -138,6 +138,92 @@ export const SCRIPT = `(function () {
     top.addEventListener('keydown', function (e) { if (e.key === 'Enter') go(); });
   }
 
+  // Sticky header (Zenit Pro): the chosen rows stay at the top once the page passes them.
+  var mh = doc.getElementById('masthead');
+  if (mh && mh.getAttribute('data-sticky-rows')) {
+    var names = mh.getAttribute('data-sticky-rows').split(' ');
+    var stickOn = mh.getAttribute('data-sticky-devices');
+    var hideOnDown = mh.hasAttribute('data-sticky-hide');
+    var stuck = false, hidden = false, lastY = window.pageYOffset, bars = [], start = 0;
+    var mobileNow = function () { return body.classList.contains('zn-header-break-point'); };
+    var wanted = function () { return stickOn === 'both' || (stickOn === 'mobile') === mobileNow(); };
+    var barsNow = function () {
+      var root = doc.getElementById(mobileNow() ? 'zn-mobile-header' : 'zn-desktop-header');
+      if (!root) return [];
+      return names.map(function (n) {
+        var wrap = root.querySelector('.zn-' + (n === 'primary' ? 'main' : n) + '-header-wrap');
+        return wrap && { wrap: wrap, bar: wrap.firstElementChild };
+      }).filter(function (b) { return b && b.bar; });
+    };
+    var adminBar = function () { var a = doc.getElementById('cleitext-admin-bar'); return a ? a.offsetHeight : 0; };
+    var unstick = function () {
+      bars.forEach(function (b) { b.wrap.style.minHeight = ''; b.bar.classList.remove('zn-sticky-bar'); b.bar.style.top = ''; });
+      mh.classList.remove('zn-header-sticked', 'zn-sticky-hidden');
+      mh.removeAttribute('data-sticky-height');
+      stuck = hidden = false;
+    };
+    var stick = function () {
+      var top = adminBar();
+      bars.forEach(function (b) {
+        b.wrap.style.minHeight = b.wrap.offsetHeight + 'px';
+        b.bar.classList.add('zn-sticky-bar');
+        b.bar.style.top = top + 'px';
+        top += b.bar.offsetHeight;
+      });
+      mh.classList.add('zn-header-sticked');
+      mh.setAttribute('data-sticky-height', String(top));
+      mh.style.setProperty('--zn-sticky-height', top + 'px');
+      stuck = true;
+    };
+    var measure = function () {
+      if (stuck) unstick();
+      bars = wanted() ? barsNow() : [];
+      start = bars.length ? bars[0].wrap.getBoundingClientRect().top + window.pageYOffset - adminBar() : 0;
+      onScroll();
+    };
+    var onScroll = function () {
+      var y = window.pageYOffset;
+      if (!bars.length) return;
+      if (y > start && !stuck) stick();
+      else if (y <= start && stuck) unstick();
+      if (stuck && hideOnDown) {
+        var down = y > lastY && y > start + 200;
+        if (down !== hidden) { hidden = down; mh.classList.toggle('zn-sticky-hidden', down); }
+      }
+      lastY = y;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', measure);
+    measure();
+  }
+
+  // Load more (Zenit Pro): the next page's posts are added to the list.
+  var more = doc.querySelector('.zn-load-more');
+  if (more && window.fetch && window.DOMParser) {
+    var list = doc.querySelector('#main .zn-row');
+    var busy = false;
+    var load = function () {
+      var next = more.getAttribute('data-next');
+      if (busy || !next || !list) return;
+      busy = true;
+      more.classList.add('zn-loading');
+      fetch(next, { credentials: 'same-origin' }).then(function (res) { return res.text(); }).then(function (html) {
+        var page = new DOMParser().parseFromString(html, 'text/html');
+        $$('#main .zn-row > article', page).forEach(function (a) { list.appendChild(doc.importNode(a, true)); });
+        var nextMore = page.querySelector('.zn-load-more');
+        var url = nextMore && nextMore.getAttribute('data-next');
+        if (url) { more.setAttribute('data-next', url); more.firstElementChild.setAttribute('href', url); }
+        else more.parentNode.removeChild(more);
+        busy = false;
+        more.classList.remove('zn-loading');
+      }).catch(function () { busy = false; more.classList.remove('zn-loading'); });
+    };
+    more.addEventListener('click', function (e) { if (e.target.closest('a')) { e.preventDefault(); load(); } });
+    if (more.getAttribute('data-event') === 'scroll' && window.IntersectionObserver) {
+      new IntersectionObserver(function (seen) { if (seen[0].isIntersecting) load(); }, { rootMargin: '400px' }).observe(more);
+    }
+  }
+
   // Smooth scrolling to the sections of a page.
   doc.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href^="#"]');
@@ -147,7 +233,7 @@ export const SCRIPT = `(function () {
     e.preventDefault();
     var offset = 0;
     var sticky = doc.querySelector('.zn-header-sticked');
-    if (sticky) offset = sticky.offsetHeight;
+    if (sticky) offset = Number(sticky.getAttribute('data-sticky-height')) || sticky.offsetHeight;
     window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - offset, behavior: 'smooth' });
     history.pushState(null, '', a.getAttribute('href'));
   });

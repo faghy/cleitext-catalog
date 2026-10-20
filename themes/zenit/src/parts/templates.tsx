@@ -13,6 +13,7 @@ import {
 } from '@cleitext/theme-sdk';
 import { Fragment, type ReactNode } from 'react';
 import { blogLayout, isSingle, meta } from '../core/context.js';
+import { blogColumns, dateBox, firstPostFull, infiniteLoad, isMasonry } from '../pro/blog.js';
 import { str } from '../core/php.js';
 import { Breadcrumbs, breadcrumbPosition } from './breadcrumbs.js';
 import { ICONS, svg } from './icons.js';
@@ -41,7 +42,12 @@ function Primary({
   const primary = (
     <div
       id="primary"
-      className={cx('content-area primary', grid && layout && `zn-grid-3 zn-${layout}-grid`)}
+      className={cx(
+        'content-area primary',
+        grid && layout && `zn-grid-${blogColumns(r.o)} zn-${layout}-grid`,
+        grid && isMasonry(r.o) && 'zn-blog-masonry',
+        grid && firstPostFull(r.o) && 'zn-first-post-full',
+      )}
     >
       {breadcrumbPosition(r) === 'before-title' && <Breadcrumbs r={r} />}
       {before}
@@ -479,6 +485,7 @@ function ListedPost({ r, entry, index }: { r: R; entry: PublicEntrySummary; inde
   const structure = o.get<string[]>('blog-post-structure');
   const metaItems = o.get<string[]>('blog-meta');
   const layout = blogLayout(o, r.c);
+  const box = dateBox(o);
   return (
     <article
       className={`post-${slugId(entry.id)} post type-post status-publish format-standard hentry zn-grid-common-col zn-full-width zn-article-post remove-featured-img-padding`}
@@ -504,6 +511,9 @@ function ListedPost({ r, entry, index }: { r: R; entry: PublicEntrySummary; inde
                 >
                   {entry.image && (
                     <div className="post-thumb-img-content post-thumb">
+                      {box && entry.publishedAt && (
+                        <DateBox r={r} date={entry.publishedAt} style={box} />
+                      )}
                       <a href={entry.url}>
                         <Image
                           media={entry.image}
@@ -588,6 +598,20 @@ function ListedPost({ r, entry, index }: { r: R; entry: PublicEntrySummary; inde
   );
 }
 
+/** Zenit Pro: day and month over the featured image. */
+function DateBox({ r, date, style }: { r: R; date: string; style: string }) {
+  const part = (options: Intl.DateTimeFormatOptions) =>
+    new Intl.DateTimeFormat(r.page.locale, { ...options, timeZone: r.page.site.timezone }).format(
+      new Date(date),
+    );
+  return (
+    <time className={`zn-date-box zn-date-box-${style}`} dateTime={date}>
+      <span className="zn-date-box-day">{part({ day: 'numeric' })}</span>
+      <span className="zn-date-box-month">{part({ month: 'short' })}</span>
+    </time>
+  );
+}
+
 /** The first words of an excerpt, with the marker when shortened. */
 function excerpt(text: string, words: number, marker: string): string {
   const list = text.split(/\s+/);
@@ -614,6 +638,16 @@ function Pages({
   pagination: { page: number; totalPages: number; prevUrl: string | null; nextUrl: string | null };
 }) {
   if (pagination.totalPages <= 1) return null;
+  // Zenit Pro: the next posts are added below the list.
+  const more = infiniteLoad(r.o);
+  if (more)
+    return pagination.nextUrl ? (
+      <div className="zn-pagination zn-load-more" data-event={more} data-next={pagination.nextUrl}>
+        <a className="zn-load-more-button" href={pagination.nextUrl}>
+          {str(r.o.get('blog-load-more-text')) || r.t.loadMore}
+        </a>
+      </div>
+    ) : null;
   return (
     <div className="zn-pagination">
       <nav className="navigation pagination" aria-label={r.t.pagination}>

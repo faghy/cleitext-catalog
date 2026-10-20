@@ -76,6 +76,10 @@ function SiteIdentity({ r, device }: { r: R; device: Device }) {
   const logo = page.media.get(mobileLogoId || logoId);
   const retinaId = o.get('different-retina-logo') ? str(o.get('zn-header-retina-logo-id')) : '';
   const retina = retinaId ? page.media.get(retinaId) : undefined;
+  // Zenit Pro: another logo while the header sticks.
+  const stickyLogo = o.get('different-sticky-logo')
+    ? page.media.get(str(o.get('sticky-header-logo-id')))
+    : undefined;
   return (
     <div
       className="site-branding zn-site-identity"
@@ -94,6 +98,16 @@ function SiteIdentity({ r, device }: { r: R; device: Device }) {
               decoding="async"
               srcSet={retina ? `${logo.url} 1x, ${retina.url} 2x` : undefined}
             />
+            {stickyLogo && (
+              <img
+                width={stickyLogo.width ?? undefined}
+                height={stickyLogo.height ?? undefined}
+                src={stickyLogo.url}
+                className="custom-logo zn-sticky-logo"
+                alt={stickyLogo.alt || page.site.title}
+                decoding="async"
+              />
+            )}
           </a>
         </span>
       )}

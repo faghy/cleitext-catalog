@@ -2658,3 +2658,112 @@ input[type="color"]::-webkit-color-swatch {
     font-size: 1.875rem;
   }
 }
+/* Sticky header (Zenit Pro). */
+.zn-sticky-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  transition: transform 0.3s ease;
+}
+.zn-header-sticked .zn-sticky-bar {
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+}
+.zn-header-sticked[data-sticky-style='slide'] .zn-sticky-bar {
+  animation: zn-sticky-slide 0.3s ease;
+}
+.zn-header-sticked[data-sticky-style='fade'] .zn-sticky-bar {
+  animation: zn-sticky-fade 0.3s ease;
+}
+@keyframes zn-sticky-slide {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes zn-sticky-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.zn-sticky-hidden .zn-sticky-bar {
+  transform: translateY(calc(-1 * var(--zn-sticky-height, 100%)));
+}
+.zn-header-sticked[data-sticky-shrink] .main-header-bar .site-primary-header-wrap,
+.zn-header-sticked[data-sticky-shrink] .main-header-bar.site-primary-header-wrap {
+  min-height: 0;
+}
+.zn-header-sticked[data-sticky-shrink] .main-header-bar .custom-logo-link img {
+  max-height: 50px;
+  width: auto;
+}
+.custom-logo-link .zn-sticky-logo,
+.zn-header-sticked .custom-logo-link:has(.zn-sticky-logo) .custom-logo:not(.zn-sticky-logo) {
+  display: none;
+}
+.zn-header-sticked .custom-logo-link .zn-sticky-logo {
+  display: inline-block;
+}
+@media (prefers-reduced-motion: reduce) {
+  .zn-sticky-bar {
+    transition: none;
+    animation: none !important;
+  }
+}
+/* Blog (Zenit Pro): date box and "load more". */
+.post-thumb-img-content {
+  position: relative;
+}
+.zn-date-box {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.5em;
+  height: 3.5em;
+  padding: 0.25em;
+  background: var(--zn-global-color-0);
+  color: #ffffff;
+  line-height: 1.1;
+  text-align: center;
+}
+.zn-date-box-circle {
+  border-radius: 50%;
+}
+.zn-date-box-day {
+  font-size: 1.25em;
+  font-weight: 700;
+}
+.zn-date-box-month {
+  font-size: 0.75em;
+  text-transform: uppercase;
+}
+.zn-load-more {
+  text-align: center;
+  margin: 1em 0 2em;
+}
+.zn-load-more-button {
+  display: inline-block;
+  padding: 0.75em 2em;
+  border: 1px solid var(--zn-global-color-0);
+  color: var(--zn-global-color-0);
+  text-decoration: none;
+}
+.zn-load-more-button:hover,
+.zn-load-more-button:focus {
+  background: var(--zn-global-color-0);
+  color: #ffffff;
+}
+.zn-loading .zn-load-more-button {
+  opacity: 0.6;
+  pointer-events: none;
+}

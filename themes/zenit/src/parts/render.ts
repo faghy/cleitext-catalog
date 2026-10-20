@@ -4,6 +4,7 @@ import type { Ctx } from '../core/context.js';
 import { Options } from '../core/options.js';
 import { ENTRY_SETTINGS, SETTINGS } from '../settings/index.js';
 import { importedOptions } from '../import.js';
+import { PRO } from '../pro/index.js';
 import { strings, type Strings } from '../strings.js';
 
 export interface R {
@@ -67,6 +68,8 @@ export function useR(): R {
     const o = new Options({
       ...importedOptions(values),
       ...SETTINGS.toOptions(values, (id) => page.media.get(id)?.url),
+      // Zenit Pro's fields: values only where the plugin is active.
+      ...PRO.toOptions(values, (id) => page.media.get(id)?.url),
     });
     r = { o, c: contextOf(page, o), page, t: strings(page.locale) };
     cache.set(page, r);

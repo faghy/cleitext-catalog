@@ -9,6 +9,27 @@ import { rec, str } from '../core/php.js';
 import { HeaderElement, type Device } from './elements.js';
 import { ICONS, svg } from './icons.js';
 import { cx, type R } from './render.js';
+import { hasSticky } from '../pro/sticky-css.js';
+
+/** The sticky header's choices, read by the page script (Zenit Pro). */
+function stickyData(r: R): Record<string, string> {
+  const { o } = r;
+  if (!hasSticky(o)) return {};
+  const stick = (k: string) => Boolean(Number(o.get(k, 0)));
+  return {
+    'data-sticky-rows': [
+      stick('header-above-stick') && 'above',
+      stick('header-main-stick') && 'primary',
+      stick('header-below-stick') && 'below',
+    ]
+      .filter(Boolean)
+      .join(' '),
+    'data-sticky-devices': str(o.get('sticky-header-on-devices', 'desktop')) || 'desktop',
+    'data-sticky-style': str(o.get('sticky-header-style', 'none')) || 'none',
+    ...(stick('sticky-hide-on-scroll') ? { 'data-sticky-hide': '' } : {}),
+    ...(stick('header-main-shrink') ? { 'data-sticky-shrink': '' } : {}),
+  };
+}
 
 type Layout = Record<string, Record<string, string[]>>;
 
@@ -198,6 +219,7 @@ export function Header({ r }: { r: R }) {
       itemType="https://schema.org/WPHeader"
       itemScope
       itemID="#masthead"
+      {...stickyData(r)}
     >
       <div id="zn-desktop-header" data-toggle-type={dropdown ? 'dropdown' : 'off-canvas'}>
         {['above', 'primary', 'below'].map((row) => (

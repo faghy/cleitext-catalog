@@ -12,6 +12,7 @@ import { sidebarLayout } from './css/lib/main.js';
 import { rec } from './core/php.js';
 import { dynamicCss } from './css/index.js';
 import { STATIC_CSS } from './css/static.js';
+import { proCss } from './pro/index.js';
 import { fontsUrl } from './fonts.js';
 import { Breadcrumbs, breadcrumbPosition } from './parts/breadcrumbs.js';
 import { Footer, ScrollTop } from './parts/footer.js';
@@ -117,7 +118,10 @@ function Layout({ head, children }: LayoutProps) {
           </>
         )}
         <style id="zenit-css" dangerouslySetInnerHTML={{ __html: STATIC_CSS }} />
-        <style id="zenit-dynamic-css" dangerouslySetInnerHTML={{ __html: dynamicCss(o, c) }} />
+        <style
+          id="zenit-dynamic-css"
+          dangerouslySetInnerHTML={{ __html: dynamicCss(o, c) + proCss(o, c) }}
+        />
         <HeadTags tags={head.tags} />
       </head>
       <body
