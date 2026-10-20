@@ -340,6 +340,38 @@
       ]
     },
     {
+      "type": "plugin",
+      "slug": "zenit-pro",
+      "name": "Zenit Pro",
+      "summary": {
+        "en": "Everything for Zenit: sticky header, mega menu, site builder (header, footer, hooks, single, archive, 404 with display conditions), more header and footer elements, blog layouts with masonry and load more. Paid: €59 a year or €199 lifetime.",
+        "it": "Tutto per Zenit: intestazione fissa, mega menu, site builder (intestazione, piè di pagina, hook, singoli, archivi e 404 con condizioni), più elementi per intestazione e piè di pagina, layout del blog con masonry e «carica altri». A pagamento: 59 € l'anno o 199 € a vita."
+      },
+      "tags": [
+        "theme",
+        "header",
+        "mega menu",
+        "site builder"
+      ],
+      "category": "editor",
+      "source": "private",
+      "requires": ">=0.46.0",
+      "paid": {
+        "price": {
+          "amount": 59,
+          "currency": "EUR",
+          "per": "site"
+        },
+        "updatesMonths": 12,
+        "purchaseUrl": "https://cleitext.com/themes/zenit#pro",
+        "licenseServer": "https://cleitext.com/api/v1/ext/store/v1"
+      },
+      "icon": "assets/zenit-pro.svg",
+      "screenshots": [
+        "assets/zenit-pro.png"
+      ]
+    },
+    {
       "type": "theme",
       "slug": "canvas",
       "name": "Canvas",
@@ -405,6 +437,26 @@
       "icon": "assets/vitality.svg",
       "screenshots": [
         "assets/vitality.png"
+      ]
+    },
+    {
+      "type": "theme",
+      "slug": "zenit",
+      "name": "Zenit",
+      "summary": {
+        "en": "A fast multipurpose theme: drag-and-drop header and footer builder, global colors and fonts, container and sidebar layouts, blog layouts and a live Customize with presets. Imports the settings of sites made with Astra.",
+        "it": "Un tema multiuso e veloce: costruttore di intestazione e piè di pagina a trascinamento, colori e caratteri globali, layout del contenitore e della barra laterale, layout del blog e Personalizza dal vivo con stili pronti. Importa le impostazioni dei siti fatti con Astra."
+      },
+      "tags": [
+        "multipurpose",
+        "header builder",
+        "blog",
+        "business"
+      ],
+      "requires": ">=0.46.0",
+      "icon": "assets/zenit.svg",
+      "screenshots": [
+        "assets/zenit.png"
       ]
     }
   ]
