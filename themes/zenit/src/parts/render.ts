@@ -21,6 +21,30 @@ export const cx = (...names: (string | false | null | undefined)[]) =>
 /** Content types as the options name them. */
 const postType = (type: string | undefined) => (!type || type === 'article' ? 'post' : type);
 
+/**
+ * The page's own options implied by the layout a page builder chose for it
+ * (`editor.data.layout`, as Fresco sets it): a full-width page fills the
+ * window with no sidebar, a canvas page shows only its content (no header,
+ * footer or title area), like Astra does for page-builder pages. The page's
+ * own Zenit options still win.
+ */
+function builderLayout(layout: unknown): Record<string, unknown> {
+  if (layout !== 'full' && layout !== 'canvas') return {};
+  const full = {
+    'zn-site-content-layout': 'full-width-container',
+    'site-content-style': 'unboxed',
+    'site-sidebar-layout': 'no-sidebar',
+  };
+  if (layout === 'full') return full;
+  return {
+    ...full,
+    'zn-global-header-display': 'disabled',
+    'footer-sml-layout': 'disabled',
+    'site-post-title': 'disabled',
+    'zn-banner-title-visibility': 'disabled',
+  };
+}
+
 /** The page as the layout rules see it. */
 export function contextOf(page: PageContext, o: Options): Ctx {
   const view = page.view;
@@ -33,7 +57,10 @@ export function contextOf(page: PageContext, o: Options): Ctx {
       view: 'single',
       postType: postType(view.entry.type),
       isFrontPage: view.isFrontPage,
-      meta: ENTRY_SETTINGS.toOptions(data, (id) => page.media.get(id)?.url),
+      meta: {
+        ...builderLayout(data.layout),
+        ...ENTRY_SETTINGS.toOptions(data, (id) => page.media.get(id)?.url),
+      },
       comments: Boolean(
         view.entry.comments && (view.entry.comments.open || view.entry.comments.count > 0),
       ),

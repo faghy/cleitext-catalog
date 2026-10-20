@@ -64,7 +64,8 @@ const NO_SIDEBAR_NESTED = [
   .join(', ');
 
 const LAYOUT = '.entry-content[data-zn-blocks-layout]';
-const ROOT = ':where(:not(.pr-is-root):not(.pr-is-root))';
+// Page builders' top elements (Prisma, Fresco) keep their own inner widths.
+const ROOT = ':where(:not(.pr-is-root):not(.pr-is-root):not(.fr-e))';
 
 export const part: Part = {
   name: 'load_modern_block_editor_ui',
@@ -147,7 +148,7 @@ export const part: Part = {
         `.zn-page-builder-template ${LAYOUT} > *:not(.wp-block-group)${ROOT} > *, ` +
         `${LAYOUT} > .wp-block-cover .wp-block-cover__inner-container{max-width: none;margin-left: auto;margin-right: auto}` +
         `.zn-page-builder-template ${LAYOUT} > *, .zn-page-builder-template ${LAYOUT} > .alignfull` +
-        ':where(:not(.wp-block-group):not(.pr-is-root):not(.pr-is-root)) > *{max-width: none}' +
+        ':where(:not(.wp-block-group):not(.pr-is-root):not(.pr-is-root):not(.fr-e)) > *{max-width: none}' +
         `${LAYOUT} .wp-block-cover:not(.alignleft):not(.alignright){width: auto}` +
         '@media(max-width: 1200px){.zn-separate-container .entry-content > .alignfull, ' +
         `.zn-separate-container ${LAYOUT} > .alignwide, .zn-plain-container ${LAYOUT} > .alignwide, ` +
