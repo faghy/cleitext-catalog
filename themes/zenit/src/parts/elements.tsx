@@ -25,6 +25,7 @@ export const SECTIONS: Record<string, string> = {
   search: 'section-header-search',
   'social-icons-1': 'section-hb-social-icons-1',
   account: 'section-header-account',
+  'woo-cart': 'section-header-woo-cart',
   'widget-1': 'sidebar-widgets-header-widget-1',
   'widget-2': 'sidebar-widgets-header-widget-2',
 };
@@ -501,6 +502,14 @@ export function HeaderElement({ r, id, device }: { r: R; id: string; device: Dev
         {...pencil(section)}
       >
         <Account r={r} />
+      </div>
+    );
+  if (id === 'woo-cart')
+    return (
+      <div className={`${base} zn-header-woo-cart`} {...pencil(section)}>
+        <div className="zn-site-header-cart zn-menu-cart-with-border">
+          <BlockArea name="header-cart" />
+        </div>
       </div>
     );
   const widget = /^widget-(\d+)$/.exec(id);

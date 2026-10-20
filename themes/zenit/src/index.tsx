@@ -172,10 +172,18 @@ export const theme = defineTheme({
     'sidebar-1': 'Sidebar',
     'header-widget-1': 'Header widget 1',
     'header-widget-2': 'Header widget 2',
+    'header-cart': 'Header cart',
     'footer-widget-1': 'Footer widget 1',
     'footer-widget-2': 'Footer widget 2',
     'footer-widget-3': 'Footer widget 3',
     'footer-widget-4': 'Footer widget 4',
+  },
+  // The shop's cart link, shown when the shop plugin is active.
+  areaDefaults: {
+    'header-cart': {
+      schema: 1,
+      blocks: [{ id: 'zn-cart', type: 'shop/cart-link', v: 1, attrs: {} }],
+    },
   },
   templates: { index: Index },
   comments: 'manual',

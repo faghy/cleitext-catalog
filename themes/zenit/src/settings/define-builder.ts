@@ -14,6 +14,7 @@ export type Section = {
   label: { en: string; it: string };
   parent?: string;
   tabs?: true;
+  description?: { en: string; it: string };
 };
 
 const DEVICES = ['desktop', 'tablet', 'mobile'] as const;

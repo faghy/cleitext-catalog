@@ -54,8 +54,33 @@ export const BUILDER_SECTIONS: Section[] = [
   { id: 'section-header-search', label: { en: 'Search', it: 'Ricerca' }, parent: H, tabs: true },
   { id: 'section-hb-social-icons-1', label: { en: 'Social', it: 'Social' }, parent: H, tabs: true },
   { id: 'section-header-account', label: { en: 'Account', it: 'Account' }, parent: H, tabs: true },
-  { id: 'sidebar-widgets-header-widget-1', label: { en: 'Widget 1', it: 'Widget 1' }, parent: H },
-  { id: 'sidebar-widgets-header-widget-2', label: { en: 'Widget 2', it: 'Widget 2' }, parent: H },
+  {
+    id: 'section-header-woo-cart',
+    label: { en: 'Cart', it: 'Carrello' },
+    parent: H,
+    description: {
+      en: 'Shows the shop’s cart when the Shop plugin is active. Change its content in Appearance → Areas → Header cart.',
+      it: 'Mostra il carrello del negozio quando il plugin Negozio è attivo. Il contenuto si cambia in Aspetto → Aree → Header cart.',
+    },
+  },
+  {
+    id: 'sidebar-widgets-header-widget-1',
+    label: { en: 'Widget 1', it: 'Widget 1' },
+    parent: H,
+    description: {
+      en: 'Its blocks are written in Appearance → Areas → Header widget 1.',
+      it: 'I suoi blocchi si scrivono in Aspetto → Aree → Header widget 1.',
+    },
+  },
+  {
+    id: 'sidebar-widgets-header-widget-2',
+    label: { en: 'Widget 2', it: 'Widget 2' },
+    parent: H,
+    description: {
+      en: 'Its blocks are written in Appearance → Areas → Header widget 2.',
+      it: 'I suoi blocchi si scrivono in Aspetto → Aree → Header widget 2.',
+    },
+  },
   {
     id: 'section-header-mobile-trigger',
     label: { en: 'Toggle button', it: 'Pulsante menu' },
@@ -106,6 +131,10 @@ export const BUILDER_SECTIONS: Section[] = [
     id: `sidebar-widgets-footer-widget-${n}`,
     label: { en: `Widget ${n}`, it: `Widget ${n}` },
     parent: F,
+    description: {
+      en: `Its blocks are written in Appearance → Areas → Footer widget ${n}.`,
+      it: `I suoi blocchi si scrivono in Aspetto → Aree → Footer widget ${n}.`,
+    },
   })),
 ];
 
@@ -127,6 +156,7 @@ const HEADER_ITEMS: BuilderItem[] = [
   { id: 'search', label: { en: 'Search', it: 'Ricerca' }, section: 'section-header-search' },
   { id: 'social-icons-1', label: 'Social', section: 'section-hb-social-icons-1' },
   { id: 'account', label: 'Account', section: 'section-header-account' },
+  { id: 'woo-cart', label: { en: 'Cart', it: 'Carrello' }, section: 'section-header-woo-cart' },
   { id: 'widget-1', label: 'Widget 1', section: 'sidebar-widgets-header-widget-1' },
   { id: 'widget-2', label: 'Widget 2', section: 'sidebar-widgets-header-widget-2' },
   {
