@@ -136,14 +136,17 @@ function Layout({ head, children }: LayoutProps) {
         itemType={isSingular(c) ? 'https://schema.org/WebPage' : 'https://schema.org/Blog'}
         itemScope
       >
+        <Location name="hook:zenit_body_top" />
         <script dangerouslySetInnerHTML={{ __html: BREAKPOINT_SCRIPT }} />
         <a className="skip-link screen-reader-text" href="#content">
           {r.t.skip}
         </a>
         <div className="hfeed site" id="page">
+          <Location name="hook:zenit_header_before" />
           <Location name="header">
             <Header r={r} />
           </Location>
+          <Location name="hook:zenit_header_after" />
           {crumbs === 'after-header' && (
             <div className="main-header-bar zn-header-breadcrumb">
               <div className="zn-container">
@@ -151,13 +154,22 @@ function Layout({ head, children }: LayoutProps) {
               </div>
             </div>
           )}
+          <Location name="hook:zenit_content_before" />
           <div id="content" className="site-content">
-            <div className="zn-container">{children}</div>
+            <div className="zn-container">
+              <Location name="hook:zenit_content_top" />
+              {children}
+              <Location name="hook:zenit_content_bottom" />
+            </div>
           </div>
+          <Location name="hook:zenit_content_after" />
+          <Location name="hook:zenit_footer_before" />
           <Location name="footer">
             <Footer r={r} />
           </Location>
+          <Location name="hook:zenit_footer_after" />
         </div>
+        <Location name="hook:zenit_body_bottom" />
         <MobilePopup r={r} />
         <ScrollTop r={r} />
         <script dangerouslySetInnerHTML={{ __html: SCRIPT }} />

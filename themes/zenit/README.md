@@ -23,6 +23,12 @@ of the editor).
 Block areas (Appearance → Areas): **Sidebar**, **Header widget 1–2**, **Footer widget 1–4**.
 Menu locations: **Primary**, **Secondary**, **Off-canvas** and **Footer**.
 
+Site builders (Zenit Pro's Site Builder) can replace the header, the footer, the content of
+entries, archives and the 404 page, and fill hook points that show nothing otherwise
+(`hook:zenit_body_top`, `header_before`/`after`, `content_before`/`top`/`bottom`/`after`,
+`entry_content_before`/`after`, `comments_before`, `footer_before`/`after`, `body_bottom`;
+plugin API 1.33).
+
 ## Development
 
 `node build-styles.py` writes `src/css/static.ts` from `src/css/static.css`; the dynamic CSS is

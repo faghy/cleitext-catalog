@@ -7,6 +7,7 @@ import {
   EntryContent,
   FormattedDate,
   Image,
+  Location,
   type PublicEntry,
   type PublicEntrySummary,
   type TemplateProps,
@@ -28,6 +29,8 @@ function Primary({
   grid,
   before,
   noMain,
+  location,
+  entry,
 }: {
   r: R;
   children: ReactNode;
@@ -36,6 +39,10 @@ function Primary({
   before?: ReactNode;
   /** The 404 page has no `<main>`. */
   noMain?: boolean;
+  /** The theme location a plugin may fill instead of the content (site builders). */
+  location: 'single' | 'archive' | 'hook:zenit_404';
+  /** On single entries: the entry, for the location's entry-content block. */
+  entry?: PublicEntry;
 }) {
   const layout = grid ? blogLayout(r.o, r.c) : '';
   const sidebar = sidebarLayout(r.o, r.c);
@@ -50,14 +57,16 @@ function Primary({
       )}
     >
       {breadcrumbPosition(r) === 'before-title' && <Breadcrumbs r={r} />}
-      {before}
-      {noMain ? (
-        children
-      ) : (
-        <main id="main" className="site-main">
-          {children}
-        </main>
-      )}
+      <Location name={location} {...(entry ? { entry } : {})}>
+        {before}
+        {noMain ? (
+          children
+        ) : (
+          <main id="main" className="site-main">
+            {children}
+          </main>
+        )}
+      </Location>
     </div>
   );
   if (sidebar === 'left-sidebar')
@@ -439,7 +448,9 @@ function SingleEntry({ r, entry }: { r: R; entry: PublicEntry }) {
     <>
       <EntryHeader r={r} entry={entry} />
       <div className="entry-content clear" data-zn-blocks-layout="true" itemProp="text">
+        <Location name="hook:zenit_entry_content_before" />
         <EntryContent document={entry.document} />
+        <Location name="hook:zenit_entry_content_after" />
       </div>
     </>
   );
@@ -474,6 +485,7 @@ function SingleEntry({ r, entry }: { r: R; entry: PublicEntry }) {
         )}
       </article>
       {post && <PostNavigation r={r} entry={entry} />}
+      <Location name="hook:zenit_comments_before" />
       {post && <Comments r={r} entry={entry} />}
     </>
   );
@@ -716,7 +728,7 @@ export function Index(props: TemplateProps) {
   switch (props.kind) {
     case 'entry':
       return (
-        <Primary r={r}>
+        <Primary r={r} location="single" entry={props.entry}>
           <SingleEntry r={r} entry={props.entry} />
         </Primary>
       );
@@ -725,6 +737,7 @@ export function Index(props: TemplateProps) {
         <Primary
           r={r}
           grid
+          location="archive"
           before={
             !props.isHome && (
               <section className="zn-archive-description">
@@ -743,6 +756,7 @@ export function Index(props: TemplateProps) {
         <Primary
           r={r}
           grid
+          location="archive"
           before={
             <section className="zn-archive-description">
               <h1 className="page-title zn-archive-title">
@@ -765,7 +779,7 @@ export function Index(props: TemplateProps) {
       );
     case '404':
       return (
-        <Primary r={r} noMain>
+        <Primary r={r} noMain location="hook:zenit_404">
           <section className="error-404 not-found">
             <div className="zn-404-layout-1">
               <header className="page-header">
