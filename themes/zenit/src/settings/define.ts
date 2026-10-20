@@ -222,7 +222,12 @@ export function visibility(section: string, place: Place): Setting {
   const key = `${section}-visibility-responsive`;
   return single(
     key,
-    { type: 'boolean', label: { en: 'Visible', it: 'Visibile' }, responsive: true },
+    {
+      type: 'boolean',
+      label: { en: 'Visibility', it: 'Visibilità' },
+      responsive: true,
+      display: 'devices',
+    },
     place,
     (v) => {
       const r = rec(v);
@@ -536,9 +541,29 @@ function nonEmpty<T extends Record<string, unknown>>(v: T): T | undefined {
 }
 
 /** The fields of some settings, and the options of their values. */
+const enLabel = (l: unknown) => (typeof l === 'string' ? l : String(rec(l).en ?? ''));
+const sameGroup = (a: FieldDefinition, b: FieldDefinition) =>
+  JSON.stringify(a.group) === JSON.stringify(b.group);
+
+/** A hover color goes on the line of the normal one, as two swatches. */
+function pairColors(fields: FieldDefinition[]): FieldDefinition[] {
+  return fields.map((f, i) => {
+    const before = fields[i - 1];
+    return f.type === 'color' &&
+      before?.type === 'color' &&
+      !before.inline &&
+      before.section === f.section &&
+      before.tab === f.tab &&
+      sameGroup(before, f) &&
+      /(^|\s)hover$/i.test(enLabel(f.label))
+      ? { ...f, inline: true }
+      : f;
+  });
+}
+
 export function collect(settings: Setting[]) {
   return {
-    fields: settings.flatMap((s) => s.fields),
+    fields: pairColors(settings.flatMap((s) => s.fields)),
     /** The field values of an imported site's options (settings that can read them). */
     fromOptions(options: Record<string, unknown>) {
       const out: Record<string, unknown> = {};

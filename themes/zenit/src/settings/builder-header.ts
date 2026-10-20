@@ -55,8 +55,7 @@ export function advanced(section: string, withPadding = true): Setting[] {
 }
 
 /** The visibility of an element or a row per device (General tab, last). */
-export const shown = (section: string) =>
-  visibility(section, g(section, { group: { en: 'Visibility', it: 'Visibilità' } }));
+export const shown = (section: string) => visibility(section, g(section));
 
 /** The three rows: top, main and bottom. */
 function headerRow(row: 'above' | 'primary' | 'below'): Setting[] {
@@ -909,7 +908,7 @@ export function widget(type: 'header' | 'footer', n: number): Setting[] {
       p,
     ),
     spacing(`${s}-margin`, L.margin, p, { responsive: true }),
-    visibility(s, { ...p, group: { en: 'Visibility', it: 'Visibilità' } }),
+    visibility(s, { section: p.section, ...(p.tab ? { tab: p.tab } : {}) }),
   ];
 }
 

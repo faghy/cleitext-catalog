@@ -2626,3 +2626,20 @@ input[type="color"]::-webkit-color-swatch {
 .zn-flex-grow-1 {
   flex-grow: 1;
 }
+
+/* Cleitext: buttons of the core and plugins (comments, account, shop) follow the palette. */
+:root {
+  --cx-accent: var(--zn-global-color-0);
+  --cx-on-accent: #ffffff;
+}
+/* The header cart (the shop's cart link in the Header cart area). */
+.zn-header-woo-cart .zn-site-header-cart {
+  display: flex;
+  align-items: center;
+}
+.zn-header-woo-cart .shop-cart-link {
+  color: var(--zn-global-color-2);
+}
+.zn-header-woo-cart .shop-cart-link:hover {
+  color: var(--zn-global-color-0);
+}
