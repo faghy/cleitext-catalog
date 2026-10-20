@@ -11,6 +11,7 @@ import type { Ctx } from '../core/context.js';
 import { blogLayout } from '../core/context.js';
 import type { Options } from '../core/options.js';
 import { blogProCss, blogSettings } from './blog.js';
+import { MEGA_MENU_FIELDS } from './mega-menu.js';
 import { STICKY, stickySettings } from './sticky-header.js';
 import { stickyCss } from './sticky-css.js';
 
@@ -67,4 +68,5 @@ export const PRO_EXTENSION = {
     footerItems: PRO_ITEMS.footer.map(zoneItem),
   },
   areas: ELEMENT_AREAS,
+  menuItemFields: MEGA_MENU_FIELDS,
 };

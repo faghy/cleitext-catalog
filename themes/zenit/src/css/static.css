@@ -2767,3 +2767,90 @@ input[type="color"]::-webkit-color-swatch {
   opacity: 0.6;
   pointer-events: none;
 }
+/* Mega menu (Zenit Pro): computers only; phones keep the usual nested menu. */
+.zn-mm-label {
+  display: inline-block;
+  margin-left: 0.5em;
+  padding: 0.1em 0.5em;
+  border-radius: 3px;
+  background: var(--zn-global-color-0);
+  color: #ffffff;
+  font-size: 0.7em;
+  line-height: 1.6;
+  vertical-align: middle;
+}
+.menu-link.zn-mm-no-link {
+  cursor: default;
+}
+@media (min-width: 922px) {
+  .zn-builder-menu:has(.zn-megamenu-li) .main-navigation,
+  .zn-builder-menu:has(.zn-megamenu-li) .main-header-menu,
+  .zn-builder-menu:has(.zn-megamenu-li) .main-header-bar-navigation,
+  .zn-builder-menu:has(.zn-megamenu-li) .site-navigation,
+  .main-header-menu .menu-item.zn-megamenu-li {
+    position: static;
+  }
+  .site-header-section:has(.zn-megamenu-li),
+  .zn-builder-menu:has(.zn-megamenu-li) {
+    position: static;
+  }
+  .zn-builder-grid-row-container:has(.zn-megamenu-li),
+  .zn-primary-header-bar:has(.zn-megamenu-li),
+  .zn-above-header-bar:has(.zn-megamenu-li),
+  .zn-below-header-bar:has(.zn-megamenu-li) {
+    position: relative;
+  }
+  .main-header-menu .zn-megamenu-li > .sub-menu.zn-megamenu {
+    display: grid;
+    grid-template-columns: repeat(var(--zn-mm-columns, 4), minmax(0, 1fr));
+    gap: 0 1.5em;
+    width: auto;
+    left: -999em;
+    padding: 1.5em;
+    background: var(--zn-mm-bg, #fff);
+  }
+  .main-header-menu .zn-megamenu-li:hover > .sub-menu.zn-megamenu,
+  .main-header-menu .zn-megamenu-li.focus > .sub-menu.zn-megamenu {
+    left: 0;
+    right: 0;
+  }
+  .main-header-menu .zn-megamenu-full:hover > .sub-menu.zn-megamenu,
+  .main-header-menu .zn-megamenu-full.focus > .sub-menu.zn-megamenu {
+    left: calc((100% - 100vw) / 2);
+    right: auto;
+    width: 100vw;
+    padding-left: max(1.5em, calc((100vw - var(--zn-mm-content, 1200px)) / 2));
+    padding-right: max(1.5em, calc((100vw - var(--zn-mm-content, 1200px)) / 2));
+  }
+  .main-header-menu .zn-megamenu-custom:hover > .sub-menu.zn-megamenu,
+  .main-header-menu .zn-megamenu-custom.focus > .sub-menu.zn-megamenu {
+    left: 50%;
+    right: auto;
+    width: min(var(--zn-mm-width, 900px), 100vw);
+    transform: translateX(-50%);
+  }
+  .main-header-menu .zn-megamenu > .menu-item {
+    position: static;
+  }
+  .main-header-menu .zn-megamenu > .menu-item > .menu-link {
+    font-weight: 600;
+  }
+  .main-header-menu .zn-megamenu > .menu-item.zn-mm-hide-heading > .menu-link {
+    display: none;
+  }
+  /* The theme's submenu shadow, border and arrows are set with longer selectors. */
+  .zn-desktop .main-header-menu.main-header-menu .zn-megamenu .sub-menu {
+    position: static;
+    visibility: visible;
+    left: auto;
+    width: auto;
+    box-shadow: none;
+    border: 0;
+    background: transparent;
+  }
+  .zn-desktop .main-header-menu.main-header-menu .zn-megamenu .dropdown-menu-toggle,
+  .zn-desktop .main-header-menu.main-header-menu .zn-megamenu .zn-menu-toggle,
+  .zn-desktop .main-header-menu.main-header-menu .zn-megamenu .menu-link > .icon-arrow {
+    display: none !important;
+  }
+}
