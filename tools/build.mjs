@@ -184,6 +184,7 @@ for (const item of config.items) {
     name: item.name,
     summary: item.summary,
     tags: item.tags ?? [],
+    ...(item.category ? { category: item.category } : {}),
     icon: item.icon ? `${RAW}/${item.icon}` : null,
     screenshots: (item.screenshots ?? []).map((s) => `${RAW}/${s}`),
     ...entry,

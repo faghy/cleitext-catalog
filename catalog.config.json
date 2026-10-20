@@ -14,6 +14,7 @@
         "sitemap",
         "schema"
       ],
+      "category": "seo",
       "icon": "assets/seo.svg"
     },
     {
@@ -29,6 +30,7 @@
         "translation",
         "seo"
       ],
+      "category": "tools",
       "icon": "assets/multilingual.svg"
     },
     {
@@ -44,6 +46,7 @@
         "gdpr",
         "cookies"
       ],
+      "category": "tools",
       "icon": "assets/privacy.svg"
     },
     {
@@ -59,6 +62,7 @@
         "statistics",
         "seo"
       ],
+      "category": "analytics",
       "icon": "assets/analytics.svg"
     },
     {
@@ -73,6 +77,7 @@
         "catalog",
         "blocks"
       ],
+      "category": "editor",
       "icon": "assets/showcase.svg"
     },
     {
@@ -88,6 +93,7 @@
         "wordpress",
         "migration"
       ],
+      "category": "tools",
       "icon": "assets/wordpress-importer.svg"
     },
     {
@@ -102,6 +108,7 @@
         "forms",
         "contact"
       ],
+      "category": "editor",
       "icon": "assets/forms.svg"
     },
     {
@@ -116,6 +123,7 @@
         "fun",
         "example"
       ],
+      "category": "tools",
       "icon": "assets/hi-john.svg"
     },
     {
@@ -131,6 +139,7 @@
         "google-maps",
         "openstreetmap"
       ],
+      "category": "editor",
       "icon": "assets/maps.svg"
     },
     {
@@ -146,6 +155,7 @@
         "blog",
         "sidebar"
       ],
+      "category": "editor",
       "icon": "assets/widgets.svg"
     },
     {
@@ -161,6 +171,7 @@
         "design",
         "gallery"
       ],
+      "category": "editor",
       "icon": "assets/prisma.svg"
     },
     {
@@ -176,6 +187,7 @@
         "schema",
         "sitemap"
       ],
+      "category": "seo",
       "icon": "assets/vetta.svg"
     },
     {
@@ -191,6 +203,7 @@
         "chat",
         "contact"
       ],
+      "category": "editor",
       "icon": "assets/click-to-chat.svg"
     },
     {
@@ -206,6 +219,7 @@
         "varnish",
         "cloudflare"
       ],
+      "category": "tools",
       "icon": "assets/edge-cache.svg"
     },
     {
@@ -221,6 +235,7 @@
         "classic",
         "writing"
       ],
+      "category": "editor",
       "icon": "assets/classic-editor.svg"
     },
     {
@@ -236,6 +251,7 @@
         "page builder",
         "migration"
       ],
+      "category": "editor",
       "icon": "assets/editor-convert.svg"
     },
     {
@@ -251,6 +267,7 @@
         "wordpress",
         "migration"
       ],
+      "category": "tools",
       "icon": "assets/layout-import.svg"
     },
     {
@@ -266,6 +283,7 @@
         "e-commerce",
         "payments"
       ],
+      "category": "shop",
       "icon": "assets/shop.svg",
       "screenshots": [
         "assets/shop.png"
@@ -284,6 +302,7 @@
         "design",
         "layout"
       ],
+      "category": "editor",
       "icon": "assets/fresco.svg",
       "screenshots": [
         "assets/fresco.png"
@@ -303,6 +322,7 @@
         "forms",
         "popups"
       ],
+      "category": "editor",
       "source": "private",
       "paid": {
         "price": {
