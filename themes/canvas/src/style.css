@@ -497,7 +497,8 @@ mark {
   justify-content: space-between;
   gap: 1rem;
   border-top: 1px solid #1e293b;
-  padding-block: 1.5rem 2rem;
+  /* Room below for the core's back-to-top button (44px, 20px from the corner). */
+  padding-block: 1.5rem 5.5rem;
 }
 .cv-footer-bottom p {
   margin: 0;

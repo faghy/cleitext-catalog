@@ -397,7 +397,7 @@ function PageLinks({ pagination }: { pagination: Pagination }) {
 export const theme = defineTheme({
   slug: 'canvas',
   name: 'Canvas',
-  version: '1.1.0',
+  version: '1.1.1',
   description:
     'A page-builder theme: full-width sections, cards, icons and ready-made patterns, edited with blocks.',
   menuLocations: { primary: 'Main menu', footer: 'Footer menu' },
