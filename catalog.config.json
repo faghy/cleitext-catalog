@@ -260,6 +260,25 @@
     },
     {
       "type": "plugin",
+      "slug": "social-feed",
+      "name": "Social Feed",
+      "summary": {
+        "en": "The latest posts of your Instagram account and Facebook Page on the site: grid, carousel or list, a header with a follow button, Load more and a lightbox. Official Meta APIs with your own app, tokens renewed by themselves, pictures copied to the site so visitors load nothing from Meta.",
+        "it": "Gli ultimi post del tuo account Instagram e della tua Pagina Facebook sul sito: griglia, carosello o elenco, intestazione con pulsante Segui, Carica altri e lightbox. API ufficiali di Meta con la tua app, token rinnovati da soli, immagini copiate sul sito così i visitatori non caricano nulla da Meta."
+      },
+      "tags": [
+        "instagram",
+        "facebook",
+        "social",
+        "feed",
+        "gallery"
+      ],
+      "category": "editor",
+      "requires": ">=0.60.0",
+      "icon": "assets/social-feed.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "edge-cache",
       "name": "Edge cache",
       "summary": {
