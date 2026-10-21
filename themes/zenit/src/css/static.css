@@ -2854,3 +2854,14 @@ input[type="color"]::-webkit-color-swatch {
     display: none !important;
   }
 }
+/* The comment form's spam trap stays out of sight; a protection widget gets some room. */
+.cx-hp {
+  position: absolute !important;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.cx-challenge {
+  margin: 0 0 1rem;
+}

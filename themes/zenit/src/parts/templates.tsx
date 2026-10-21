@@ -3,6 +3,7 @@
  * posts (blog, categories, author), search results, the 404 page.
  */
 import {
+  COMMUNITY_JS,
   CommentText,
   EntryContent,
   FormattedDate,
@@ -369,7 +370,24 @@ function CommentForm({ r, entry }: { r: R; entry: PublicEntry }) {
           </a>
         </small>
       </h3>
-      <form action={c.action} method="post" id="zn-commentform" className="comment-form">
+      <form
+        action={c.action}
+        method="post"
+        id="zn-commentform"
+        className="comment-form"
+        data-cx-comment-form=""
+      >
+        {/* What the core reads: the entry, the reply, where to go back, and its spam checks. */}
+        <input type="hidden" name="entry" value={entry.id} />
+        <input type="hidden" name="parent" value={c.replyTo?.id ?? ''} data-cx-parent="" />
+        <input type="hidden" name="back" value={entry.url} />
+        <div className="cx-hp" aria-hidden="true">
+          <label>
+            Website
+            <input type="text" name="homepage" tabIndex={-1} autoComplete="off" />
+          </label>
+        </div>
+        <input type="hidden" name="ts" value="" data-cx-ts="" />
         {!page.viewer && (
           <p className="comment-notes">
             <span id="email-notes">{t.emailNotes}</span>{' '}
@@ -387,7 +405,7 @@ function CommentForm({ r, entry }: { r: R; entry: PublicEntry }) {
               </label>
               <textarea
                 id="comment"
-                name="content"
+                name="comment"
                 placeholder={t.typeHere}
                 cols={45}
                 rows={8}
@@ -405,7 +423,8 @@ function CommentForm({ r, entry }: { r: R; entry: PublicEntry }) {
               </label>
               <input
                 id="author"
-                name="authorName"
+                name="name"
+                data-cx-remember="name"
                 type="text"
                 placeholder={t.nameField}
                 size={30}
@@ -418,7 +437,8 @@ function CommentForm({ r, entry }: { r: R; entry: PublicEntry }) {
               </label>
               <input
                 id="email"
-                name="authorEmail"
+                name="email"
+                data-cx-remember="email"
                 type="email"
                 placeholder={t.emailField}
                 size={30}
@@ -429,14 +449,18 @@ function CommentForm({ r, entry }: { r: R; entry: PublicEntry }) {
               <label htmlFor="url" className="screen-reader-text">
                 {t.websiteField}
               </label>
-              <input id="url" name="authorUrl" type="url" placeholder={t.websiteField} size={30} />
+              <input id="url" name="url" type="url" placeholder={t.websiteField} size={30} />
             </p>
           </div>
+        )}
+        {c.protection && (
+          <div className="cx-challenge" dangerouslySetInnerHTML={{ __html: c.protection }} />
         )}
         <p className="form-submit">
           <input name="submit" type="submit" id="submit" className="submit" value={t.postComment} />
         </p>
       </form>
+      <script dangerouslySetInnerHTML={{ __html: COMMUNITY_JS }} />
     </div>
   );
 }

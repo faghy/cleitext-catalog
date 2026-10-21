@@ -183,7 +183,7 @@ setGoogleFonts(googleFonts);
 export const theme = defineTheme({
   slug: 'zenit',
   name: 'Zenit',
-  version: '1.0.1',
+  version: '1.0.2',
   description:
     'A fast multipurpose theme: drag-and-drop header and footer builder, global colors and fonts, container and sidebar layouts, blog layouts.',
   menuLocations: {
