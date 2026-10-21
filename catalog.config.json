@@ -241,6 +241,25 @@
     },
     {
       "type": "plugin",
+      "slug": "captcha",
+      "name": "Captcha",
+      "summary": {
+        "en": "Stops spam and bots on every form with Cloudflare Turnstile or Google reCAPTCHA: sign-in, sign-up, lost password, comments, contact forms, the shop's checkout and page builder forms. One place for the keys, trusted addresses and a failsafe.",
+        "it": "Ferma spam e bot in ogni modulo con Cloudflare Turnstile o Google reCAPTCHA: accesso, registrazione, password dimenticata, commenti, moduli di contatto, checkout del negozio e moduli dei page builder. Un solo posto per le chiavi, indirizzi fidati e una riserva automatica."
+      },
+      "tags": [
+        "captcha",
+        "spam",
+        "security",
+        "turnstile",
+        "recaptcha"
+      ],
+      "category": "tools",
+      "requires": ">=0.54.0",
+      "icon": "assets/captcha.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "edge-cache",
       "name": "Edge cache",
       "summary": {
