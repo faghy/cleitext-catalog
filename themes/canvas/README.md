@@ -9,6 +9,10 @@ Pages are stacks of full-width **sections** made of normal blocks; the look come
 
 **Appearance → Areas** has two block areas: **Header (right side)**, next to the menu and still visible on phones beside the menu button (shops put Cleishop's **Cart link** and **Product search** there; the search box hides on phones), and **Footer**.
 
+## Social profiles
+
+**Appearance → Customize → Social profiles** takes the addresses (`https://…`) of the site's Facebook, Instagram, LinkedIn, X, YouTube, TikTok and GitHub profiles, shown as icons in the header and the footer, the footer only, or nowhere. On phones the header icons stay beside the menu button when few, otherwise they move into the menu. No address, no icons.
+
 ## Classes
 
 | Class | On | Effect |

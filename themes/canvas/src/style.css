@@ -194,6 +194,52 @@ mark {
     display: none;
   }
 }
+/* Social profiles (Appearance → Customize → Social profiles). */
+.cv-social {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.15rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.cv-social a {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 10px;
+  color: var(--cv-muted);
+  transition:
+    color 0.15s,
+    background-color 0.15s;
+}
+.cv-social svg {
+  display: block;
+  width: 1.1rem;
+  height: 1.1rem;
+}
+.cv-social a:hover {
+  background: var(--cv-soft);
+  color: var(--cv-brand);
+}
+.cv-social-head {
+  justify-content: flex-end;
+}
+/* The copy in the menu panel shows only on small screens where the bar has no room for them. */
+.cv-social-panel {
+  display: none;
+}
+.cv-panel .cv-social {
+  gap: 0.35rem;
+}
+.cv-panel .cv-social a {
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--cv-line);
+  border-radius: 12px;
+}
 .cv-nav ul {
   list-style: none;
   margin: 0;
@@ -362,6 +408,18 @@ mark {
   .cv-desktop .cv-nav a {
     padding-inline: 0.55rem;
   }
+  .cv-social-head {
+    gap: 0;
+  }
+  .cv-social-head a {
+    width: 1.9rem;
+  }
+}
+@media (min-width: 961px) {
+  /* Beside the full menu the icons stay on one line. */
+  .cv-social-head {
+    flex-wrap: nowrap;
+  }
 }
 @media (max-width: 960px) {
   .cv-desktop {
@@ -369,6 +427,23 @@ mark {
   }
   .cv-mobile {
     display: block;
+  }
+  .cv-social-head:not(.cv-fit-tablet) {
+    display: none;
+  }
+  .cv-social-panel:not(.cv-fit-tablet) {
+    display: flex;
+  }
+}
+@media (max-width: 600px) {
+  .cv-social-head:not(.cv-fit-phone) {
+    display: none;
+  }
+  .cv-social-panel:not(.cv-fit-phone) {
+    display: flex;
+  }
+  .cv-social-head a {
+    width: 2rem;
   }
 }
 
@@ -434,6 +509,37 @@ mark {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+/* Social icons at the right end, next to the copyright line. */
+.cv-footer-bottom > nav + p:not(:last-child) {
+  margin-left: auto;
+}
+.cv-footer-bottom .cv-social-foot {
+  gap: 0.15rem;
+  margin: -0.4rem 0 -0.4rem auto;
+  align-self: center;
+}
+@media (min-width: 782px) {
+  .cv-footer-bottom > nav + p + .cv-social-foot {
+    margin-left: 0;
+  }
+}
+@media (max-width: 781px) {
+  /* Phones: one item per line, all on the left like the rest of the footer. */
+  .cv-footer-bottom > nav + p:not(:last-child) {
+    margin-left: 0;
+  }
+  .cv-footer-bottom .cv-social-foot {
+    margin-left: -0.55rem;
+  }
+}
+.cv-footer .cv-social a {
+  color: #94a3b8;
+}
+.cv-footer .cv-social a:hover {
+  background: #ffffff14;
+  color: var(--cv-cursor);
+  text-decoration: none;
 }
 
 /* Pages, posts and lists */

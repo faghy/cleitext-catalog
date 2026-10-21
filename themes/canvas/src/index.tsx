@@ -18,6 +18,7 @@ import {
 import { strings } from './strings.js';
 import { AI_GUIDE } from './guide.js';
 import { css as themeCss, editorCss } from './styles.js';
+import { NETWORKS, profiles, settingName, type Profile } from './social.js';
 
 /**
  * Canvas: a page-builder theme in the spirit of Elementor, made of blocks.
@@ -32,6 +33,7 @@ interface Settings extends Record<string, unknown> {
   accentColor?: string;
   showTagline?: boolean;
   footerText?: string;
+  socialPlacement?: 'both' | 'footer' | 'none';
 }
 
 const FONTS =
@@ -41,6 +43,31 @@ const HEX = /^#[0-9a-f]{6}$/i;
 /** The Cleitext mark, the default logo and site icon (unless the favicon setting is set). */
 const MARK = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="15" fill="#0369a1"/><path d="M38.5 22.5 A13.5 13.5 0 1 0 38.5 41.5" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><rect x="43" y="19" width="5" height="26" rx="2.5" fill="#7dd3fc"/></svg>`;
 const ICON = `data:image/svg+xml,${encodeURIComponent(MARK)}`;
+
+/** Icon links to the site's social profiles; `className` says where (and when it fits, on small screens). */
+function SocialLinks({ items, className }: { items: Profile[]; className: string }) {
+  const page = usePage();
+  const t = strings(page.locale);
+  return (
+    <ul className={`cv-social ${className}`} aria-label={t.socialProfiles}>
+      {items.map(({ network, url }) => (
+        <li key={network.key}>
+          <a
+            href={url}
+            target="_blank"
+            rel="me noopener"
+            aria-label={t.socialOn(page.site.title, network.label)}
+            title={network.label}
+          >
+            <svg viewBox={network.viewBox} aria-hidden="true" focusable="false">
+              <path fill="currentColor" d={network.d} />
+            </svg>
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 function Layout({ head, css, children }: LayoutProps) {
   const page = usePage();
@@ -68,6 +95,17 @@ function Layout({ head, css, children }: LayoutProps) {
         ))}
       </ul>
     ) : null;
+  // Social profiles: in the header and the footer, the footer only, or nowhere.
+  const social = settings.socialPlacement === 'none' ? [] : profiles(settings);
+  const headerSocial = settings.socialPlacement === 'footer' ? [] : social;
+  const hasMenu = primary.length > 0 || languages !== null;
+  // Small screens: the icons stay in the bar when few enough fit, else they move into the menu panel.
+  const fit =
+    !hasMenu || headerSocial.length <= 2
+      ? ' cv-fit-tablet cv-fit-phone'
+      : headerSocial.length <= 4
+        ? ' cv-fit-tablet'
+        : '';
 
   return (
     <html lang={page.locale}>
@@ -130,6 +168,9 @@ function Layout({ head, css, children }: LayoutProps) {
                 )}
                 {languages}
               </div>
+              {headerSocial.length > 0 && (
+                <SocialLinks items={headerSocial} className={`cv-social-head${fit}`} />
+              )}
               {/* Blocks of the site in the header (Appearance → Areas), e.g. a shop's cart and search. */}
               <BlockArea name="header" className="cv-header-area" />
               {(primary.length > 0 || languages) && (
@@ -145,6 +186,9 @@ function Layout({ head, css, children }: LayoutProps) {
                       </nav>
                     )}
                     {languages}
+                    {headerSocial.length > 0 && fit !== ' cv-fit-tablet cv-fit-phone' && (
+                      <SocialLinks items={headerSocial} className={`cv-social-panel${fit}`} />
+                    )}
                   </div>
                 </details>
               )}
@@ -165,6 +209,7 @@ function Layout({ head, css, children }: LayoutProps) {
                 {settings.footerText || `© ${new Date().getFullYear()} ${page.site.title}`} · {t.poweredBy}{' '}
                 <a href="https://cleitext.com">Cleitext</a>
               </p>
+              {social.length > 0 && <SocialLinks items={social} className="cv-social-foot" />}
             </div>
           </footer>
         </Location>
@@ -352,15 +397,27 @@ function PageLinks({ pagination }: { pagination: Pagination }) {
 export const theme = defineTheme({
   slug: 'canvas',
   name: 'Canvas',
-  version: '1.0.6',
+  version: '1.1.0',
   description:
     'A page-builder theme: full-width sections, cards, icons and ready-made patterns, edited with blocks.',
   menuLocations: { primary: 'Main menu', footer: 'Footer menu' },
+  settingsSections: [
+    { id: 'site', label: { en: 'Site', it: 'Sito' } },
+    {
+      id: 'social',
+      label: { en: 'Social profiles', it: 'Profili social' },
+      description: {
+        en: 'Full addresses of your profiles, starting with https://. Networks left empty get no icon.',
+        it: 'Gli indirizzi completi dei tuoi profili, che iniziano con https://. I social lasciati vuoti non hanno icona.',
+      },
+    },
+  ],
   settings: [
-    { name: 'logo', type: 'media', label: { en: 'Logo', it: 'Logo' } },
+    { name: 'logo', type: 'media', section: 'site', label: { en: 'Logo', it: 'Logo' } },
     {
       name: 'favicon',
       type: 'media',
+      section: 'site',
       label: { en: 'Site icon (favicon)', it: 'Icona del sito (favicon)' },
       help: {
         en: 'A square PNG, at least 512×512 px. Empty: the Cleitext mark.',
@@ -370,6 +427,7 @@ export const theme = defineTheme({
     {
       name: 'accentColor',
       type: 'text',
+      section: 'site',
       label: { en: 'Brand color', it: 'Colore del marchio' },
       help: { en: 'Hexadecimal, e.g. #0369a1', it: 'Esadecimale, es. #0369a1' },
       maxLength: 7,
@@ -377,14 +435,35 @@ export const theme = defineTheme({
     {
       name: 'showTagline',
       type: 'boolean',
+      section: 'site',
       label: { en: 'Show the tagline next to the logo', it: 'Mostra il motto accanto al logo' },
       default: false,
     },
     {
       name: 'footerText',
       type: 'text',
+      section: 'site',
       label: { en: 'Footer text', it: 'Testo del piè di pagina' },
       maxLength: 200,
+    },
+    ...NETWORKS.map((network) => ({
+      name: settingName(network),
+      type: 'url' as const,
+      section: 'social',
+      label: network.label,
+    })),
+    {
+      name: 'socialPlacement',
+      type: 'choice',
+      section: 'social',
+      label: { en: 'Show the icons', it: 'Mostra le icone' },
+      display: 'buttons',
+      options: [
+        { value: 'both', label: { en: 'Header and footer', it: 'Testata e piè di pagina' } },
+        { value: 'footer', label: { en: 'Footer only', it: 'Solo piè di pagina' } },
+        { value: 'none', label: { en: 'Off', it: 'No' } },
+      ],
+      default: 'both',
     },
   ],
   areas: { header: 'Header (right side)', footer: 'Footer' },

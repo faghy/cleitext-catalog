@@ -23,6 +23,8 @@ const STRINGS = {
     pagination: 'Pages',
     pageOf: (n: number, total: number) => `Page ${n} of ${total}`,
     readMore: 'Read more',
+    socialProfiles: 'Social profiles',
+    socialOn: (site: string, network: string) => `${site} on ${network}`,
   },
   it: {
     skip: 'Vai al contenuto',
@@ -47,6 +49,8 @@ const STRINGS = {
     pagination: 'Pagine',
     pageOf: (n: number, total: number) => `Pagina ${n} di ${total}`,
     readMore: 'Leggi tutto',
+    socialProfiles: 'Profili social',
+    socialOn: (site: string, network: string) => `${site} su ${network}`,
   },
 };
 
