@@ -103,11 +103,15 @@ function Layout({ head, children }: LayoutProps) {
   const { o, c, page } = r;
   const fonts = fontsUrl(o);
   const crumbs = breadcrumbPosition(r);
+  const iconId = str(o.get('favicon-id'));
+  const icon = iconId ? page.media.get(iconId) : undefined;
   return (
     <html lang={page.locale}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {icon && <link rel="icon" href={icon.url} />}
+        {icon && <link rel="apple-touch-icon" href={icon.url} />}
         <title>{head.title}</title>
         {head.description && <meta name="description" content={head.description} />}
         {head.robots && <meta name="robots" content={head.robots} />}
@@ -183,7 +187,7 @@ setGoogleFonts(googleFonts);
 export const theme = defineTheme({
   slug: 'zenit',
   name: 'Zenit',
-  version: '1.0.2',
+  version: '1.0.3',
   description:
     'A fast multipurpose theme: drag-and-drop header and footer builder, global colors and fonts, container and sidebar layouts, blog layouts.',
   menuLocations: {

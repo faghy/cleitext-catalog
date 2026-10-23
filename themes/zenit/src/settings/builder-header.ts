@@ -175,6 +175,16 @@ function siteIdentity(): Setting[] {
   const svgOn = { field: 'useLogoSvgIcon', equals: true };
   return [
     image('custom_logo', { en: 'Logo', it: 'Logo' }, g(s)),
+    image(
+      'favicon',
+      { en: 'Site icon (favicon)', it: 'Icona del sito (favicon)' },
+      g(s, {
+        help: {
+          en: 'A square PNG, at least 512×512 px.',
+          it: 'Un PNG quadrato, almeno 512×512 px.',
+        },
+      }),
+    ),
     toggle(
       'different-retina-logo',
       { en: 'Different logo for retina screens', it: 'Logo diverso per schermi retina' },
