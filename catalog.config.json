@@ -279,6 +279,25 @@
     },
     {
       "type": "plugin",
+      "slug": "antispam",
+      "name": "Antispam",
+      "summary": {
+        "en": "Keeps spam out of comments, sign-ups and forms with checks that run on your site only: a hidden field, a time check that works on cached pages, links, blocked words and addresses, foreign alphabets, repeated texts. A spam queue to review, and the Captcha plugin asked only when it is unsure. No outside service, IPs kept only as hashes.",
+        "it": "Tiene lo spam fuori da commenti, registrazioni e moduli con controlli che avvengono solo sul tuo sito: un campo nascosto, un controllo del tempo che funziona con le pagine in cache, link, parole e indirizzi bloccati, alfabeti estranei, testi ripetuti. Una coda dello spam da rivedere, e il plugin Captcha interpellato solo quando ha dei dubbi. Nessun servizio esterno, IP conservati solo come hash."
+      },
+      "tags": [
+        "spam",
+        "comments",
+        "forms",
+        "security",
+        "privacy"
+      ],
+      "category": "tools",
+      "requires": ">=0.70.0",
+      "icon": "assets/antispam.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "edge-cache",
       "name": "Edge cache",
       "summary": {
