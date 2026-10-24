@@ -298,6 +298,38 @@
     },
     {
       "type": "plugin",
+      "slug": "diorama-pro",
+      "name": "Diorama Pro",
+      "summary": {
+        "en": "Everything for Diorama: unlimited sliders, carousels with coverflow and 3D, popups with triggers, an editable timeline with split text and masks, parallax, 32 creative transitions, actions, global layers, thumbnails and tabs, ten premium templates. Sliders keep working if the license ends. Paid: €49 a year or €149 lifetime per site; €99 a year for 5 sites; €199 a year for agencies.",
+        "it": "Tutto per Diorama: slider illimitati, caroselli anche coverflow e 3D, popup con attivatori, linea del tempo modificabile con testo diviso e maschere, parallasse, 32 transizioni creative, azioni, livelli fissi, miniature e schede, dieci modelli premium. Gli slider continuano a funzionare se la licenza scade. A pagamento: 49 € l'anno o 149 € a vita per sito; 99 € l'anno per 5 siti; 199 € l'anno per le agenzie."
+      },
+      "tags": [
+        "slider",
+        "carousel",
+        "popup",
+        "animation"
+      ],
+      "category": "editor",
+      "source": "private",
+      "requires": ">=0.72.0",
+      "paid": {
+        "price": {
+          "amount": 49,
+          "currency": "EUR",
+          "per": "site"
+        },
+        "updatesMonths": 12,
+        "purchaseUrl": "https://cleitext.com/plugins/diorama-pro",
+        "licenseServer": "https://cleitext.com/api/v1/ext/store/v1"
+      },
+      "icon": "assets/diorama-pro.svg",
+      "screenshots": [
+        "assets/diorama-pro.png"
+      ]
+    },
+    {
+      "type": "plugin",
       "slug": "antispam",
       "name": "Antispam",
       "summary": {
