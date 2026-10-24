@@ -279,6 +279,25 @@
     },
     {
       "type": "plugin",
+      "slug": "diorama",
+      "name": "Diorama",
+      "summary": {
+        "en": "Sliders and hero sections, quick to make and light on your pages: pick your photos, write a title and a button, done; or place headings, texts, buttons, images and icons on the slide, with a layout for each device. Entrance effects, transitions, video backgrounds, Ken Burns, ten ready-made templates and the latest blog posts as slides. Accessible by default, responsive images, no layout shift, a tiny script only where a slider is. A block, a Fresco widget and a shortcode. One slider per site; Diorama Pro adds more.",
+        "it": "Slider e sezioni hero, veloci da creare e leggeri per le pagine: scegli le foto, scrivi un titolo e un pulsante, fatto; oppure metti titoli, testi, pulsanti, immagini e icone sulla slide, con un'impaginazione per ogni dispositivo. Effetti di entrata, transizioni, video di sfondo, Ken Burns, dieci modelli pronti e gli ultimi articoli del blog come slide. Accessibile di serie, immagini responsive, nessun salto della pagina, uno script minuscolo solo dove c'è uno slider. Un blocco, un widget di Fresco e uno shortcode. Uno slider per sito; Diorama Pro ne aggiunge altri."
+      },
+      "tags": [
+        "slider",
+        "hero",
+        "carousel",
+        "slideshow",
+        "animation"
+      ],
+      "category": "editor",
+      "requires": ">=0.72.0",
+      "icon": "assets/diorama.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "antispam",
       "name": "Antispam",
       "summary": {
