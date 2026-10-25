@@ -22,8 +22,20 @@ phone width:
   the top of the article (**Image position → Below**).
 - **Extras**: breadcrumbs, back-to-top button, transparent header.
 
-Each page and post can change its own container, sidebar and which parts to hide (Document tab
-of the editor).
+Each page and post can change its own container, sidebar, backgrounds (since Zenit 1.1.0) and
+which parts to hide (Document tab of the editor).
+
+Lists of posts are numbered page by page (`1 2 … 22 Next →`); how many posts a page shows is the
+site's **Settings → Reading → Posts per page**, and dates follow the site's date format (Settings →
+General, a format of its own such as `F j, Y` since Cleitext 0.82).
+
+**Moving a site from the original theme** (Zenit 1.1.0, Cleitext 0.82): Customize → ⋯ → Import
+reads its settings (`wp option get <option> --format=json`, or a JSON object with that option and
+the site's `date_format` and `posts_per_page`), and also sets the site's posts per page and date
+format. Importing the WordPress export with Zenit active gives each page its own options from the
+original theme's page settings (container layout and style, sidebar, backgrounds, hidden parts),
+and rewrites the original theme's class names in the imported Additional CSS to Zenit's (`.zn-…`,
+in selectors only), as the import report says.
 
 CSS of your own goes in **Customize → Additional CSS**, Cleitext's for every theme (Zenit's own
 option moved there with Zenit 1.0.5 and Cleitext 0.79). To change templates or styles in code,

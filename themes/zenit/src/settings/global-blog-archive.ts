@@ -104,6 +104,14 @@ function fill(setting: Setting, shapes: Record<string, Record<string, unknown>>)
   };
 }
 
+/** A setting kept out of Customize (its value is still read and written). */
+function hidden(setting: Setting): Setting {
+  return {
+    ...setting,
+    fields: setting.fields.map((f) => ({ ...f, hidden: true }) as FieldDefinition),
+  };
+}
+
 /** A switch whose option is on unless written `false` (no stored default). */
 function onUnlessOff(key: string, label: Label, place: Place): Setting {
   const name = camel(key);
@@ -510,11 +518,15 @@ export function blogArchiveSettings(): Setting[] {
     }),
     ...containerSettings('archive-post', g(), true),
     select('blog-layout', L('Layout', 'Layout'), g(L('Blog layout', 'Layout del blog')), LAYOUTS),
-    number(
-      'blog-post-per-page',
-      L('Posts per page', 'Articoli per pagina'),
-      g(L('Blog layout', 'Layout del blog')),
-      { min: 1, max: 500, step: 1 },
+    // Posts per page are the site's (Settings → Reading), which Cleitext applies to the blog
+    // and archives: an import sets them from this option (Zenit 1.1.0), kept hidden.
+    hidden(
+      number(
+        'blog-post-per-page',
+        L('Posts per page', 'Articoli per pagina'),
+        g(L('Blog layout', 'Layout del blog')),
+        { min: 1, max: 500, step: 1 },
+      ),
     ),
     select('blog-width', L('Content width', 'Larghezza del contenuto'), g(), [
       { value: 'default', label: L('Default', 'Predefinita') },

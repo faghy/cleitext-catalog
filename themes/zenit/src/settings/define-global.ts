@@ -72,6 +72,19 @@ export function sortable(key: string, label: Label, place: Place, choices: Choic
       }
       return { [key]: out };
     },
+    read(options) {
+      const list = options[key];
+      if (!Array.isArray(list)) return {};
+      const on = list.map(String).filter((v, i, all) => known(v) && all.indexOf(v) === i);
+      return {
+        [name]: [
+          ...on.map((item) => ({ item, enabled: true })),
+          ...choices
+            .filter((c) => !on.includes(c.value))
+            .map((c) => ({ item: c.value, enabled: false })),
+        ],
+      };
+    },
   };
 }
 

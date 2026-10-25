@@ -15,6 +15,7 @@ import {
 } from '@cleitext/theme-sdk';
 import { Fragment, type ReactNode } from 'react';
 import { blogLayout, isSingle, meta } from '../core/context.js';
+import { formatPhpDate } from '../core/date.js';
 import { blogColumns, dateBox, firstPostFull, infiniteLoad, isMasonry } from '../pro/blog.js';
 import { str } from '../core/php.js';
 import { Breadcrumbs, breadcrumbPosition } from './breadcrumbs.js';
@@ -95,8 +96,15 @@ const termClasses = (entry: PublicEntry) =>
     )
     .join(' ');
 
-/** A date as the site writes it (e.g. "October 1, 2026"). */
+/**
+ * A date as the site writes it: with the site's date format (Settings →
+ * General, core 0.82, e.g. `F j, Y` imported from WordPress), else as
+ * "October 1, 2026".
+ */
 export function dateText(r: R, iso: string): string {
+  const format = (r.page.site as { dateFormat?: unknown }).dateFormat;
+  if (typeof format === 'string' && format)
+    return formatPhpDate(iso, format, r.page.locale, r.page.site.timezone);
   return new Intl.DateTimeFormat(r.page.locale, {
     year: 'numeric',
     month: 'long',
@@ -742,7 +750,8 @@ function ListedPost({ r, entry, index }: { r: R; entry: PublicEntrySummary; inde
               return (
                 <p key="more" className="zn-blog-single-element zn-read-more-container read-more">
                   <a className="" href={entry.url}>
-                    {r.t.readMore}
+                    {' '}
+                    <span className="screen-reader-text">{entry.title}</span> {r.t.readMore}
                   </a>
                 </p>
               );
@@ -805,27 +814,100 @@ function Pages({
         </a>
       </div>
     ) : null;
+  const links: ReactNode[] = [];
+  if (pagination.prevUrl)
+    links.push(
+      <a key="prev" className="prev page-numbers" href={pagination.prevUrl}>
+        <span className="zn-left-arrow" aria-hidden="true">
+          ←
+        </span>{' '}
+        {r.t.previous}
+      </a>,
+    );
+  pageNumbers(pagination.page, pagination.totalPages).forEach((n, i) => {
+    const url = n === null || n === pagination.page ? null : pageUrl(pagination, n);
+    links.push(
+      n === null ? (
+        <span key={`dots-${i}`} className="page-numbers dots">
+          …
+        </span>
+      ) : n === pagination.page ? (
+        <span key={n} aria-current="page" className="page-numbers current">
+          {n}
+        </span>
+      ) : url ? (
+        <a key={n} className="page-numbers" href={url}>
+          {n}
+        </a>
+      ) : (
+        <span key={n} className="page-numbers">
+          {n}
+        </span>
+      ),
+    );
+  });
+  if (pagination.nextUrl)
+    links.push(
+      <a key="next" className="next page-numbers" href={pagination.nextUrl}>
+        {r.t.next}{' '}
+        <span className="zn-right-arrow" aria-hidden="true">
+          →
+        </span>
+      </a>,
+    );
   return (
     <div className="zn-pagination">
       <nav className="navigation pagination" aria-label={r.t.pagination}>
+        <h2 className="screen-reader-text">{r.t.pagination}</h2>
         <div className="nav-links">
-          {pagination.prevUrl && (
-            <a className="prev page-numbers" href={pagination.prevUrl}>
-              {r.t.previous}
-            </a>
-          )}
-          <span aria-current="page" className="page-numbers current">
-            {pagination.page}
-          </span>
-          {pagination.nextUrl && (
-            <a className="next page-numbers" href={pagination.nextUrl}>
-              {r.t.next}
-            </a>
-          )}
+          {/* One per line, as WordPress prints them (spaces between the numbers). */}
+          {links.flatMap((link, i) => (i ? ['\n', link] : [link]))}
         </div>
       </nav>
     </div>
   );
+}
+
+/**
+ * The page numbers shown, `null` for "…" (as WordPress's `paginate_links()`
+ * with one number at each end and one on each side of the current page).
+ */
+export function pageNumbers(current: number, total: number): (number | null)[] {
+  const out: (number | null)[] = [];
+  let dots = false;
+  for (let n = 1; n <= total; n++) {
+    if (n === current || n <= 1 || (n >= current - 1 && n <= current + 1) || n > total - 1) {
+      out.push(n);
+      dots = true;
+    } else if (dots) {
+      out.push(null);
+      dots = false;
+    }
+  }
+  return out;
+}
+
+/**
+ * The address of page `n` of a list, from the address of the next or the
+ * previous page (`…/page/3/`, or `…&page=3` for search results).
+ */
+export function pageUrl(
+  pagination: { page: number; prevUrl: string | null; nextUrl: string | null },
+  n: number,
+): string | null {
+  const known = pagination.nextUrl
+    ? { url: pagination.nextUrl, page: pagination.page + 1 }
+    : pagination.prevUrl
+      ? { url: pagination.prevUrl, page: pagination.page - 1 }
+      : null;
+  if (!known) return null;
+  if (n === known.page) return known.url;
+  const query = /([?&]page=)\d+/;
+  if (query.test(known.url)) return known.url.replace(query, `$1${n}`);
+  const path = /\/page\/\d+(\/?)(?=[?#]|$)/;
+  if (!path.test(known.url)) return null;
+  if (n > 1) return known.url.replace(path, `/page/${n}$1`);
+  return known.url.replace(path, '$1').replace(/^(?=[?#]|$)/, '/') || '/';
 }
 
 /** The search box of the 404 and "nothing found" pages. */
@@ -884,7 +966,9 @@ export function Index(props: TemplateProps) {
           grid
           location="archive"
           before={
-            !props.isHome && (
+            !props.isHome &&
+            // The blog title area can be turned off (Blog / Archive → Blog title area).
+            r.o.get('zn-archive-post-title', true) !== false && (
               <section className="zn-archive-description">
                 <h1 className="page-title zn-archive-title">{props.title}</h1>
                 {props.description && <p>{props.description}</p>}

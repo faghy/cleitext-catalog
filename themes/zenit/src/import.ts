@@ -10,7 +10,8 @@
 import { DEFAULTS } from './core/defaults.js';
 import { rec } from './core/php.js';
 import { unserialize } from './core/unserialize.js';
-import { SETTINGS } from './settings/index.js';
+import { camel } from './settings/define.js';
+import { ENTRY_SETTINGS, SETTINGS } from './settings/index.js';
 
 const SOURCE = ['astra', 'settings'].join('-');
 const PREFIX = 'ast';
@@ -53,6 +54,36 @@ function settingsOf(data: unknown): Record<string, unknown> {
   return inner && typeof inner === 'object' ? rec(inner) : root;
 }
 
+/** Customize field names: options without a stored default are known by their field. */
+const FIELD_NAMES = new Set(SETTINGS.fields.map((f) => f.name));
+const isKnown = (key: string) => key in DEFAULTS || FIELD_NAMES.has(camel(key));
+
+/** The site options next to the theme's in the file (`{ <option>: …, date_format: … }`). */
+function siteOptionsOf(data: unknown): Record<string, unknown> {
+  if (typeof data === 'string') return {};
+  const root = rec(data);
+  return root.options && typeof root.options === 'object' ? rec(root.options) : root;
+}
+
+/**
+ * Settings of the site the file also had (core 0.82 saves them): the posts
+ * per page of the blog (the theme's own option wins over the site's, as the
+ * original theme applies it to the blog and archives) and the date format.
+ */
+function siteSettings(
+  data: unknown,
+  options: Record<string, unknown>,
+): { postsPerPage?: number; dateFormat?: string } | null {
+  const site = siteOptionsOf(data);
+  const out: { postsPerPage?: number; dateFormat?: string } = {};
+  const perPage = Number(options['blog-post-per-page'] ?? site.posts_per_page);
+  if (Number.isInteger(perPage) && perPage >= 1 && perPage <= 100) out.postsPerPage = perPage;
+  const format = site.date_format;
+  if (typeof format === 'string' && format.trim() && format.length <= 64)
+    out.dateFormat = format.trim();
+  return Object.keys(out).length ? out : null;
+}
+
 export function importSettings(data: unknown): Record<string, unknown> | null {
   let source: Record<string, unknown>;
   try {
@@ -61,13 +92,15 @@ export function importSettings(data: unknown): Record<string, unknown> | null {
     return null;
   }
   const options = rec(JSON.parse(rename(JSON.stringify(source))));
-  const known = Object.keys(options).filter((k) => k in DEFAULTS);
+  const known = Object.keys(options).filter(isKnown);
   // Not settings of this kind: too few of the known options.
   if (known.length < 3) return null;
   const kept = changed(Object.fromEntries(known.map((k) => [k, options[k]])));
+  const site = siteSettings(data, options);
   return {
     ...SETTINGS.fromOptions(kept),
     importedOptions: JSON.stringify(kept),
+    ...(site ? { '@site': site } : {}),
   };
 }
 
@@ -80,4 +113,82 @@ export function importedOptions(values: Record<string, unknown>): Record<string,
   } catch {
     return {};
   }
+}
+
+/**
+ * Class and id prefixes of the original theme's markup and Zenit's (core
+ * 0.82 renames them in Additional CSS imported from WordPress).
+ */
+export const CSS_PREFIXES: Record<string, string> = {
+  [`${PREFIX}-`]: 'zn-',
+  [`${LONG}-`]: 'zenit-',
+  'ahfb-': 'zn-hfb-',
+};
+
+/** Layouts of the original theme's pages before its 4.2 (one meta for layout and style). */
+const LEGACY_LAYOUTS: Record<string, [string, string]> = {
+  'plain-container': ['normal-width-container', 'unboxed'],
+  'content-boxed-container': ['normal-width-container', 'boxed'],
+  'boxed-container': ['normal-width-container', 'boxed'],
+  'page-builder': ['full-width-container', 'unboxed'],
+  'narrow-container': ['narrow-width-container', 'unboxed'],
+};
+
+/** A meta value: serialized PHP read, the text otherwise. */
+function metaValue(text: string): unknown {
+  try {
+    const value = unserialize(text);
+    if (value !== undefined) return value;
+  } catch {
+    // Plain text.
+  }
+  return text;
+}
+
+/**
+ * A background of the page meta without the WordPress media it may name
+ * (the media library ids are not the site's): its color stays.
+ */
+function withoutMedia(value: unknown): unknown {
+  const devices = rec(value);
+  return Object.fromEntries(
+    Object.entries(devices).map(([device, v]) => {
+      const b = { ...rec(v) };
+      if (b['background-type'] === 'image')
+        b['background-type'] = b['background-color'] ? 'color' : '';
+      delete b['background-media'];
+      return [device, b];
+    }),
+  );
+}
+
+/**
+ * The page options of a WordPress page or post made with the original
+ * theme (its post meta, from a WordPress import: core 0.82): container
+ * layout and style, sidebar, backgrounds and the parts it hides, as the
+ * values of Zenit's page options.
+ */
+export function importEntryMeta(item: {
+  type: string;
+  meta: Record<string, string>;
+}): Record<string, unknown> | null {
+  const options: Record<string, unknown> = {};
+  for (const [key, text] of Object.entries(item.meta ?? {})) {
+    if (typeof text !== 'string') continue;
+    const value = metaValue(text);
+    options[rename(key)] = typeof value === 'string' ? rename(value) : value;
+  }
+  const legacy = LEGACY_LAYOUTS[String(options['site-content-layout'] ?? '')];
+  if (legacy && !options['zn-site-content-layout']) {
+    options['zn-site-content-layout'] = legacy[0];
+    if (!options['site-content-style']) options['site-content-style'] = legacy[1];
+  }
+  for (const key of ['zn-page-background-meta', 'zn-content-background-meta'])
+    if (key in options) options[key] = withoutMedia(options[key]);
+  const values = ENTRY_SETTINGS.fromOptions(options);
+  // "As in Customize" everywhere is what a page has without options.
+  const own = Object.fromEntries(
+    Object.entries(values).filter(([, v]) => v !== 'default' && v !== false && v !== undefined),
+  );
+  return Object.keys(own).length ? own : null;
 }

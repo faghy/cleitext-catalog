@@ -2,7 +2,8 @@
  * Options of single pages and posts (Document tab of the editor). Their
  * values become the page's own options, over the Customize ones.
  */
-import type { Place, Setting } from './define.js';
+import type { FieldDefinition } from '@cleitext/shared';
+import { background, type Place, type Setting } from './define.js';
 import { pageHide, pageSelect } from './define-builder.js';
 
 const place = (
@@ -27,6 +28,31 @@ const STYLES = [
   { value: 'boxed', label: { en: 'Boxed', it: 'Riquadro' } },
 ];
 const headerShown = { field: 'znGlobalHeaderDisplay', equals: false };
+const BACKGROUND = { en: 'Background', it: 'Sfondo' };
+const ownBackground = { field: 'znPageBackgroundEnabled', equals: true };
+
+/** The page's own backgrounds are used (`'enabled'`), over the site's (since Zenit 1.1.0). */
+function backgroundSwitch(): Setting {
+  const key = 'zn-page-background-enabled';
+  const name = 'znPageBackgroundEnabled';
+  return {
+    fields: [
+      {
+        ...place(BACKGROUND),
+        name,
+        type: 'boolean',
+        label: { en: 'Backgrounds of this page', it: 'Sfondi di questa pagina' },
+        default: false,
+      } as FieldDefinition,
+    ],
+    write(values) {
+      return values[name] === true ? { [key]: 'enabled' } : {};
+    },
+    read(o) {
+      return key in o ? { [name]: o[key] === 'enabled' } : {};
+    },
+  };
+}
 
 export function entrySettings(): Setting[] {
   return [
@@ -58,6 +84,19 @@ export function entrySettings(): Setting[] {
       { en: 'Sidebar style', it: 'Stile della barra laterale' },
       place(LAYOUT),
       STYLES,
+    ),
+    backgroundSwitch(),
+    background(
+      'zn-page-background-meta',
+      { en: 'Page background', it: 'Sfondo della pagina' },
+      place(BACKGROUND, { showIf: ownBackground }),
+      { responsive: true },
+    ),
+    background(
+      'zn-content-background-meta',
+      { en: 'Content background', it: 'Sfondo del contenuto' },
+      place(BACKGROUND, { showIf: ownBackground }),
+      { responsive: true },
     ),
     pageHide(
       ['zn-global-header-display'],

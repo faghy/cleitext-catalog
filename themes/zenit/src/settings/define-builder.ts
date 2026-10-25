@@ -471,6 +471,10 @@ export function pageSelect(
       const v = values[name];
       return set(v) && v !== 'default' ? { [key]: v } : {};
     },
+    read(o) {
+      const v = o[key];
+      return options.some((c) => c.value === v) ? { [name]: v } : {};
+    },
   };
 }
 
@@ -483,6 +487,10 @@ export function pageHide(keys: string[], label: Label, place: Place): Setting {
       const v = values[name];
       if (v === undefined || v === null) return {};
       return Object.fromEntries(keys.map((k) => [k, v ? 'disabled' : '']));
+    },
+    read(o) {
+      const found = keys.find((k) => k in o);
+      return found === undefined ? {} : { [name]: o[found] === 'disabled' };
     },
   };
 }

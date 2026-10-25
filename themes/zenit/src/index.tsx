@@ -26,7 +26,7 @@ import { Footer, ScrollTop } from './parts/footer.js';
 import { Header, MobilePopup } from './parts/header.js';
 import { Index, SingleBanner } from './parts/templates.js';
 import { cx, slugId, useR, type R } from './parts/render.js';
-import { importSettings } from './import.js';
+import { CSS_PREFIXES, importEntryMeta, importSettings } from './import.js';
 import { SCRIPT } from './script.js';
 import { HEADER_PRESETS } from './settings/builder.js';
 import { ENTRY_SETTINGS, SECTIONS, SETTINGS } from './settings/index.js';
@@ -223,6 +223,10 @@ export const theme = defineTheme({
   comments: 'manual',
   listTerms: true,
   importSettings,
+  // A WordPress import (core 0.82): the pages' options from their meta, and Additional CSS
+  // written for the original theme's classes renamed to Zenit's.
+  importEntryMeta,
+  importCssPrefixes: CSS_PREFIXES,
   adjacentEntries: true,
   Layout,
   css: '',
