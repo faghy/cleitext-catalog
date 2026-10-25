@@ -1,7 +1,7 @@
 {
   "slug": "zenit",
   "name": "Zenit",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A fast multipurpose theme: drag-and-drop header and footer builder, global colors and fonts, container and sidebar layouts, blog layouts.",
   "license": "GPL-2.0-or-later",
   "entry": "dist/index.js"

@@ -54,53 +54,6 @@ function backgroundSwitch(): Setting {
   };
 }
 
-/**
- * "Hide the title area": the title banner of the page goes
- * (`zn-banner-title-visibility`), the content keeps the global container's
- * top and bottom margin (Zenit 1.2.1). The original's older "Disable title"
- * (`site-post-title`) also drops that margin: a page imported with it keeps
- * it in a hidden field, used while the title area stays hidden.
- */
-function titleHide(): Setting {
-  const name = 'sitePostTitle';
-  const legacy = 'znLegacyPostTitleDisabled';
-  return {
-    fields: [
-      {
-        ...place(DISABLE),
-        name,
-        type: 'boolean',
-        label: { en: 'Hide the title area', it: 'Nascondi l’area del titolo' },
-        default: false,
-      } as FieldDefinition,
-      {
-        ...place(DISABLE),
-        name: legacy,
-        type: 'boolean',
-        hidden: true,
-        label: { en: 'Title disabled (imported)', it: 'Titolo disattivato (importato)' },
-        default: false,
-      } as FieldDefinition,
-    ],
-    write(values) {
-      const v = values[name];
-      if (v === undefined || v === null) return {};
-      return {
-        'zn-banner-title-visibility': v ? 'disabled' : '',
-        ...(v && values[legacy] === true ? { 'site-post-title': 'disabled' } : {}),
-      };
-    },
-    read(o) {
-      const keys = ['site-post-title', 'zn-banner-title-visibility'].filter((k) => k in o);
-      if (!keys.length) return {};
-      return {
-        [name]: keys.some((k) => o[k] === 'disabled'),
-        ...(o['site-post-title'] === 'disabled' ? { [legacy]: true } : {}),
-      };
-    },
-  };
-}
-
 export function entrySettings(): Setting[] {
   return [
     pageSelect(
@@ -155,7 +108,11 @@ export function entrySettings(): Setting[] {
       { en: 'Hide the footer', it: 'Nascondi il piè di pagina' },
       place(DISABLE),
     ),
-    titleHide(),
+    pageHide(
+      ['site-post-title', 'zn-banner-title-visibility'],
+      { en: 'Hide the title area', it: 'Nascondi l’area del titolo' },
+      place(DISABLE),
+    ),
     pageHide(
       ['zn-breadcrumbs-content'],
       { en: 'Hide the breadcrumb', it: 'Nascondi il percorso di navigazione' },
