@@ -224,6 +224,18 @@ export const SCRIPT = `(function () {
     }
   }
 
+  // Language switcher dropdowns close on a click elsewhere and on Escape (focus back on them).
+  doc.addEventListener('click', function (e) {
+    $$('.zn-lang-dropdown[open]').forEach(function (d) { if (!d.contains(e.target)) d.removeAttribute('open'); });
+  });
+  doc.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    $$('.zn-lang-dropdown[open]').forEach(function (d) {
+      d.removeAttribute('open');
+      if (d.contains(doc.activeElement)) d.querySelector('summary').focus();
+    });
+  });
+
   // Smooth scrolling to the sections of a page.
   doc.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href^="#"]');

@@ -57,6 +57,7 @@ import { part as singlePostCss } from './single_post_css.js';
 import { part as paginationCss } from './pagination_css.js';
 import { part as navigationCss } from './navigation_css.js';
 import { part as logoSvgIcons } from './logo_svg_icons.js';
+import { part as languageSwitcher } from './language_switcher.js';
 
 export interface Part {
   /** The function of the reference it reproduces. */
@@ -125,4 +126,5 @@ export const PARTS: Part[] = [
   paginationCss,
   navigationCss,
   logoSvgIcons,
+  languageSwitcher,
 ];

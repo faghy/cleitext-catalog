@@ -924,6 +924,38 @@ export function widget(type: 'header' | 'footer', n: number): Setting[] {
   ];
 }
 
+/** The language switcher (header or footer): dropdown or list, flags, names or codes. */
+export function languageSwitcher(type: 'header' | 'footer'): Setting[] {
+  const s = `section-${type === 'header' ? 'hb' : 'fb'}-language-switcher`;
+  const k = `${type}-language-switcher`;
+  const linkColor = { en: 'Link color', it: 'Colore dei link' };
+  return [
+    select(`${k}-layout`, { en: 'Layout', it: 'Disposizione' }, g(s), [
+      { value: 'dropdown', label: { en: 'Dropdown', it: 'Menu a tendina' } },
+      { value: 'horizontal', label: { en: 'Inline', it: 'In riga' } },
+      { value: 'vertical', label: { en: 'Stack', it: 'In colonna' } },
+    ]),
+    select(`${k}-display`, { en: 'Show', it: 'Mostra' }, g(s), [
+      { value: 'name', label: { en: 'Native name', it: 'Nome nella lingua' } },
+      { value: 'code', label: { en: 'Code', it: 'Codice' } },
+    ]),
+    toggle(`${k}-show-flag`, { en: 'Show flags', it: 'Mostra le bandiere' }, g(s)),
+    ...(type === 'footer'
+      ? [
+          select(`${k}-alignment`, { en: 'Alignment', it: 'Allineamento' }, g(s), align(), {
+            responsive: true,
+          }),
+        ]
+      : []),
+    shown(s),
+    deviceColor(`${k}-color`, L.normal, d(s, { group: linkColor })),
+    deviceColor(`${k}-h-color`, L.hover, d(s, { group: linkColor })),
+    color(`${k}-bg-color`, { en: 'Dropdown background', it: 'Sfondo del menu a tendina' }, d(s)),
+    fontSize(`font-size-${s}`, L.fontSize, d(s)),
+    spacing(`${s}-margin`, L.margin, d(s, { group: L.spacing }), { responsive: true }),
+  ];
+}
+
 export function headerSettings(): Setting[] {
   return [
     select(
@@ -955,5 +987,6 @@ export function headerSettings(): Setting[] {
     ...account(),
     ...widget('header', 1),
     ...widget('header', 2),
+    ...languageSwitcher('header'),
   ];
 }

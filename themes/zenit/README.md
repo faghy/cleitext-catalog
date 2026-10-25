@@ -21,6 +21,10 @@ phone width:
   featured image with an overlay color), alignment and colors; the featured image can also go at
   the top of the article (**Image position → Below**).
 - **Extras**: breadcrumbs, back-to-top button, transparent header.
+- **Language switcher** (Zenit 1.2.0), an element of both builders for sites in several languages
+  (Multilingual plugin): a dropdown or a list, with flags or not, names in each language or codes;
+  each language links to the current page's translation, or to its home page when there is none.
+  It shows nothing while the site has one language.
 
 Each page and post can change its own container, sidebar, backgrounds (since Zenit 1.1.0) and
 which parts to hide (Document tab of the editor).
@@ -36,6 +40,10 @@ format. Importing the WordPress export with Zenit active gives each page its own
 original theme's page settings (container layout and style, sidebar, backgrounds, hidden parts),
 and rewrites the original theme's class names in the imported Additional CSS to Zenit's (`.zn-…`,
 in selectors only), as the import report says.
+When the file also has WPML's options (`wpml_language_switcher`, or the older ones in
+`icl_sitepress_settings`), the language switcher goes where WPML showed its own: next to the primary
+menu (and the off-canvas menu on phones), next to a footer widget area, or in the footer's bottom
+row (Zenit 1.2.0).
 
 CSS of your own goes in **Customize → Additional CSS**, Cleitext's for every theme (Zenit's own
 option moved there with Zenit 1.0.5 and Cleitext 0.79). To change templates or styles in code,

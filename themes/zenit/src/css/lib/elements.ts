@@ -422,3 +422,50 @@ const SOCIAL_LTR =
   '.zn-header-social-wrap .zn-builder-social-element:last-child {margin-right: 0;}' +
   '.zn-builder-social-element {line-height: 1;color: var(--zn-global-color-2);background: transparent;vertical-align: middle;transition: all 0.01s;margin-left: 6px;margin-right: 6px;justify-content: center;align-items: center;}' +
   '.zn-builder-social-element .social-item-label {padding-left: 6px;}';
+
+const FLEX: Record<string, string> = { left: 'flex-start', center: 'center', right: 'flex-end' };
+
+/**
+ * The language switcher of each builder it is placed in (Zenit 1.2.0): link
+ * colors, the dropdown's background, font size and margin per device, the
+ * footer's alignment per device (mirrored for right-to-left languages) and
+ * visibility.
+ */
+export function languageSwitcherCss(o: Options, rtl: boolean): string {
+  let css = '';
+  for (const type of ['header', 'footer'] as const) {
+    if (!isLoaded(o, 'language-switcher', type)) continue;
+    const section = `section-${type === 'header' ? 'hb' : 'fb'}-language-switcher`;
+    const k = `${type}-language-switcher`;
+    const selector = `.zn-${type}-language-switcher`;
+    const link = devices(o, `${k}-color`);
+    const linkH = devices(o, `${k}-h-color`);
+    const align = devices(o, `${k}-alignment`);
+    const fontSize = o.get(`font-size-${section}`);
+    const margin = o.get(`${section}-margin`);
+    const side = (v: unknown) => {
+      const a = typeof v === 'string' ? v : '';
+      return FLEX[rtl ? ({ left: 'right', right: 'left' }[a] ?? a) : a] ?? '';
+    };
+    const rules = (d: 'desktop' | 'tablet' | 'mobile'): Rules => ({
+      [selector]: {
+        ...margins(margin, d),
+        ...(type === 'footer' ? { 'justify-content': side(align[d]) } : {}),
+      },
+      [`${selector} .zn-lang-switcher`]: { 'font-size': responsiveFont(o, fontSize, d) },
+      ...(type === 'footer'
+        ? { [`${selector} .zn-lang-list`]: { 'justify-content': side(align[d]) } }
+        : {}),
+      [`${selector} .zn-lang-switcher a, ${selector} .zn-lang-switcher summary`]: {
+        color: link[d],
+      },
+      [`${selector} .zn-lang-switcher a:hover, ${selector} .zn-lang-switcher summary:hover`]: {
+        color: linkH[d],
+      },
+    });
+    css += parseCss({ [selector]: { '--zn-lang-bg': o.get(`${k}-bg-color`) } });
+    css += threeDevices(rules('desktop'), rules('tablet'), rules('mobile'));
+    css += visibilityCss(o, section, selector, 'flex');
+  }
+  return css;
+}

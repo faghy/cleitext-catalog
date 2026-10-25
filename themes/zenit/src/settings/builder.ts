@@ -83,6 +83,16 @@ export const BUILDER_SECTIONS: Section[] = [
     },
   },
   {
+    id: 'section-hb-language-switcher',
+    label: { en: 'Language switcher', it: 'Selettore della lingua' },
+    parent: H,
+    tabs: true,
+    description: {
+      en: 'The site’s languages (Multilingual plugin), each linking to this page in that language or, without a translation, to its home page. It shows nothing while the site has one language.',
+      it: 'Le lingue del sito (plugin Multilingua), ognuna con il link a questa pagina in quella lingua o, se non è tradotta, alla sua home page. Non mostra nulla finché il sito ha una sola lingua.',
+    },
+  },
+  {
     id: 'section-header-mobile-trigger',
     label: { en: 'Toggle button', it: 'Pulsante menu' },
     parent: H,
@@ -128,6 +138,16 @@ export const BUILDER_SECTIONS: Section[] = [
   { id: 'section-fb-html-1', label: { en: 'HTML 1', it: 'HTML 1' }, parent: F, tabs: true },
   { id: 'section-fb-html-2', label: { en: 'HTML 2', it: 'HTML 2' }, parent: F, tabs: true },
   { id: 'section-fb-social-icons-1', label: { en: 'Social', it: 'Social' }, parent: F, tabs: true },
+  {
+    id: 'section-fb-language-switcher',
+    label: { en: 'Language switcher', it: 'Selettore della lingua' },
+    parent: F,
+    tabs: true,
+    description: {
+      en: 'The site’s languages (Multilingual plugin), each linking to this page in that language or, without a translation, to its home page. It shows nothing while the site has one language.',
+      it: 'Le lingue del sito (plugin Multilingua), ognuna con il link a questa pagina in quella lingua o, se non è tradotta, alla sua home page. Non mostra nulla finché il sito ha una sola lingua.',
+    },
+  },
   ...[1, 2, 3, 4].map((n) => ({
     id: `sidebar-widgets-footer-widget-${n}`,
     label: { en: `Widget ${n}`, it: `Widget ${n}` },
@@ -158,6 +178,11 @@ const HEADER_ITEMS: BuilderItem[] = [
   { id: 'social-icons-1', label: 'Social', section: 'section-hb-social-icons-1' },
   { id: 'account', label: 'Account', section: 'section-header-account' },
   { id: 'woo-cart', label: { en: 'Cart', it: 'Carrello' }, section: 'section-header-woo-cart' },
+  {
+    id: 'language-switcher',
+    label: { en: 'Language switcher', it: 'Selettore della lingua' },
+    section: 'section-hb-language-switcher',
+  },
   { id: 'widget-1', label: 'Widget 1', section: 'sidebar-widgets-header-widget-1' },
   { id: 'widget-2', label: 'Widget 2', section: 'sidebar-widgets-header-widget-2' },
   {
@@ -180,6 +205,11 @@ const FOOTER_ITEMS: BuilderItem[] = [
   { id: 'html-1', label: 'HTML 1', section: 'section-fb-html-1' },
   { id: 'html-2', label: 'HTML 2', section: 'section-fb-html-2' },
   { id: 'social-icons-1', label: 'Social', section: 'section-fb-social-icons-1' },
+  {
+    id: 'language-switcher',
+    label: { en: 'Language switcher', it: 'Selettore della lingua' },
+    section: 'section-fb-language-switcher',
+  },
   ...[1, 2, 3, 4].map((n) => ({
     id: `widget-${n}`,
     label: `Widget ${n}`,

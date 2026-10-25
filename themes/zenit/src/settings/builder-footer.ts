@@ -12,7 +12,7 @@ import {
   type Setting,
 } from './define.js';
 import { align, deviceColor, fontSize, footerColumns, L } from './define-builder.js';
-import { advanced, html, shown, social, widget } from './builder-header.js';
+import { advanced, html, languageSwitcher, shown, social, widget } from './builder-header.js';
 
 export const F = 'section-footer-builder-layout';
 
@@ -181,6 +181,7 @@ export function footerSettings(): Setting[] {
     ...html('footer', 1),
     ...html('footer', 2),
     ...social('footer'),
+    ...languageSwitcher('footer'),
     ...[1, 2, 3, 4].flatMap((n) => widget('footer', n)),
   ];
 }

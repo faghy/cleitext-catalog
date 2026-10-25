@@ -11,6 +11,7 @@ import { cx, type R } from './render.js';
 import { socialIcon } from './social-icons.js';
 import { autop } from './autop.js';
 import { elementSection, proOnly } from '../pro/elements.js';
+import { LanguageSwitcher } from './language-switcher.js';
 
 export type Device = 'desktop' | 'mobile';
 
@@ -30,6 +31,7 @@ export const SECTIONS: Record<string, string> = {
   'woo-cart': 'section-header-woo-cart',
   'widget-1': 'sidebar-widgets-header-widget-1',
   'widget-2': 'sidebar-widgets-header-widget-2',
+  'language-switcher': 'section-hb-language-switcher',
 };
 
 /** The editing pencil of an element in the Customize preview (by its settings section). */
@@ -502,6 +504,12 @@ export function HeaderElement({ r, id, device }: { r: R; id: string; device: Dev
         <Social r={r} type="header" index={Number(social[1])} />
       </div>
     );
+  if (id === 'language-switcher')
+    return (
+      <div className={`${base} zn-header-language-switcher`} {...pencil(section)}>
+        <LanguageSwitcher r={r} type="header" />
+      </div>
+    );
   if (id === 'account')
     return (
       <div
@@ -522,15 +530,14 @@ export function HeaderElement({ r, id, device }: { r: R; id: string; device: Dev
   const widget = /^widget-(\d+)$/.exec(id);
   if (widget)
     return (
+      // The area itself is the `-inner` element its alignment, colors and sizes are written for.
       <aside
-        className="header-widget-area widget-area site-header-focus-item"
+        className="header-widget-area widget-area site-header-focus-item header-widget-area-inner"
         {...pencil(section)}
         aria-label={`Header Widget ${widget[1]}`}
         role="region"
       >
-        <div className="header-widget-area-inner site-info-inner">
-          <BlockArea name={`header-widget-${widget[1]}`} />
-        </div>
+        <BlockArea name={`header-widget-${widget[1]}`} />
       </aside>
     );
   return null;
@@ -572,18 +579,26 @@ export function FooterElement({ r, id }: { r: R; id: string }): ReactNode {
         <Social r={r} type="footer" index={Number(social[1])} />
       </div>
     );
+  if (id === 'language-switcher')
+    return (
+      <div
+        className="zn-builder-layout-element zn-flex site-footer-focus-item zn-footer-language-switcher"
+        {...pencil('section-fb-language-switcher')}
+      >
+        <LanguageSwitcher r={r} type="footer" />
+      </div>
+    );
   const widget = /^widget-(\d+)$/.exec(id);
   if (widget)
     return (
+      // The area itself is the `-inner` element its alignment, colors and sizes are written for.
       <aside
-        className="footer-widget-area widget-area site-footer-focus-item"
+        className="footer-widget-area widget-area site-footer-focus-item footer-widget-area-inner"
         {...pencil(`sidebar-widgets-footer-widget-${widget[1]}`)}
         aria-label={`Footer Widget ${widget[1]}`}
         role="region"
       >
-        <div className="footer-widget-area-inner site-info-inner">
-          <BlockArea name={`footer-widget-${widget[1]}`} />
-        </div>
+        <BlockArea name={`footer-widget-${widget[1]}`} />
       </aside>
     );
   if (id === 'menu') {

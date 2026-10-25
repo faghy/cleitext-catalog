@@ -84,6 +84,117 @@ function siteSettings(
   return Object.keys(out).length ? out : null;
 }
 
+/** A WPML yes: `1`, `'1'` or `true`. */
+const yes = (v: unknown) => v === true || Number(v) === 1;
+
+/** An option of the file, unserialized when it is PHP's text. */
+function optionOf(site: Record<string, unknown>, name: string): Record<string, unknown> {
+  const v = site[name];
+  if (typeof v !== 'string') return rec(v);
+  try {
+    return rec(unserialize(v.trim()) ?? JSON.parse(v));
+  } catch {
+    return {};
+  }
+}
+
+const SWITCHER = 'language-switcher';
+
+/** The zones of a builder layout option (a copy, defaults when missing). */
+function layoutOf(options: Record<string, unknown>, key: string) {
+  return JSON.parse(JSON.stringify(options[key] ?? DEFAULTS[key] ?? {})) as Record<
+    string,
+    Record<string, unknown>
+  >;
+}
+
+/** Puts the switcher right after an element, wherever the layout has it; false when it has none. */
+function insertAfter(layout: Record<string, Record<string, unknown>>, after: string): boolean {
+  for (const zones of Object.values(layout)) {
+    if (!zones || typeof zones !== 'object') continue;
+    for (const list of Object.values(zones)) {
+      if (!Array.isArray(list)) continue;
+      const at = list.indexOf(after);
+      if (at < 0) continue;
+      list.splice(at + 1, 0, SWITCHER);
+      return true;
+    }
+  }
+  return false;
+}
+
+/** Appends the switcher to a zone (`row`, `row_zone`). */
+function append(layout: Record<string, Record<string, unknown>>, row: string, zone: string): void {
+  const zones = (layout[row] ??= {});
+  const list = Array.isArray(zones[zone]) ? (zones[zone] as unknown[]) : [];
+  zones[zone] = [...list, SWITCHER];
+}
+
+const placed = (options: Record<string, unknown>) =>
+  ['header-desktop-items', 'header-mobile-items', 'footer-desktop-items'].some((key) =>
+    JSON.stringify(options[key] ?? '').includes(`"${SWITCHER}"`),
+  );
+
+/**
+ * Where WPML showed its language switcher, when the file has WPML's options
+ * (`wpml_language_switcher`, or the older keys of `icl_sitepress_settings`):
+ * in a menu (next to the primary menu, and the off-canvas menu on phones), in
+ * a footer widget area (next to that area) or in the footer: Zenit's switcher
+ * goes there, as a dropdown or a list, with flags if WPML had them. Sites
+ * whose original theme placed its own switcher keep that one.
+ */
+function placeLanguageSwitcher(
+  options: Record<string, unknown>,
+  site: Record<string, unknown>,
+): void {
+  if (placed(options)) return;
+  const icl = optionOf(site, 'icl_sitepress_settings');
+  const ls = Object.keys(optionOf(site, 'wpml_language_switcher')).length
+    ? optionOf(site, 'wpml_language_switcher')
+    : rec(icl.wpml_language_switcher);
+  const shown = (slots: unknown) =>
+    Object.entries(rec(slots))
+      .map(([id, slot]) => [id, rec(slot)] as const)
+      .filter(([, slot]) => slot.show === undefined || yes(slot.show));
+  const menus = shown(ls.menus);
+  const sidebars = shown(ls.sidebars);
+  const footer = rec(rec(ls.statics).footer);
+  // WPML before 3.6: one switcher in a menu, and one in the footer.
+  const legacyMenu = !Object.keys(ls).length && yes(icl.display_ls_in_menu);
+  const legacyFooter = !Object.keys(ls).length && yes(icl.icl_lang_sel_footer);
+  const style = (slot: Record<string, unknown>, type: 'header' | 'footer', list: boolean) => {
+    options[`${type}-language-switcher-layout`] = list ? 'horizontal' : 'dropdown';
+    if (yes(slot.display_flags)) options[`${type}-language-switcher-show-flag`] = true;
+  };
+
+  if (menus.length || legacyMenu) {
+    const slot = menus[0]?.[1] ?? {};
+    const desktop = layoutOf(options, 'header-desktop-items');
+    if (!insertAfter(desktop, 'menu-1')) append(desktop, 'primary', 'primary_right');
+    options['header-desktop-items'] = desktop;
+    const mobile = layoutOf(options, 'header-mobile-items');
+    if (!insertAfter(mobile, 'mobile-menu')) append(mobile, 'popup', 'popup_content');
+    options['header-mobile-items'] = mobile;
+    // Menus show it as a dropdown unless WPML listed the languages side by side.
+    style(
+      slot,
+      'header',
+      menus.length > 0 && slot.is_hierarchical !== undefined && !yes(slot.is_hierarchical),
+    );
+    if (legacyMenu && yes(icl.icl_lso_flags)) options['header-language-switcher-show-flag'] = true;
+  }
+  const area = sidebars.map(([id]) => /^footer-widget-(\d+)$/.exec(id)?.[1]).find(Boolean);
+  if (area || (footer.show !== undefined && yes(footer.show)) || legacyFooter) {
+    const layout = layoutOf(options, 'footer-desktop-items');
+    if (!(area && insertAfter(layout, `widget-${area}`))) append(layout, 'below', 'below_1');
+    options['footer-desktop-items'] = layout;
+    const slot = area
+      ? (sidebars.find(([id]) => id === `footer-widget-${area}`)?.[1] ?? {})
+      : footer;
+    style(slot, 'footer', !yes(slot.is_hierarchical));
+  }
+}
+
 export function importSettings(data: unknown): Record<string, unknown> | null {
   let source: Record<string, unknown>;
   try {
@@ -95,7 +206,14 @@ export function importSettings(data: unknown): Record<string, unknown> | null {
   const known = Object.keys(options).filter(isKnown);
   // Not settings of this kind: too few of the known options.
   if (known.length < 3) return null;
-  const kept = changed(Object.fromEntries(known.map((k) => [k, options[k]])));
+  placeLanguageSwitcher(options, siteOptionsOf(data));
+  const kept = changed(
+    Object.fromEntries(
+      Object.keys(options)
+        .filter(isKnown)
+        .map((k) => [k, options[k]]),
+    ),
+  );
   const site = siteSettings(data, options);
   return {
     ...SETTINGS.fromOptions(kept),

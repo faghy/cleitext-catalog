@@ -44,6 +44,8 @@ const EN = {
   home: 'Home',
   breadcrumbs: 'Breadcrumbs',
   uncategorized: 'Uncategorized',
+  languages: 'Languages',
+  language: (name: string) => `Language: ${name}`,
 };
 
 const IT: typeof EN = {
@@ -90,6 +92,8 @@ const IT: typeof EN = {
   home: 'Home',
   breadcrumbs: 'Briciole di pane',
   uncategorized: 'Senza categoria',
+  languages: 'Lingue',
+  language: (name) => `Lingua: ${name}`,
 };
 
 export type Strings = typeof EN;
