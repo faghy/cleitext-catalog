@@ -788,8 +788,3 @@ export function image(key: string, label: Label, place: Place): Setting {
     },
   };
 }
-
-/** CSS written by the site owner. */
-export function code(key: string, label: Label, place: Place): Setting {
-  return single(key, { type: 'code', label, language: 'css' }, place, same, defined);
-}

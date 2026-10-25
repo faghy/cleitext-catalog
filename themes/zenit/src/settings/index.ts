@@ -4,7 +4,7 @@
  */
 import type { FieldDefinition } from '@cleitext/shared';
 import type { ThemeSettingsSection } from '@cleitext/theme-sdk';
-import { code, collect, type Setting } from './define.js';
+import { collect, type Setting } from './define.js';
 import { builderSettings, BUILDER_SECTIONS } from './builder.js';
 import { globalSettings, GLOBAL_SECTIONS } from './global.js';
 import { entrySettings } from './entry.js';
@@ -48,13 +48,11 @@ const ROOT = [
   'section-blog-group',
   GENERAL,
   'section-footer-builder-layout',
-  'section-custom-css',
 ];
 
 const all: ThemeSettingsSection[] = [
   ...[...GLOBAL_SECTIONS, ...BUILDER_SECTIONS].map(withTabs),
   { id: GENERAL, label: { en: 'General', it: 'Generale' } },
-  { id: 'section-custom-css', label: { en: 'Additional CSS', it: 'CSS aggiuntivo' } },
 ].map((s) => ({
   ...s,
   ...(MOVED[s.id] ? { parent: MOVED[s.id] } : {}),
@@ -82,22 +80,13 @@ const ALL: Setting[] = [
         maxLength: 100_000,
         hidden: true,
         label: { en: 'Imported settings', it: 'Impostazioni importate' },
-        section: 'section-custom-css',
+        section: GENERAL,
       } as FieldDefinition,
     ],
     write: () => ({}),
   },
-  code(
-    'custom-css',
-    { en: 'Additional CSS', it: 'CSS aggiuntivo' },
-    {
-      section: 'section-custom-css',
-      help: {
-        en: 'CSS added to every page, after the theme’s own.',
-        it: 'CSS aggiunto a ogni pagina, dopo quello del tema.',
-      },
-    },
-  ),
+  // "Additional CSS" is the core's (Customize → Additional CSS, Cleitext 0.79):
+  // the value of Zenit's own option moved there once.
 ];
 
 export const SETTINGS = collect(ALL);

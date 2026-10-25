@@ -1,6 +1,6 @@
 /**
  * The main dynamic CSS: colors, fonts, buttons, containers, sidebar, blog
- * layouts, blocks and forms, with the site's custom CSS at the end.
+ * layouts, blocks and forms (the site owner's CSS is the core's Additional CSS).
  */
 import { blocksCss } from '../lib/main-blocks.js';
 import { blogCss } from '../lib/main-blog.js';
@@ -23,8 +23,7 @@ export const part: Part = {
     css += typoCss(o, c, v);
     css += blogCss(o, c, v);
     css += endCss(o, c);
-    const custom = o.get('custom-css');
-    if (custom !== '') css += String(custom);
+    // The site owner's CSS is the core's Additional CSS (Cleitext 0.79), printed after this.
     return trimCss(css);
   },
 };

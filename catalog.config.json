@@ -627,7 +627,7 @@
         "blog",
         "business"
       ],
-      "requires": ">=0.46.0",
+      "requires": ">=0.79.0",
       "icon": "assets/zenit.svg",
       "screenshots": [
         "assets/zenit.png"

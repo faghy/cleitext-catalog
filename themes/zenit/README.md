@@ -1,7 +1,7 @@
 # Zenit — multipurpose theme for Cleitext
 
 Part of the Cleitext catalog: install it from **Appearance → Themes → Add New**, or with
-`cleitext theme:install themes/zenit --build`. Needs Cleitext 0.46 or later.
+`cleitext theme:install themes/zenit --build`. Needs Cleitext 0.79 or later.
 
 Everything is set in **Appearance → Customize**, with a live preview at desktop, tablet and
 phone width:
@@ -19,6 +19,11 @@ phone width:
 
 Each page and post can change its own container, sidebar and which parts to hide (Document tab
 of the editor).
+
+CSS of your own goes in **Customize → Additional CSS**, Cleitext's for every theme (Zenit's own
+option moved there with Zenit 1.0.5 and Cleitext 0.79). To change templates or styles in code,
+make a child theme of Zenit (**Appearance → Themes → Create child theme**): Zenit's updates never
+touch it.
 
 Block areas (Appearance → Areas): **Sidebar**, **Header widget 1–2**, **Footer widget 1–4**.
 Menu locations: **Primary**, **Secondary**, **Off-canvas** and **Footer**.
