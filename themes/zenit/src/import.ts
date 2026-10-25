@@ -296,8 +296,13 @@ export function importEntryMeta(item: {
     const value = metaValue(text);
     options[rename(key)] = typeof value === 'string' ? rename(value) : value;
   }
+  // The older layout meta counts until the original moved it to the newer one
+  // (its `migrate-meta-layouts` meta is `set`); a newer one left at "default" then
+  // means the global layout, as no option of the page.
+  const layout = String(options['zn-site-content-layout'] ?? '');
+  const migrated = options['zenit-migrate-meta-layouts'] === 'set';
   const legacy = LEGACY_LAYOUTS[String(options['site-content-layout'] ?? '')];
-  if (legacy && !options['zn-site-content-layout']) {
+  if (legacy && (!layout || (layout === 'default' && !migrated))) {
     options['zn-site-content-layout'] = legacy[0];
     if (!options['site-content-style']) options['site-content-style'] = legacy[1];
   }

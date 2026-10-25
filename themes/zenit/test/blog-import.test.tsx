@@ -200,6 +200,7 @@ describe("the pages' options from their WordPress meta", () => {
       znSiteContentLayout: 'narrow-width-container',
       siteContentStyle: 'boxed',
       sitePostTitle: true,
+      znLegacyPostTitleDisabled: true,
       znPageBackgroundEnabled: true,
       znPageBackgroundMeta: { desktop: { type: 'color', color: '#f5f5f5' } },
       znContentBackgroundMeta: { desktop: { type: 'color', color: '#fff' } },
