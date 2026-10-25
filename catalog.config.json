@@ -345,7 +345,7 @@
       ],
       "category": "editor",
       "source": "private",
-      "requires": ">=0.77.0",
+      "requires": ">=0.77.1",
       "paid": {
         "price": {
           "amount": 29,
