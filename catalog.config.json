@@ -330,6 +330,39 @@
     },
     {
       "type": "plugin",
+      "slug": "campus",
+      "name": "Campus",
+      "summary": {
+        "en": "Custom fields the easy way, like ACF Pro: a visual builder with drag and drop, repeaters, flexible content, galleries, maps, conditions and location rules, two-way relations, options pages, blocks made from fields without code, JSON export and sync, and an importer of ACF fields and values from WordPress (needs WordPress Importer 1.22+). If the license ends, fields and values keep working and the builder becomes read-only. Paid: €29 a year for 1 site, €99 a year for 10 sites, €190 a year for unlimited sites.",
+        "it": "Campi personalizzati facili, come ACF Pro: un costruttore visuale con trascinamento, ripetitori, contenuti flessibili, gallerie, mappe, condizioni e regole di posizione, relazioni nei due sensi, pagine di opzioni, blocchi fatti di campi senza codice, esportazione e sincronizzazione JSON, e l'importazione di campi e valori ACF da WordPress (serve WordPress Importer 1.22 o successivo). Se la licenza scade, campi e valori continuano a funzionare e il costruttore diventa di sola lettura. A pagamento: 29 € l'anno per 1 sito, 99 € l'anno per 10 siti, 190 € l'anno per siti illimitati."
+      },
+      "tags": [
+        "fields",
+        "custom fields",
+        "acf",
+        "options",
+        "blocks"
+      ],
+      "category": "editor",
+      "source": "private",
+      "requires": ">=0.77.0",
+      "paid": {
+        "price": {
+          "amount": 29,
+          "currency": "EUR",
+          "per": "site"
+        },
+        "updatesMonths": 12,
+        "purchaseUrl": "https://cleitext.com/plugins/campus",
+        "licenseServer": "https://cleitext.com/api/v1/ext/store/v1"
+      },
+      "icon": "assets/campus.svg",
+      "screenshots": [
+        "assets/campus.png"
+      ]
+    },
+    {
+      "type": "plugin",
       "slug": "antispam",
       "name": "Antispam",
       "summary": {
