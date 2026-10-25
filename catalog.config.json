@@ -298,6 +298,28 @@
     },
     {
       "type": "plugin",
+      "slug": "agenda",
+      "name": "Agenda",
+      "summary": {
+        "en": "Online appointments, simple for you and your customers: a short wizard makes your booking page in two minutes. Customers pick a service, a day and a free time, on computer or phone, and get the confirmation by email with the calendar file, a reminder the day before and a link to cancel or move, no account needed. Never two bookings on the same place, groups with places, approval if you want it, an admin calendar by day, week or month, CSV export. Imports from Simply Schedule Appointments and Booking Calendar. Free up to 30 bookings in total (past and cancelled ones count, imported ones don't); Agenda Pro, coming soon, takes as many as you need.",
+        "it": "Appuntamenti online, semplici per te e per i tuoi clienti: una breve procedura guidata crea la pagina di prenotazione in due minuti. I clienti scelgono servizio, giorno e un orario libero, da computer o telefono, e ricevono la conferma via email con il file del calendario, un promemoria il giorno prima e un link per annullare o spostare, senza account. Mai due prenotazioni sullo stesso posto, gruppi con più posti, approvazione se la vuoi, un calendario nell'amministrazione per giorno, settimana o mese, esportazione CSV. Importa da Simply Schedule Appointments e Booking Calendar. Gratis fino a 30 prenotazioni in tutto (contano anche quelle passate e annullate, non quelle importate); Agenda Pro, in arrivo, ne accetta quante ne servono."
+      },
+      "tags": [
+        "booking",
+        "appointments",
+        "calendar",
+        "scheduling",
+        "reservations"
+      ],
+      "category": "tools",
+      "requires": ">=0.82.0",
+      "icon": "assets/agenda.svg",
+      "screenshots": [
+        "assets/agenda.png"
+      ]
+    },
+    {
+      "type": "plugin",
       "slug": "diorama-pro",
       "name": "Diorama Pro",
       "summary": {
