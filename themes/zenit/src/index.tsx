@@ -24,7 +24,7 @@ import { fontsUrl } from './fonts.js';
 import { Breadcrumbs, breadcrumbPosition } from './parts/breadcrumbs.js';
 import { Footer, ScrollTop } from './parts/footer.js';
 import { Header, MobilePopup } from './parts/header.js';
-import { Index } from './parts/templates.js';
+import { Index, SingleBanner } from './parts/templates.js';
 import { cx, slugId, useR, type R } from './parts/render.js';
 import { importSettings } from './import.js';
 import { SCRIPT } from './script.js';
@@ -159,6 +159,8 @@ function Layout({ head, children }: LayoutProps) {
             </div>
           )}
           <Location name="hook:zenit_content_before" />
+          {/* The title area of posts and pages as a banner (layout 2), right above the content. */}
+          {page.view?.kind === 'entry' && <SingleBanner r={r} entry={page.view.entry} />}
           <div id="content" className="site-content">
             <div className="zn-container">
               <Location name="hook:zenit_content_top" />

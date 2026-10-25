@@ -192,13 +192,51 @@ function EntryMeta({
 
 const isSingleEntry = (e: PublicEntry | PublicEntrySummary): e is PublicEntry => 'document' in e;
 
-/** The title area of an entry, from the structure chosen for its type. */
-function EntryHeader({ r, entry }: { r: R; entry: PublicEntry }) {
+/** Post types with a title area of their own (Customize → Blog and pages). */
+const TITLE_AREA_TYPES = new Set(['post', 'page']);
+
+/** Whether the entry shows its title area at all (Customize, the page's own options). */
+function titleAreaShown(r: R): boolean {
   const { o, c } = r;
   const pt = c.postType;
-  if (meta(o, c, 'site-post-title', '', true) === 'disabled') return null;
-  if (o.get(`zn-single-${pt}-title`, true) === false) return null;
-  const structure = o.get(
+  if (meta(o, c, 'site-post-title', '', true) === 'disabled') return false;
+  if (meta(o, c, 'zn-banner-title-visibility', '', true) === 'disabled') return false;
+  if (o.get(`zn-single-${pt}-title`, true) === false) return false;
+  return !(
+    pt === 'page' &&
+    c.isFrontPage &&
+    o.get(`zn-dynamic-single-${pt}-disable-structure-meta-on-front-page`, false) === true
+  );
+}
+
+/**
+ * The layout of the entry's title area: `layout-1` inside the content, or
+ * `layout-2`, a banner across the page above it (posts and pages).
+ */
+export function titleLayout(r: R): 'layout-1' | 'layout-2' {
+  const { o, c } = r;
+  return TITLE_AREA_TYPES.has(c.postType) &&
+    o.get(`zn-dynamic-single-${c.postType}-layout`, 'layout-1') === 'layout-2'
+    ? 'layout-2'
+    : 'layout-1';
+}
+
+/** Where the featured image of a banner goes: in it, at the top of the article, or behind it. */
+function bannerImage(r: R, entry: PublicEntry): 'inside' | 'below' | 'background' | null {
+  const { o, c } = r;
+  const k = (s: string) => `zn-dynamic-single-${c.postType}-${s}`;
+  if (!entry.featuredImage || meta(o, c, 'zn-featured-img', '', true) === 'disabled') return null;
+  if (!structureOf(r).includes(k('image'))) return null;
+  if (o.get(k('featured-as-background'), false) === true) return 'background';
+  return o.get(k('article-featured-image-position-layout-2'), 'none') === 'below'
+    ? 'below'
+    : 'inside';
+}
+
+/** The parts of the title area chosen for the entry's type, in their order. */
+function structureOf(r: R): string[] {
+  const pt = r.c.postType;
+  return r.o.get(
     `zn-dynamic-single-${pt}-structure`,
     pt === 'page'
       ? [`zn-dynamic-single-${pt}-image`, `zn-dynamic-single-${pt}-title`]
@@ -207,14 +245,23 @@ function EntryHeader({ r, entry }: { r: R; entry: PublicEntry }) {
         ? [`zn-dynamic-single-${pt}-title`]
         : [`zn-dynamic-single-${pt}-title`, `zn-dynamic-single-${pt}-meta`],
   ) as string[];
+}
+
+/** The parts of an entry's title area, in the order of the structure chosen for its type. */
+function TitleParts({ r, entry, banner }: { r: R; entry: PublicEntry; banner?: boolean }) {
+  const { o, c } = r;
+  const pt = c.postType;
+  const structure = structureOf(r);
   const metadata = o.get<string[]>(`zn-dynamic-single-${pt}-metadata`, ['author', 'date']);
   const separator = str(o.get(`zn-dynamic-single-${pt}-metadata-separator`, '/'));
   const hideTitle =
     (entry.document.editor?.data as { hideTitle?: unknown } | undefined)?.hideTitle === true;
+  // In a banner the image stays in it unless it goes below it or behind it.
+  const image = banner
+    ? bannerImage(r, entry) === 'inside'
+    : Boolean(entry.featuredImage) && meta(o, c, 'zn-featured-img', '', true) !== 'disabled';
   return (
-    <header
-      className={cx('entry-header', pt === 'page' && !entry.featuredImage && 'zn-no-thumbnail')}
-    >
+    <>
       {structure.map((el) => {
         const name = el.replace(`zn-dynamic-single-${pt}-`, '');
         if (name === 'title' && !hideTitle)
@@ -241,11 +288,7 @@ function EntryHeader({ r, entry }: { r: R; entry: PublicEntry }) {
             </p>
           );
         if (name === 'breadcrumb') return <Breadcrumbs key="crumbs" r={r} />;
-        if (
-          name === 'image' &&
-          entry.featuredImage &&
-          meta(o, c, 'zn-featured-img', '', true) !== 'disabled'
-        )
+        if (name === 'image' && image && entry.featuredImage)
           return (
             <div key="image" className="post-thumb-img-content post-thumb">
               <Image media={entry.featuredImage} eager sizes="(min-width: 1200px) 1200px, 100vw" />
@@ -253,7 +296,73 @@ function EntryHeader({ r, entry }: { r: R; entry: PublicEntry }) {
           );
         return null;
       })}
+    </>
+  );
+}
+
+/** The title area of an entry inside its content (layout 1). */
+function EntryHeader({ r, entry }: { r: R; entry: PublicEntry }) {
+  const { c } = r;
+  if (!titleAreaShown(r) || titleLayout(r) === 'layout-2') return null;
+  return (
+    <header
+      className={cx(
+        'entry-header',
+        c.postType === 'page' && !entry.featuredImage && 'zn-no-thumbnail',
+      )}
+    >
+      <TitleParts r={r} entry={entry} />
     </header>
+  );
+}
+
+/** A color the banner's overlay may use: hex, rgb(a)/hsl(a) or a CSS variable. */
+const overlayColor = (value: unknown) => {
+  const v = str(value).trim();
+  return /^(#[0-9a-f]{3,8}|(rgb|hsl)a?\([\d\s.,%/]+\)|var\(--[\w-]+\))$/i.test(v) ? v : '';
+};
+
+/**
+ * The title area as a banner across the page, between the header and the
+ * content (layout 2 of posts and pages, as Astra's): the parts of the
+ * structure in a container, its background, height and colors from
+ * Customize (`.zn-single-entry-banner` in the dynamic CSS). The featured
+ * image can be its background, with an overlay color.
+ */
+export function SingleBanner({ r, entry }: { r: R; entry: PublicEntry }) {
+  const { o, c } = r;
+  if (!titleAreaShown(r) || titleLayout(r) !== 'layout-2') return null;
+  const k = (s: string) => `zn-dynamic-single-${c.postType}-${s}`;
+  const image = entry.featuredImage;
+  const background = image && bannerImage(r, entry) === 'background' ? image : null;
+  const overlay = overlayColor(o.get(k('banner-featured-overlay')));
+  const url = background ? JSON.stringify(background.url) : '';
+  return (
+    <section
+      className="zn-single-entry-banner"
+      data-post-type={c.postType}
+      data-banner-layout="layout-2"
+      data-banner-width-type={
+        o.get(k('banner-width-type'), 'fullwidth') === 'custom' ? 'custom' : 'fullwidth'
+      }
+      data-banner-background-type={background ? 'featured' : 'custom'}
+      style={
+        background
+          ? {
+              backgroundImage: overlay
+                ? `linear-gradient(${overlay}, ${overlay}), url(${url})`
+                : `url(${url})`,
+              backgroundPosition: 'center center',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+            }
+          : undefined
+      }
+    >
+      <div className="zn-container">
+        <TitleParts r={r} entry={entry} banner />
+      </div>
+    </section>
   );
 }
 
@@ -468,8 +577,20 @@ function CommentForm({ r, entry }: { r: R; entry: PublicEntry }) {
 function SingleEntry({ r, entry }: { r: R; entry: PublicEntry }) {
   const { c } = r;
   const post = isSingle(c);
+  // Layout 2: the title is in the banner above; the image may go at the top of the article.
+  const below =
+    titleLayout(r) === 'layout-2' &&
+    titleAreaShown(r) &&
+    entry.featuredImage &&
+    bannerImage(r, entry) === 'below' &&
+    structureOf(r).includes(`zn-dynamic-single-${c.postType}-image`);
   const content = (
     <>
+      {below && entry.featuredImage && (
+        <div className="zn-single-post-featured-section post-thumb">
+          <Image media={entry.featuredImage} eager sizes="(min-width: 1200px) 1200px, 100vw" />
+        </div>
+      )}
       <EntryHeader r={r} entry={entry} />
       <div className="entry-content clear" data-zn-blocks-layout="true" itemProp="text">
         <Location name="hook:zenit_entry_content_before" />

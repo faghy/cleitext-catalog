@@ -14,7 +14,12 @@ phone width:
   (Google Fonts, loaded from a privacy-friendly mirror), buttons, container width and style,
   sidebar.
 - **Blog and pages**: blog layouts (grid, list, cover), what each post card shows, the title area
-  of posts and pages, related posts, comments, search results.
+  of posts and pages, related posts, comments, search results. The title area is inside the
+  content (layout 1) or, with **Banner layout → Layout 2** (since Zenit 1.0.6), a banner across
+  the page between the header and the content: the parts chosen in **Structure** (title,
+  breadcrumb, excerpt, meta, featured image), its width, minimum height, background (or the
+  featured image with an overlay color), alignment and colors; the featured image can also go at
+  the top of the article (**Image position → Below**).
 - **Extras**: breadcrumbs, back-to-top button, transparent header.
 
 Each page and post can change its own container, sidebar and which parts to hide (Document tab
