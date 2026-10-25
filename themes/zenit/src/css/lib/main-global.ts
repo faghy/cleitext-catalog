@@ -93,6 +93,8 @@ function globalRules(o: Options, v: MainVars): Rules {
       '--zn-code-block-background': dark ? 'var(--zn-global-color-5)' : '#ECEFF3',
       '--zn-comment-inputs-background': '#F9FAFB',
       '--zn-normal-container-width': `${str(v.siteContentWidth)}px`,
+      // The content width for blocks that take the theme's (Prisma's containers).
+      '--cx-container-width': 'var(--zn-normal-container-width)',
       '--zn-narrow-container-width': `${str(v.narrowWidth)}px`,
       '--zn-blog-title-font-weight': '600',
       '--zn-blog-meta-weight': '600',

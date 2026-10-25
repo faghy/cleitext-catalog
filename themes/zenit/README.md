@@ -35,4 +35,7 @@ plugin API 1.33).
 made by the parts in `src/css/parts`, in a fixed order, from the options (`src/core/options.ts`,
 defaults in `src/core/defaults.ts`). Customize settings are in `src/settings`.
 
+Tests (`test/`, not packaged), from a Cleitext checkout next to the catalog:
+`node_modules/.bin/vitest run --root ../cleitext-catalog/themes/zenit`.
+
 Social icons: Font Awesome Free (icons under CC BY 4.0).

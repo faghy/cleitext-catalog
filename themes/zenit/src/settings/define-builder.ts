@@ -6,6 +6,7 @@
 import type { FieldDefinition, Label } from '@cleitext/shared';
 import { DEFAULTS } from '../core/defaults.js';
 import { at, rec, str } from '../core/php.js';
+import { socialIconName } from '../parts/social-icons.js';
 import { camel, PALETTE, respNumber, type Place, type Setting } from './define.js';
 
 /** A Customize section (or a panel: a section without fields that lists its children). */
@@ -161,10 +162,12 @@ export const NETWORKS: { value: string; label: string; color: string }[] = [
   { value: 'pinterest', label: 'Pinterest', color: '#ea575a' },
   { value: 'reddit', label: 'Reddit', color: '#FC471E' },
   { value: 'rss', label: 'RSS', color: '#f09124' },
+  { value: 'sms', label: 'SMS', color: 'inherit' },
   { value: 'telegram', label: 'Telegram', color: '#229CCE' },
   { value: 'threads', label: 'Threads', color: '#000000' },
   { value: 'tiktok', label: 'TikTok', color: '#000000' },
   { value: 'trip_advisor', label: 'Trip Advisor', color: '#00aa6c' },
+  { value: 'tumblr', label: 'Tumblr', color: '#34526f' },
   { value: 'twitter', label: 'Twitter', color: '#7acdee' },
   { value: 'twitter-x', label: 'Twitter / X', color: '#000000' },
   { value: 'vimeo', label: 'Vimeo', color: '#8ecfde' },
@@ -177,15 +180,50 @@ export const NETWORKS: { value: string; label: string; color: string }[] = [
   { value: 'youtube', label: 'YouTube', color: '#e96651' },
 ];
 
+const KNOWN = new Set(NETWORKS.map((n) => n.value));
+
+/**
+ * The network of an element of the list: its id (`facebook`, `facebook-2`
+ * for a second one), else its icon (`twitter-square` → `twitter`).
+ */
+export function socialNetwork(item: Record<string, unknown>): string | undefined {
+  const id = str(item.id).replace(/-\d+$/, '');
+  if (KNOWN.has(id)) return id;
+  const icon = socialIconName(str(item.icon));
+  if (icon && KNOWN.has(icon)) return icon;
+  const base = icon?.replace(/[-_][^-_]*$/, '');
+  return base && KNOWN.has(base) ? base : undefined;
+}
+
 /**
  * The networks of a social icons element: a list of network, label, address
  * and a switch, written as `{ items: [{ id, enabled, source, url, color,
- * background, icon, label }] }`.
+ * background, icon, label }] }`. An imported element keeps its icon variant
+ * (`facebook-round`…) and colors in `imported`, used while its network stays.
  */
 export function socialIcons(key: string, label: Label, place: Place): Setting {
   const name = camel(key);
-  const known = new Set(NETWORKS.map((n) => n.value));
   const def = ((at(DEFAULTS[key], 'items') ?? []) as unknown[]).map(rec);
+  const toValues = (items: Record<string, unknown>[]) =>
+    items.flatMap((item) => {
+      const network = socialNetwork(item);
+      if (!network) return [];
+      const icon = str(item.icon);
+      return [
+        {
+          network,
+          label: str(item.label),
+          url: str(item.url),
+          enabled: item.enabled !== false,
+          imported: {
+            network,
+            ...(icon && icon !== network ? { icon } : {}),
+            ...(set(item.color) ? { color: str(item.color) } : {}),
+            ...(set(item.background) ? { background: str(item.background) } : {}),
+          },
+        },
+      ];
+    });
   return {
     fields: [
       {
@@ -221,12 +259,7 @@ export function socialIcons(key: string, label: Label, place: Place): Setting {
             default: true,
           },
         ],
-        default: def.map((item) => ({
-          network: known.has(str(item.icon)) ? str(item.icon) : str(item.id),
-          label: str(item.label),
-          url: str(item.url),
-          enabled: item.enabled !== false,
-        })),
+        default: toValues(def).map(({ imported: _, ...item }) => item),
       } as FieldDefinition,
     ],
     write(values) {
@@ -235,24 +268,31 @@ export function socialIcons(key: string, label: Label, place: Place): Setting {
       const used = new Map<string, number>();
       const items = list.map(rec).flatMap((item) => {
         const network = str(item.network);
-        if (!known.has(network)) return [];
+        if (!KNOWN.has(network)) return [];
         const n = (used.get(network) ?? 0) + 1;
         used.set(network, n);
         const brand = NETWORKS.find((x) => x.value === network)!;
+        const imported = rec(item.imported);
+        const kept = str(imported.network) === network ? imported : {};
         return [
           {
             id: n === 1 ? network : `${network}-${n}`,
             enabled: item.enabled !== false,
             source: 'icon',
             url: str(item.url),
-            color: brand.color,
-            background: 'transparent',
-            icon: network,
+            color: set(kept.color) ? str(kept.color) : brand.color,
+            background: set(kept.background) ? str(kept.background) : 'transparent',
+            icon: set(kept.icon) ? str(kept.icon) : network,
             label: set(item.label) ? str(item.label) : brand.label,
           },
         ];
       });
       return { [key]: { items } };
+    },
+    read(options) {
+      if (!(key in options)) return {};
+      const items = at(options[key], 'items');
+      return Array.isArray(items) ? { [name]: toValues(items.map(rec)) } : {};
     },
   };
 }

@@ -395,8 +395,13 @@ export interface FontKeys {
 export function typography(name: string, keys: FontKeys, label: Label, place: Place): Setting {
   const extras = rec(keys.extras ? DEFAULTS[keys.extras] : {});
   const size = rec(keys.size ? DEFAULTS[keys.size] : {});
-  /** The field's value from options (an imported site's, or the defaults). */
-  const valueOf = (get: (key: string) => unknown) => {
+  /**
+   * The field's value from options (an imported site's, or the defaults). An
+   * imported size without a value for a device (`''`, or missing) is `null`:
+   * the device uses the larger one's size, as the original theme does,
+   * instead of Zenit's own smaller default.
+   */
+  const valueOf = (get: (key: string) => unknown, imported = false) => {
     const out: Record<string, unknown> = {};
     const x = rec(keys.extras ? get(keys.extras) : {});
     const z = rec(keys.size ? get(keys.size) : {});
@@ -406,6 +411,7 @@ export function typography(name: string, keys: FontKeys, label: Label, place: Pl
     const sz: Record<string, unknown> = {};
     for (const d of DEVICES) {
       if (set(z[d]) && !Number.isNaN(Number(z[d]))) sz[d] = Number(z[d]);
+      else if (imported && d !== 'desktop') sz[d] = null;
       if (set(z[`${d}-unit`]) && z[`${d}-unit`] !== 'px') sz[`${d}Unit`] = z[`${d}-unit`];
     }
     if (Object.keys(sz).length) out.size = sz;
@@ -423,7 +429,12 @@ export function typography(name: string, keys: FontKeys, label: Label, place: Pl
   return {
     read(options) {
       if (!own.some((k) => k in options)) return {};
-      return { [name]: valueOf((k) => (k in options ? options[k] : DEFAULTS[k])) };
+      return {
+        [name]: valueOf(
+          (k) => (k in options ? options[k] : DEFAULTS[k]),
+          keys.size !== undefined && keys.size in options,
+        ),
+      };
     },
     fields: [
       {

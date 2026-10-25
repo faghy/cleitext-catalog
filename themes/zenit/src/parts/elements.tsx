@@ -9,6 +9,7 @@ import { ICONS, svg } from './icons.js';
 import { FlatMenuItems, MenuItems } from './menu.js';
 import { cx, type R } from './render.js';
 import { socialIcon } from './social-icons.js';
+import { autop } from './autop.js';
 import { elementSection, proOnly } from '../pro/elements.js';
 
 export type Device = 'desktop' | 'mobile';
@@ -34,7 +35,7 @@ export const SECTIONS: Record<string, string> = {
 /** The editing pencil of an element in the Customize preview (by its settings section). */
 const pencil = (section: string) => ({ 'data-section': section, 'data-customize': section });
 
-/** HTML texts of the settings: placeholders replaced, paragraphs added. */
+/** HTML texts of the settings: placeholders replaced, paragraphs added (`wpautop`). */
 export function htmlText(r: R, content: string): string {
   const year = String(new Date().getFullYear());
   const text = content
@@ -51,17 +52,6 @@ export function htmlText(r: R, content: string): string {
 
 const escapeHtml = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-
-/** Paragraphs from blank lines, line breaks from single ones (as in the classic editor). */
-function autop(text: string): string {
-  const t = text.trim();
-  if (!t) return '';
-  if (/^<(p|div|ul|ol|h[1-6]|table|figure|blockquote)\b/i.test(t)) return t;
-  return t
-    .split(/\n\s*\n/)
-    .map((p) => `<p>${p.trim().replace(/\n/g, '<br />\n')}</p>`)
-    .join('\n');
-}
 
 function SiteIdentity({ r, device }: { r: R; device: Device }) {
   const { o, page } = r;
@@ -368,7 +358,7 @@ export function Social({ r, type, index }: { r: R; type: 'header' | 'footer'; in
                 <span
                   aria-hidden="true"
                   className="zn-hfb-svg-iconset zn-inline-flex svg-baseline"
-                  {...svg(socialIcon(str(item.icon) || id))}
+                  {...svg(socialIcon(str(item.icon), id))}
                 />
                 {showLabel && <span className="social-item-label">{str(item.label)}</span>}
               </a>
