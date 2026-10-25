@@ -15,6 +15,8 @@ import {
   type PublicEntrySummary,
   type TemplateProps,
 } from '@cleitext/theme-sdk';
+import * as sdk from '@cleitext/theme-sdk';
+import type { ReactNode } from 'react';
 import { strings } from './strings.js';
 import { AI_GUIDE } from './guide.js';
 import { css as themeCss, editorCss } from './styles.js';
@@ -69,6 +71,18 @@ function SocialLinks({ items, className }: { items: Profile[]; className: string
   );
 }
 
+/** The theme SDK's language switcher (Cleitext 0.83), read as optional: older cores do not have it. */
+const SharedSwitcher = (
+  sdk as unknown as {
+    LanguageSwitcher?: (props: {
+      placement?: string;
+      hint?: { style?: 'inline'; names?: 'code'; flags?: boolean };
+      className?: string;
+      fallback?: ReactNode;
+    }) => ReactNode;
+  }
+).LanguageSwitcher;
+
 function Layout({ head, css, children }: LayoutProps) {
   const page = usePage();
   const t = strings(page.locale);
@@ -77,6 +91,7 @@ function Layout({ head, css, children }: LayoutProps) {
   const favicon = settings.favicon ? page.media.get(settings.favicon) : undefined;
   const accent = settings.accentColor && HEX.test(settings.accentColor) ? settings.accentColor : null;
   const primary = page.menus.primary ?? [];
+  // Canvas's own list of language codes; with a language plugin (Cleitext 0.83) its switcher, in this look.
   const languages =
     page.locales.length > 1 ? (
       <ul className="cv-langs" aria-label={t.languages}>
@@ -95,6 +110,17 @@ function Layout({ head, css, children }: LayoutProps) {
         ))}
       </ul>
     ) : null;
+  const languageSwitcher = (placement: string) =>
+    languages && typeof SharedSwitcher === 'function' ? (
+      <SharedSwitcher
+        placement={placement}
+        hint={{ style: 'inline', names: 'code', flags: false }}
+        className="cv-langs"
+        fallback={languages}
+      />
+    ) : (
+      languages
+    );
   // Social profiles: in the header and the footer, the footer only, or nowhere.
   const social = settings.socialPlacement === 'none' ? [] : profiles(settings);
   const headerSocial = settings.socialPlacement === 'footer' ? [] : social;
@@ -166,7 +192,7 @@ function Layout({ head, css, children }: LayoutProps) {
                     <Menu items={primary} />
                   </nav>
                 )}
-                {languages}
+                {languageSwitcher('header')}
               </div>
               {headerSocial.length > 0 && (
                 <SocialLinks items={headerSocial} className={`cv-social-head${fit}`} />
@@ -185,7 +211,7 @@ function Layout({ head, css, children }: LayoutProps) {
                         <Menu items={primary} />
                       </nav>
                     )}
-                    {languages}
+                    {languageSwitcher('mobile')}
                     {headerSocial.length > 0 && fit !== ' cv-fit-tablet cv-fit-phone' && (
                       <SocialLinks items={headerSocial} className={`cv-social-panel${fit}`} />
                     )}

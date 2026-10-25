@@ -294,6 +294,8 @@ mark {
   display: block;
 }
 .cv-langs {
+  /* Multilingual's switcher (Cleitext 0.83) keeps the same spacing. */
+  --ml-switcher-gap: 0.15rem;
   display: flex;
   gap: 0.15rem;
   list-style: none;
