@@ -2947,3 +2947,13 @@ input[type="color"]::-webkit-color-swatch {
   outline: 2px solid currentColor;
   outline-offset: 2px;
 }
+/* Multilingual's switcher in the slot (Zenit 1.2.2): the slot's dropdown background. */
+.zn-lang-switcher.ml-switcher {
+  --ml-switcher-popup-bg: var(--zn-lang-bg, #fff);
+}
+.zn-mobile-popup-content .ml-switcher__dropdown .ml-switcher__list {
+  position: static;
+  border: 0;
+  box-shadow: none;
+  background: none;
+}

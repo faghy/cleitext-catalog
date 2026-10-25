@@ -4,8 +4,15 @@
  * current page in that language, or of the language's home when the page has
  * no translation), as a dropdown or a list, with flags and native names or
  * codes. It shows nothing on sites with one language.
+ *
+ * Since Zenit 1.2.2, with Multilingual 1.6.0 on Cleitext 0.83 the slot shows
+ * the plugin's switcher (`<LanguageSwitcher>` of the theme SDK): one look and
+ * one set of options for the whole site, with this slot's layout as Zenit's
+ * suggestion. Zenit's own list is the fallback (older cores or plugins).
  */
+import * as sdk from '@cleitext/theme-sdk';
 import type { LocaleLink } from '@cleitext/theme-sdk';
+import type { ReactNode } from 'react';
 import { str } from '../core/php.js';
 import { ICONS, svg } from './icons.js';
 import { cx, type R } from './render.js';
@@ -131,8 +138,39 @@ function Item({ locale, flags, codes }: { locale: LocaleLink; flags: boolean; co
   );
 }
 
-/** The switcher itself: a dropdown (`<details>`, opened by click, tap or keyboard) or a list. */
+/** The theme SDK's switcher (Cleitext 0.83), read as optional: older cores do not have it. */
+type SharedSwitcher = (props: {
+  placement?: string;
+  hint?: { style?: 'dropdown' | 'inline' | 'list' };
+  className?: string;
+  fallback?: ReactNode;
+}) => ReactNode;
+const shared = (sdk as unknown as { LanguageSwitcher?: SharedSwitcher }).LanguageSwitcher;
+
+/** Zenit's layouts as the language plugin names them. */
+const HINT = { dropdown: 'dropdown', horizontal: 'inline', vertical: 'list' } as const;
+
+/**
+ * The slot's switcher: the language plugin's when the core and the plugin
+ * give one, else Zenit's own.
+ */
 export function LanguageSwitcher({ r, type }: { r: R; type: 'header' | 'footer' }) {
+  const own = <OwnSwitcher r={r} type={type} />;
+  const plugin = (r.page as { languageSwitcher?: unknown }).languageSwitcher;
+  if (typeof shared !== 'function' || !plugin) return own;
+  const Shared = shared;
+  return (
+    <Shared
+      placement={type}
+      hint={{ style: HINT[switcherOptions(r, type).layout] }}
+      className="zn-lang-switcher"
+      fallback={own}
+    />
+  );
+}
+
+/** Zenit's own switcher: a dropdown (`<details>`, opened by click, tap or keyboard) or a list. */
+export function OwnSwitcher({ r, type }: { r: R; type: 'header' | 'footer' }) {
   const { page, t } = r;
   const locales = page.locales ?? [];
   if (locales.length < 2) return null;

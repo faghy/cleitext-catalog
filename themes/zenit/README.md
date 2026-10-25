@@ -24,7 +24,10 @@ phone width:
 - **Language switcher** (Zenit 1.2.0), an element of both builders for sites in several languages
   (Multilingual plugin): a dropdown or a list, with flags or not, names in each language or codes;
   each language links to the current page's translation, or to its home page when there is none.
-  It shows nothing while the site has one language.
+  It shows nothing while the site has one language. Since Zenit 1.2.2, with Multilingual 1.6.0 on
+  Cleitext 0.83 the element shows the plugin's switcher, so the whole site has one look and one set
+  of options (Languages → Language switcher); the layout chosen in the element is the suggestion it
+  follows, and Zenit's colours, font size and margins still apply.
 
 Each page and post can change its own container, sidebar, backgrounds (since Zenit 1.1.0) and
 which parts to hide (Document tab of the editor).

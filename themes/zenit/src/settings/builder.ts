@@ -88,8 +88,8 @@ export const BUILDER_SECTIONS: Section[] = [
     parent: H,
     tabs: true,
     description: {
-      en: 'The site’s languages (Multilingual plugin), each linking to this page in that language or, without a translation, to its home page. It shows nothing while the site has one language.',
-      it: 'Le lingue del sito (plugin Multilingua), ognuna con il link a questa pagina in quella lingua o, se non è tradotta, alla sua home page. Non mostra nulla finché il sito ha una sola lingua.',
+      en: 'The site’s languages (Multilingual plugin), each linking to this page in that language or, without a translation, to its home page. It shows nothing while the site has one language. With Multilingual 1.6.0 or later this is its switcher: names, flags and the rest are set in Languages → Language switcher, and the layout chosen here is a suggestion it follows.',
+      it: 'Le lingue del sito (plugin Multilingua), ognuna con il link a questa pagina in quella lingua o, se non è tradotta, alla sua home page. Non mostra nulla finché il sito ha una sola lingua. Con Multilingua 1.6.0 o successivo è il suo selettore: nomi, bandiere e il resto si impostano in Lingue → Selettore di lingua, e la disposizione scelta qui è un suggerimento che segue.',
     },
   },
   {
@@ -144,8 +144,8 @@ export const BUILDER_SECTIONS: Section[] = [
     parent: F,
     tabs: true,
     description: {
-      en: 'The site’s languages (Multilingual plugin), each linking to this page in that language or, without a translation, to its home page. It shows nothing while the site has one language.',
-      it: 'Le lingue del sito (plugin Multilingua), ognuna con il link a questa pagina in quella lingua o, se non è tradotta, alla sua home page. Non mostra nulla finché il sito ha una sola lingua.',
+      en: 'The site’s languages (Multilingual plugin), each linking to this page in that language or, without a translation, to its home page. It shows nothing while the site has one language. With Multilingual 1.6.0 or later this is its switcher: names, flags and the rest are set in Languages → Language switcher, and the layout chosen here is a suggestion it follows.',
+      it: 'Le lingue del sito (plugin Multilingua), ognuna con il link a questa pagina in quella lingua o, se non è tradotta, alla sua home page. Non mostra nulla finché il sito ha una sola lingua. Con Multilingua 1.6.0 o successivo è il suo selettore: nomi, bandiere e il resto si impostano in Lingue → Selettore di lingua, e la disposizione scelta qui è un suggerimento che segue.',
     },
   },
   ...[1, 2, 3, 4].map((n) => ({

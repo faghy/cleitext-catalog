@@ -454,7 +454,11 @@ export function languageSwitcherCss(o: Options, rtl: boolean): string {
       },
       [`${selector} .zn-lang-switcher`]: { 'font-size': responsiveFont(o, fontSize, d) },
       ...(type === 'footer'
-        ? { [`${selector} .zn-lang-list`]: { 'justify-content': side(align[d]) } }
+        ? {
+            [`${selector} .zn-lang-list, ${selector} .ml-switcher__list`]: {
+              'justify-content': side(align[d]),
+            },
+          }
         : {}),
       [`${selector} .zn-lang-switcher a, ${selector} .zn-lang-switcher summary`]: {
         color: link[d],
