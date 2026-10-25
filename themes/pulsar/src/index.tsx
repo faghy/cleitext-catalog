@@ -15,6 +15,8 @@ import {
   type PublicEntrySummary,
   type TemplateProps,
 } from "@cleitext/theme-sdk";
+import * as sdk from "@cleitext/theme-sdk";
+import type { ReactNode } from "react";
 import { strings } from "./strings.js";
 import { AI_GUIDE } from "./guide.js";
 import { css as themeCss, editorCss } from "./styles.js";
@@ -62,6 +64,31 @@ export function accentCss(accent: string, scheme: ColorScheme): string | null {
 
 /** Only plain hex colors reach the stylesheet. */
 const HEX = /^#[0-9a-f]{6}$/i;
+
+/** The theme SDK's language switcher (Cleitext 0.83), read as optional: older cores do not have it. */
+const SharedSwitcher = (
+  sdk as unknown as {
+    LanguageSwitcher?: (props: {
+      placement?: string;
+      hint?: { style?: "inline"; names?: "native"; flags?: boolean };
+      className?: string;
+      fallback?: ReactNode;
+    }) => ReactNode;
+  }
+).LanguageSwitcher;
+
+/** The language plugin's switcher in Pulsar's look (names side by side), else Pulsar's own list. */
+function Languages({ fallback }: { fallback: ReactNode }) {
+  if (typeof SharedSwitcher !== "function") return <>{fallback}</>;
+  return (
+    <SharedSwitcher
+      placement="header"
+      hint={{ style: "inline", names: "native", flags: false }}
+      className="languages"
+      fallback={fallback}
+    />
+  );
+}
 
 function Layout({ head, css, children }: LayoutProps) {
   const page = usePage();
@@ -160,22 +187,26 @@ function Layout({ head, css, children }: LayoutProps) {
                 </form>
               )}
               {page.locales.length > 1 && (
-                <nav className="languages" aria-label={t.languages}>
-                  <ul>
-                    {page.locales.map((locale) => (
-                      <li key={locale.code}>
-                        <a
-                          href={locale.url}
-                          hrefLang={locale.code}
-                          lang={locale.code}
-                          aria-current={locale.current ? "true" : undefined}
-                        >
-                          {locale.name}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
+                <Languages
+                  fallback={
+                    <nav className="languages" aria-label={t.languages}>
+                      <ul>
+                        {page.locales.map((locale) => (
+                          <li key={locale.code}>
+                            <a
+                              href={locale.url}
+                              hrefLang={locale.code}
+                              lang={locale.code}
+                              aria-current={locale.current ? "true" : undefined}
+                            >
+                              {locale.name}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </nav>
+                  }
+                />
               )}
             </div>
           </header>
