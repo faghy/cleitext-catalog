@@ -39,6 +39,25 @@ interface Settings extends Record<string, unknown> {
   showTagline?: boolean;
   showSearch?: boolean;
   footerText?: string;
+  colorScheme?: string;
+}
+
+/**
+ * The colour scheme of the site (Customize): `auto` follows the visitor's
+ * system (the default), `light` and `dark` are fixed. Anything else is `auto`.
+ */
+export type ColorScheme = "auto" | "light" | "dark";
+export function colorScheme(value: unknown): ColorScheme {
+  return value === "light" || value === "dark" ? value : "auto";
+}
+
+/** The accent color, only where the scheme is light: dark keeps its own lighter accent. */
+export function accentCss(accent: string, scheme: ColorScheme): string | null {
+  if (scheme === "dark") return null;
+  const rule = `:root { --accent: ${accent}; }`;
+  return scheme === "light"
+    ? rule
+    : `@media (prefers-color-scheme: light) { ${rule} }`;
 }
 
 /** Only plain hex colors reach the stylesheet. */
@@ -52,15 +71,20 @@ function Layout({ head, css, children }: LayoutProps) {
   const favicon = settings.favicon
     ? page.media.get(settings.favicon)
     : undefined;
+  const scheme = colorScheme(settings.colorScheme);
   const accent =
     settings.accentColor && HEX.test(settings.accentColor)
-      ? settings.accentColor
+      ? accentCss(settings.accentColor, scheme)
       : null;
   return (
-    <html lang={page.locale}>
+    <html lang={page.locale} data-color-scheme={scheme}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="color-scheme"
+          content={scheme === "auto" ? "light dark" : scheme}
+        />
         <link rel="icon" href={favicon?.url ?? ICON} />
         {favicon && <link rel="apple-touch-icon" href={favicon.url} />}
         <title>{head.title}</title>
@@ -87,13 +111,7 @@ function Layout({ head, css, children }: LayoutProps) {
         <link rel="preconnect" href="https://fonts.bunny.net" />
         <link rel="stylesheet" href={FONTS} />
         <style dangerouslySetInnerHTML={{ __html: css }} />
-        {accent && (
-          <style
-            dangerouslySetInnerHTML={{
-              __html: `@media (prefers-color-scheme: light) { :root { --accent: ${accent}; } }`,
-            }}
-          />
-        )}
+        {accent && <style dangerouslySetInnerHTML={{ __html: accent }} />}
         <HeadTags tags={head.tags} />
       </head>
       <body>
@@ -388,7 +406,7 @@ function PageLinks({ pagination }: { pagination: Pagination }) {
 export const theme = defineTheme({
   slug: "pulsar",
   name: "Pulsar",
-  version: "1.0.3",
+  version: "1.1.0",
   description:
     "Aurora with the styles of the Pulsar pages (psx-* block classes).",
   menuLocations: { primary: "Main menu", footer: "Footer menu" },
@@ -409,6 +427,22 @@ export const theme = defineTheme({
       label: { en: "Accent color", it: "Colore principale" },
       help: { en: "Hexadecimal, e.g. #0b5cad", it: "Esadecimale, es. #0b5cad" },
       maxLength: 7,
+    },
+    {
+      // A name other themes share (THEMES §9): the WordPress Importer sets it to `light`.
+      name: "colorScheme",
+      type: "select",
+      label: { en: "Colour scheme", it: "Schema di colori" },
+      help: {
+        en: "Automatic follows the light or dark mode of each visitor’s device.",
+        it: "Automatico segue la modalità chiara o scura del dispositivo di ogni visitatore.",
+      },
+      options: [
+        { value: "auto", label: { en: "Automatic", it: "Automatico" } },
+        { value: "light", label: { en: "Always light", it: "Sempre chiaro" } },
+        { value: "dark", label: { en: "Always dark", it: "Sempre scuro" } },
+      ],
+      default: "auto",
     },
     {
       name: "showTagline",
