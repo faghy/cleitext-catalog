@@ -46,6 +46,9 @@ const EN = {
   uncategorized: 'Uncategorized',
   languages: 'Languages',
   language: (name: string) => `Language: ${name}`,
+  /** The related posts title while it is the default one (Astra's text). */
+  relatedPosts: 'Related Posts',
+  readMoreAbout: (title: string) => `Read more about ${title}`,
 };
 
 const IT: typeof EN = {
@@ -94,6 +97,8 @@ const IT: typeof EN = {
   uncategorized: 'Senza categoria',
   languages: 'Lingue',
   language: (name) => `Lingua: ${name}`,
+  relatedPosts: 'Articoli correlati',
+  readMoreAbout: (title) => `Leggi di più su ${title}`,
 };
 
 export type Strings = typeof EN;

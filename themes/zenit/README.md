@@ -32,6 +32,12 @@ phone width:
 Each page and post can change its own container, sidebar, backgrounds (since Zenit 1.1.0) and
 which parts to hide (Document tab of the editor).
 
+Since Zenit 1.3.0 the related posts show under each post when turned on (Blog → Single post →
+Related posts): posts sharing its categories, then its tags, in the order and number chosen there,
+with the title in the page's language while it is the default one. Pages also get WordPress's base
+styles of the core blocks (columns, separators, buttons, images, quotes, embeds, media & text,
+cover…), so content imported from WordPress keeps its layout.
+
 Lists of posts are numbered page by page (`1 2 … 22 Next →`); how many posts a page shows is the
 site's **Settings → Reading → Posts per page**, and dates follow the site's date format (Settings →
 General, a format of its own such as `F j, Y` since Cleitext 0.82).

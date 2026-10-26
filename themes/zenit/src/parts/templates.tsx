@@ -20,6 +20,7 @@ import { blogColumns, dateBox, firstPostFull, infiniteLoad, isMasonry } from '..
 import { str } from '../core/php.js';
 import { Breadcrumbs, breadcrumbPosition } from './breadcrumbs.js';
 import { ICONS, svg } from './icons.js';
+import { relatedPostsShown } from '../css/lib/footer-global.js';
 import { sidebarLayout } from '../css/lib/main.js';
 import { cx, slugId, useR, type R } from './render.js';
 import { Sidebar } from './sidebar.js';
@@ -582,6 +583,148 @@ function CommentForm({ r, entry }: { r: R; entry: PublicEntry }) {
   );
 }
 
+/** The related posts title saved by default (Astra's English text): shown in the page's language. */
+const DEFAULT_RELATED_TITLE = 'Related Posts';
+
+/**
+ * Where the related posts go (Customize → Blog → Single post → Related posts):
+ * `before-comments` and `after-comments` inside the post's column, `outside`
+ * under the content, across the page. Null when they are not shown.
+ */
+export function relatedPlacement(
+  r: R,
+  entry: PublicEntry,
+): 'before-comments' | 'after-comments' | 'outside' | null {
+  const { o, c } = r;
+  if (!relatedPostsShown(o, c) || !entry.related?.length) return null;
+  if (meta(o, c, 'zn-disable-related-posts', '', true) === 'disabled') return null;
+  const placement = str(o.get('related-posts-box-placement', 'default'));
+  if (placement === 'outside') return 'outside';
+  if (placement === 'inside' && o.get('related-posts-outside-location', 'above') === 'below')
+    return 'after-comments';
+  return 'before-comments';
+}
+
+/** The posts to show: Cleitext's candidates in the order and number chosen in Customize. */
+function relatedList(r: R, related: PublicEntrySummary[]): PublicEntrySummary[] {
+  const { o } = r;
+  const count = Math.max(Math.trunc(Number(o.get('related-posts-total-count', 2))) || 2, 1);
+  const by = str(o.get('related-posts-order-by', 'date'));
+  const asc = str(o.get('related-posts-order', 'desc')) === 'asc';
+  const list = [...related];
+  const time = (e: PublicEntrySummary) => (e.publishedAt ? Date.parse(e.publishedAt) : 0);
+  if (by === 'date') list.sort((a, b) => (asc ? time(a) - time(b) : time(b) - time(a)));
+  else if (by === 'title')
+    list.sort((a, b) => (asc ? 1 : -1) * a.title.localeCompare(b.title, r.page.locale));
+  else if (by === 'rand')
+    for (let i = list.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [list[i], list[j]] = [list[j]!, list[i]!];
+    }
+  return list.slice(0, count);
+}
+
+/**
+ * Related posts under a post, as Astra prints them (`.ast-single-related-posts-container`
+ * renamed): the section title, then a grid of cards with the parts of
+ * `related-posts-structure` (featured image; title and meta) and the excerpt.
+ */
+export function RelatedPosts({ r, entry }: { r: R; entry: PublicEntry }) {
+  const placement = relatedPlacement(r, entry);
+  if (!placement) return null;
+  const { o, t } = r;
+  const posts = relatedList(r, entry.related ?? []);
+  const saved = str(o.get('related-posts-title'));
+  const title = saved === DEFAULT_RELATED_TITLE ? t.relatedPosts : saved;
+  const structure = o.get<string[]>('related-posts-structure', ['featured-image', 'title-meta']);
+  const metaItems = o.get<string[]>('related-posts-meta-structure', []);
+  const prefixLabel = str(o.raw('related-posts-author-prefix-label') ?? 'By ');
+  const prefix = prefixLabel.trim() === 'By' ? `${t.by} ` : prefixLabel;
+  const catStyle = str(o.get('related-posts-category-style', 'none'));
+  const tagStyle = str(o.get('related-posts-tag-style', 'none'));
+  const showExcerpt = o.get('enable-related-posts-excerpt', false) === true;
+  const words = Math.max(Math.trunc(Number(o.get('related-posts-excerpt-count', 25))) || 25, 1);
+  const width = str(o.get('related-posts-container-width', ''));
+  return (
+    <div
+      className={cx(
+        'zn-single-related-posts-container',
+        placement === 'outside' && `zn-container--${width}`,
+      )}
+    >
+      {title && (
+        <div className="zn-related-posts-title-section">
+          <h2 className="zn-related-posts-title">{title}</h2>
+        </div>
+      )}
+      <div className="zn-related-posts-wrapper">
+        {posts.map((post) => (
+          <article
+            key={post.id}
+            className={cx(
+              'zn-related-post',
+              `post-${slugId(post.id)}`,
+              'post type-post status-publish format-standard',
+              post.image && 'has-post-thumbnail',
+              'hentry',
+            )}
+          >
+            <div className="zn-related-posts-inner-section">
+              <div className="zn-related-post-content">
+                {structure.map((part) => {
+                  if (part === 'featured-image')
+                    return post.image ? (
+                      <div key="image" className="zn-related-post-featured-section post-has-thumb">
+                        <div className="post-thumb-img-content post-thumb">
+                          <a aria-label={t.readMoreAbout(post.title)} href={post.url}>
+                            <Image
+                              media={post.image}
+                              alt=""
+                              sizes="(max-width: 544px) 100vw, (max-width: 921px) 50vw, 600px"
+                            />
+                          </a>
+                        </div>
+                      </div>
+                    ) : null;
+                  if (part === 'title-meta')
+                    return (
+                      <header key="title" className="entry-header related-entry-header">
+                        <h3 className="zn-related-post-title entry-title">
+                          <a href={post.url} rel="bookmark">
+                            {post.title}
+                          </a>
+                        </h3>
+                        {metaItems.length > 0 && (
+                          <div
+                            className={`zn-related-cat-style--${catStyle} zn-related-tag-style--${tagStyle}`}
+                          >
+                            <EntryMeta
+                              r={r}
+                              entry={post}
+                              items={metaItems}
+                              separator={str(o.get('related-metadata-separator', '/'))}
+                              prefix={prefix}
+                            />
+                          </div>
+                        )}
+                      </header>
+                    );
+                  return null;
+                })}
+                {showExcerpt && post.excerpt && (
+                  <div className="entry-content clear">
+                    <p className="zn-related-post-excerpt">{excerpt(post.excerpt, words, '…')}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function SingleEntry({ r, entry }: { r: R; entry: PublicEntry }) {
   const { c } = r;
   const post = isSingle(c);
@@ -638,8 +781,10 @@ function SingleEntry({ r, entry }: { r: R; entry: PublicEntry }) {
         )}
       </article>
       {post && <PostNavigation r={r} entry={entry} />}
+      {relatedPlacement(r, entry) === 'before-comments' && <RelatedPosts r={r} entry={entry} />}
       <Location name="hook:zenit_comments_before" />
       {post && <Comments r={r} entry={entry} />}
+      {relatedPlacement(r, entry) === 'after-comments' && <RelatedPosts r={r} entry={entry} />}
     </>
   );
 }

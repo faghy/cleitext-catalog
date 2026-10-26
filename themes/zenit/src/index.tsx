@@ -24,7 +24,7 @@ import { fontsUrl } from './fonts.js';
 import { Breadcrumbs, breadcrumbPosition } from './parts/breadcrumbs.js';
 import { Footer, ScrollTop } from './parts/footer.js';
 import { Header, MobilePopup } from './parts/header.js';
-import { Index, SingleBanner } from './parts/templates.js';
+import { Index, RelatedPosts, SingleBanner, relatedPlacement } from './parts/templates.js';
 import { cx, slugId, useR, type R } from './parts/render.js';
 import { CSS_PREFIXES, importEntryMeta, importSettings } from './import.js';
 import { SCRIPT } from './script.js';
@@ -168,6 +168,10 @@ function Layout({ head, children }: LayoutProps) {
               <Location name="hook:zenit_content_bottom" />
             </div>
           </div>
+          {/* Related posts in a box of their own under the content (placement "Separated"). */}
+          {page.view?.kind === 'entry' && relatedPlacement(r, page.view.entry) === 'outside' && (
+            <RelatedPosts r={r} entry={page.view.entry} />
+          )}
           <Location name="hook:zenit_content_after" />
           <Location name="hook:zenit_footer_before" />
           <Location name="footer">
@@ -228,6 +232,9 @@ export const theme = defineTheme({
   importEntryMeta,
   importCssPrefixes: CSS_PREFIXES,
   adjacentEntries: true,
+  // Candidates for the related posts under a post: Zenit orders them and keeps the number set
+  // in Customize (Cleitext gives at most 12).
+  relatedEntries: 12,
   Layout,
   css: '',
 });
