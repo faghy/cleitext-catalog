@@ -135,7 +135,8 @@ mark {
 /* Header */
 .cv-header {
   position: sticky;
-  top: 0;
+  /* Under the core's toolbar of signed-in users (core 0.85). */
+  top: var(--cx-admin-bar-height, 0px);
   z-index: 50;
   background: #ffffffd9;
   backdrop-filter: saturate(1.6) blur(12px);
