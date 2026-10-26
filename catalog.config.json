@@ -320,6 +320,28 @@
     },
     {
       "type": "plugin",
+      "slug": "newletter",
+      "name": "NewLetter",
+      "summary": {
+        "en": "Every subscriber, a new letter: signup forms for your newsletter, connected to the service you already use, Brevo, Mailchimp, MailerLite, Kit or ActiveCampaign. Paste the API key, test the connection, pick your lists, and put the form on any page as a block, a Fresco widget or a shortcode, in your theme's style; it works even without JavaScript, with double opt-in and Antispam or Captcha against bots. An unticked \"Subscribe me\" box in Forms contact forms, Cleishop's checkout and Agenda's bookings. Imports the forms of Mailchimp for WP, Brevo, The Newsletter Plugin and MailPoet from WordPress. Your server sends no mass email: the service does. Consent is recorded, and the log keeps no email address in clear.",
+        "it": "Ogni iscritto, una nuova lettera: moduli di iscrizione alla newsletter collegati al servizio che usi già, Brevo, Mailchimp, MailerLite, Kit o ActiveCampaign. Incolla la chiave API, prova il collegamento, scegli le liste e metti il modulo in qualsiasi pagina come blocco, widget di Fresco o shortcode, con lo stile del tuo tema; funziona anche senza JavaScript, con il double opt-in e Antispam o Captcha contro i bot. Una casella \"Iscrivimi\" non spuntata nei moduli di contatto di Forms, alla cassa di Cleishop e nelle prenotazioni di Agenda. Importa da WordPress i moduli di Mailchimp for WP, Brevo, The Newsletter Plugin e MailPoet. Il tuo server non spedisce email di massa: lo fa il servizio. Il consenso è registrato, e il registro non tiene indirizzi email in chiaro."
+      },
+      "tags": [
+        "newsletter",
+        "email marketing",
+        "signup form",
+        "mailchimp",
+        "brevo"
+      ],
+      "category": "tools",
+      "requires": ">=0.84.0",
+      "icon": "assets/newletter.svg",
+      "screenshots": [
+        "assets/newletter.png"
+      ]
+    },
+    {
+      "type": "plugin",
       "slug": "diorama-pro",
       "name": "Diorama Pro",
       "summary": {
