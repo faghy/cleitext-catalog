@@ -22,8 +22,8 @@
       "slug": "multilingual",
       "name": "Multilingual",
       "summary": {
-        "en": "Several languages on a site: translations of content, categories and menus, language addresses, hreflang, a language switcher and optional automatic translation.",
-        "it": "Più lingue su un sito: traduzioni di contenuti, categorie e menu, indirizzi per lingua, hreflang, selettore della lingua e traduzione automatica facoltativa."
+        "en": "Several languages on a site: translations of content, categories and menus, language addresses, hreflang and a language switcher for every theme. Free with the default language and one more, on one site; Multilingual Pro adds every language, every site, automatic translation and more.",
+        "it": "Più lingue su un sito: traduzioni di contenuti, categorie e menu, indirizzi per lingua, hreflang e un selettore della lingua per ogni tema. Gratis con la lingua predefinita più una, su un sito; Multilingual Pro aggiunge tutte le lingue, tutti i siti, la traduzione automatica e altro."
       },
       "tags": [
         "languages",
@@ -32,6 +32,35 @@
       ],
       "category": "tools",
       "icon": "assets/multilingual.svg"
+    },
+    {
+      "type": "plugin",
+      "slug": "multilingual-pro",
+      "name": "Multilingual Pro",
+      "summary": {
+        "en": "Every language and every site for Multilingual: as many languages as you need, all the sites of the installation, automatic translation with DeepL, a domain per language and content not translated yet. If the license ends, languages and settings keep working. Paid: €59 a year, unlimited sites.",
+        "it": "Tutte le lingue e tutti i siti per Multilingual: quante lingue vuoi, tutti i siti dell'installazione, traduzione automatica con DeepL, un dominio per lingua e i contenuti non ancora tradotti. Se la licenza scade, lingue e impostazioni continuano a funzionare. A pagamento: 59 € l'anno, siti illimitati."
+      },
+      "tags": [
+        "languages",
+        "translation",
+        "deepl",
+        "seo"
+      ],
+      "category": "tools",
+      "source": "private",
+      "requires": ">=0.91.0",
+      "paid": {
+        "price": {
+          "amount": 59,
+          "currency": "EUR",
+          "per": "site"
+        },
+        "updatesMonths": 12,
+        "purchaseUrl": "https://cleitext.com/plugins/multilingual-pro",
+        "licenseServer": "https://cleitext.com/api/v1/ext/store/v1"
+      },
+      "icon": "assets/multilingual-pro.svg"
     },
     {
       "type": "plugin",
