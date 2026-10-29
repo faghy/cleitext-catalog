@@ -371,6 +371,25 @@
     },
     {
       "type": "plugin",
+      "slug": "turbosmtp",
+      "name": "turboSMTP",
+      "summary": {
+        "en": "Your site's emails sent through turboSMTP, so they reach the inbox instead of the spam folder: password resets, contact forms, orders and bookings. Connect your turboSMTP account with your email and password or with API keys, choose turboSMTP's API or its SMTP servers (European or international), set the sender and send a test email. Statistics show what was delivered, opened, clicked or bounced, day by day and message by message. If turboSMTP does not answer, the email still leaves the usual way. An integration made by Cleitext for the turboSMTP service.",
+        "it": "Le email del tuo sito spedite con turboSMTP, perché arrivino nella posta in arrivo e non nello spam: reimpostazione delle password, moduli di contatto, ordini e prenotazioni. Collega il tuo account turboSMTP con email e password o con le chiavi API, scegli l'API di turboSMTP o i suoi server SMTP (europei o internazionali), imposta il mittente e manda un'email di prova. Le statistiche mostrano cosa è stato consegnato, aperto, cliccato o respinto, giorno per giorno e messaggio per messaggio. Se turboSMTP non risponde, l'email parte lo stesso nel modo di sempre. Un'integrazione fatta da Cleitext per il servizio turboSMTP."
+      },
+      "tags": [
+        "email",
+        "smtp",
+        "turbosmtp",
+        "deliverability",
+        "transactional email"
+      ],
+      "category": "tools",
+      "requires": ">=0.93.0",
+      "icon": "assets/turbosmtp.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "diorama-pro",
       "name": "Diorama Pro",
       "summary": {
