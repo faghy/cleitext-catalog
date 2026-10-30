@@ -1,0 +1,8 @@
+{
+  "slug": "locanda",
+  "name": "Locanda",
+  "version": "1.0.0",
+  "description": "A classic theme for historic family hotels, inns and country restaurants: a white boxed page, a centered name with its founding year, a deep green menu bar, a framed opening photo and condensed titles with an arrow.",
+  "license": "GPL-2.0-or-later",
+  "entry": "dist/index.js"
+}

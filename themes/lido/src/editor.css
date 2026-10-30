@@ -1,0 +1,57 @@
+@import url('https://fonts.bunny.net/css?family=dancing-script:500,600|alice:400|nunito-sans:400,400i,600,700,800&display=swap');
+/* Lido in the block editor: the same type, colors and sections as the site. */
+:root {
+  --ld-accent: #2b7ea1;
+  --ld-accent-deep: #216380;
+  --ld-accent-soft: #e6f1f6;
+  --ld-button: #2b7ea1;
+  --ld-button-deep: #236884;
+  --ld-on-button: #fff;
+  --ld-sand: #fffaf2;
+  --ld-sand-2: #f4ead9;
+  --ld-blush: color-mix(in srgb, #f3a58c 16%, var(--ld-sand));
+  --ld-dark: #163b4d;
+  --ld-ink: #1f3440;
+  --ld-text: #43525a;
+  --ld-muted: #74838b;
+  --ld-line: #e7dccb;
+  --ld-white: #ffffff;
+  --ld-radius: 10px;
+  --ld-wide: 72rem;
+  --ld-gap: 1.25rem;
+  --ld-wave: 56px;
+  --ld-script: 'Dancing Script', 'Alice', cursive;
+  --ld-script-weight: 600;
+  --ld-display: 'Alice', Georgia, serif;
+  --ld-font: 'Nunito Sans', system-ui, sans-serif;
+  --ld-shadow: 0 2px 4px #1f344012, 0 22px 40px -20px #1f344066;
+}
+body {
+  font: 1rem/1.75 var(--ld-font);
+  color: var(--ld-text);
+  background: var(--ld-sand);
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--ld-display);
+  font-weight: 400;
+  color: var(--ld-ink);
+  line-height: 1.2;
+}
+.wp-block-button__link {
+  background: var(--ld-button);
+  color: var(--ld-on-button);
+  border: 2px solid var(--ld-button);
+  border-radius: 999px;
+  padding: 0.62rem 1.7rem;
+  font-weight: 700;
+}
+.is-style-outline .wp-block-button__link {
+  background: transparent;
+  color: var(--ld-accent-deep);
+}
+.wp-block-image img {
+  border-radius: var(--ld-radius);
+}

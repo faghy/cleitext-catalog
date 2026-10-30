@@ -1,0 +1,69 @@
+@import url('https://fonts.bunny.net/css?family=unbounded:600,800|inter:400,500,600,700&display=swap');
+/* Lanterna in the block editor: the same type, colors and sections as the site. */
+:root {
+  --ln-accent: #d7141e;
+  --ln-accent-deep: #b0111a;
+  --ln-accent-soft: #fbe3e3;
+  --ln-paper: #eceae3;
+  --ln-paper-2: #dfdcd3;
+  --ln-white: #ffffff;
+  --ln-dark: #1e293b;
+  --ln-ink: #1e293b;
+  --ln-text: #3a4351;
+  --ln-muted: #6a7180;
+  --ln-line: #0000001a;
+  --ln-gold: #d99a1e;
+  --ln-radius: 20px;
+  --ln-radius-s: 8px;
+  --ln-wide: 74rem;
+  --ln-gap: 1.25rem;
+  --ln-header-h: 0px;
+  --ln-cjk:
+    'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans CJK SC', 'Noto Sans SC';
+  --ln-display: 'Unbounded', var(--ln-cjk), 'Arial Black', Impact, sans-serif;
+  --ln-font:
+    'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, var(--ln-cjk), sans-serif;
+  --ln-shadow: 0 1px 3px #1e293b12, 0 18px 40px -22px #1e293b4d;
+  --ln-ornament: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 14'%3E%3Cpath d='M0 6h36v2H0zM60 6h36v2H60z'/%3E%3Cpath d='M48 0l7 7-7 7-7-7z'/%3E%3C/svg%3E");
+}
+body {
+  font: 1rem/1.7 var(--ln-font);
+  color: var(--ln-text);
+  background: var(--ln-paper);
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--ln-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ln-ink);
+  line-height: 1.15;
+}
+.wp-block-button__link {
+  background: var(--ln-accent);
+  color: #fff;
+  border: 2px solid var(--ln-accent);
+  border-radius: var(--ln-radius-s);
+  padding: 0.7rem 1.5rem;
+  font-weight: 600;
+}
+.is-style-outline .wp-block-button__link {
+  background: transparent;
+  color: var(--ln-accent-deep);
+}
+.wp-block-image img {
+  border-radius: var(--ln-radius);
+}
+.ln-title::after,
+.ln-center > h2::after {
+  content: '';
+  display: block;
+  width: 6rem;
+  height: 0.9rem;
+  margin: 0.9rem auto 0;
+  background: var(--ln-accent);
+  -webkit-mask: var(--ln-ornament) center / contain no-repeat;
+  mask: var(--ln-ornament) center / contain no-repeat;
+}

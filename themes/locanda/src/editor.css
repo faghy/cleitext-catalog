@@ -1,0 +1,50 @@
+@import url('https://fonts.bunny.net/css?family=oswald:300,400,500,600|source-sans-3:400,400i,600,700|cormorant-garamond:500i,600&display=swap');
+/* Locanda in the block editor: the same type, colors and blocks as the site. */
+:root {
+  --lc-accent: #0e4a32;
+  --lc-accent-deep: #0b3a27;
+  --lc-tint: #f1f6f3;
+  --lc-soft: #a9cfa6;
+  --lc-soft-2: #e5f1e4;
+  --lc-dark: #0a3524;
+  --lc-ink: #1d2621;
+  --lc-text: #3b4540;
+  --lc-muted: #69736e;
+  --lc-line: #dde2de;
+  --lc-white: #ffffff;
+  --lc-radius: 5px;
+  --lc-wide: 72rem;
+  --lc-text-width: 52rem;
+  --lc-gap: clamp(1rem, 3.5vw, 1.75rem);
+  --lc-cond: 'Oswald', 'Arial Narrow', 'Roboto Condensed', sans-serif-condensed, sans-serif;
+  --lc-font:
+    'Source Sans 3', 'Source Sans Pro', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --lc-serif: 'Cormorant Garamond', Garamond, Georgia, serif;
+  --lc-black: 'UnifrakturMaguntia', 'Old English Text MT', 'Cormorant Garamond', Georgia, serif;
+  --lc-shadow: 0 1px 2px #0000000f, 0 12px 28px -16px #0000004d;
+  /* The two ends of the arrows: the fletching on the left, the head on the right. */
+  --lc-tail: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 14'%3E%3Cpath d='M0 1.5h3L8.5 7 3 12.5H0L5.5 7zM6 1.5h3L14.5 7 9 12.5H6L11.5 7z'/%3E%3C/svg%3E");
+  --lc-head: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 14'%3E%3Cpath d='M0 1l16 6-16 6 4-6z'/%3E%3C/svg%3E");
+  --lc-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12.5l5 5L20 6.5'/%3E%3C/svg%3E");
+}
+body {
+  font: 1.06rem/1.7 var(--lc-font);
+  color: var(--lc-text);
+  background: var(--lc-white);
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--lc-cond);
+  font-weight: 400;
+  color: var(--lc-accent);
+  line-height: 1.2;
+}
+h2 {
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+strong {
+  color: var(--lc-ink);
+}

@@ -1,0 +1,1336 @@
+/* Atelier — a portfolio theme for painters, photographers and artisans. Inlined in every page. */
+:root {
+  --at-accent: #b89d4f;
+  --at-accent-deep: #85713a;
+  --at-accent-soft: #f4f0e5;
+  --at-paper: #f3f3f1;
+  --at-paper-2: #e0e0dd;
+  --at-ink: #3d3e40;
+  --at-text: #55565a;
+  --at-muted: #85868a;
+  --at-line: #e4e4e1;
+  --at-white: #ffffff;
+  /* Buttons of the core and plugins (comments, account, shop) follow the theme. */
+  --cx-accent: var(--at-accent);
+  --cx-on-accent: #ffffff;
+  --at-wide: 74rem;
+  --at-content: 44rem;
+  --at-gap: clamp(1.1rem, 4vw, 2rem);
+  --at-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --at-font: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --at-shadow: 0 1px 3px #0000001a, 0 14px 28px -14px #00000040;
+  --at-shadow-lg: 0 2px 6px #0000001a, 0 30px 60px -20px #00000059;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--at-white);
+  color: var(--at-text);
+  font: 300 1rem/1.8 var(--at-font);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+main {
+  flex: 1;
+}
+a {
+  color: var(--at-accent-deep);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+a:hover {
+  color: var(--at-accent);
+}
+:focus-visible {
+  outline: 2px solid var(--at-accent);
+  outline-offset: 3px;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+picture {
+  display: contents;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--at-display);
+  font-weight: 400;
+  color: var(--at-ink);
+  line-height: 1.2;
+  margin: 0 0 0.6em;
+}
+h1 {
+  font-size: clamp(2.3rem, 5vw, 3.4rem);
+}
+h2 {
+  font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+}
+h3 {
+  font-size: 1.35rem;
+}
+h4 {
+  font-size: 1.1rem;
+}
+p,
+ul,
+ol {
+  margin: 0 0 1.1em;
+}
+strong {
+  font-weight: 600;
+  color: var(--at-ink);
+}
+.at-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.at-skip {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  background: var(--at-ink);
+  color: #fff;
+  padding: 0.6rem 1rem;
+}
+.at-skip:focus {
+  top: 1rem;
+}
+.at-wrap {
+  width: min(100% - 2 * var(--at-gap), var(--at-wide));
+  margin-inline: auto;
+}
+
+/* Header: a white bar with a soft shadow; the name on the left (or centered over the menu). */
+.at-header {
+  background: var(--at-white);
+  color: var(--at-text);
+  position: sticky;
+  top: var(--cx-admin-bar-height, 0px);
+  z-index: 50;
+  box-shadow: 0 1px 12px #0000001a;
+}
+.at-header-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 5.5rem;
+  position: relative;
+}
+.at-brand {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--at-ink);
+  text-decoration: none;
+  margin-right: auto;
+  line-height: 1;
+}
+.at-brand:hover {
+  color: var(--at-ink);
+}
+.at-logo {
+  display: block;
+  max-height: 3.4rem;
+  width: auto;
+}
+.at-sitename {
+  font: italic 1.75rem/1.05 var(--at-display);
+}
+.at-tagline {
+  font: 600 0.66rem/1 var(--at-font);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--at-accent-deep);
+  margin-top: 0.45rem;
+}
+.at-desktop {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+.at-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0.2rem 2.2rem;
+  flex-wrap: wrap;
+}
+.at-nav li {
+  position: relative;
+}
+.at-nav a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 0.98rem;
+  padding: 0.4rem 0;
+  display: inline-block;
+}
+.at-nav a:hover,
+.at-nav [aria-current='page'] {
+  color: var(--at-accent);
+}
+/* Sub-menus open on hover and focus on wide screens. */
+.at-desktop .at-nav ul ul {
+  position: absolute;
+  top: 100%;
+  left: -1rem;
+  min-width: 13rem;
+  display: none;
+  flex-direction: column;
+  gap: 0;
+  background: var(--at-white);
+  box-shadow: var(--at-shadow);
+  border-top: 2px solid var(--at-accent);
+  padding: 0.5rem 0;
+}
+.at-desktop .at-nav li:hover > ul,
+.at-desktop .at-nav li:focus-within > ul {
+  display: flex;
+}
+.at-desktop .at-nav ul ul a {
+  padding: 0.4rem 1rem;
+  display: block;
+}
+.at-langs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+.at-langs a {
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.6;
+}
+.at-langs a[aria-current='true'] {
+  opacity: 1;
+  color: var(--at-accent-deep);
+}
+.at-cta {
+  display: inline-block;
+  border: 1px solid var(--at-accent);
+  color: var(--at-accent-deep);
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.6rem 1.2rem;
+  white-space: nowrap;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.at-cta:hover {
+  background: var(--at-accent);
+  color: #fff;
+}
+.at-header-area:empty {
+  display: none;
+}
+.at-social {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0.9rem;
+}
+.at-social a {
+  color: inherit;
+  display: block;
+  opacity: 0.75;
+}
+.at-social a:hover {
+  opacity: 1;
+  color: var(--at-accent);
+}
+.at-social svg {
+  display: block;
+  width: 1.05rem;
+  height: 1.05rem;
+}
+/* Centered: the name on its own line, the menu under it between two thin lines. */
+@media (min-width: 901px) {
+  .at-header-center .at-header-row {
+    flex-direction: column;
+    gap: 0;
+    padding-top: 1.6rem;
+  }
+  .at-header-center .at-brand {
+    margin: 0 0 1.1rem;
+    align-items: center;
+    text-align: center;
+  }
+  .at-header-center .at-sitename {
+    font-size: 2.4rem;
+  }
+  .at-header-center .at-desktop {
+    width: 100%;
+    justify-content: center;
+    border-top: 1px solid var(--at-line);
+    padding: 0.55rem 0;
+  }
+  .at-header-center .at-cta {
+    padding: 0.35rem 0.9rem;
+  }
+}
+.at-mobile {
+  display: none;
+}
+.at-menu summary {
+  list-style: none;
+  cursor: pointer;
+  width: 2.6rem;
+  height: 2.6rem;
+  display: grid;
+  place-items: center;
+}
+.at-menu summary::-webkit-details-marker {
+  display: none;
+}
+.at-burger,
+.at-burger::before,
+.at-burger::after {
+  display: block;
+  width: 1.4rem;
+  height: 1px;
+  background: var(--at-ink);
+  position: relative;
+  transition: transform 0.2s;
+}
+.at-burger::before,
+.at-burger::after {
+  content: '';
+  position: absolute;
+}
+.at-burger::before {
+  top: -7px;
+}
+.at-burger::after {
+  top: 7px;
+}
+.at-menu[open] .at-burger {
+  background: transparent;
+}
+.at-menu[open] .at-burger::before {
+  transform: translateY(7px) rotate(45deg);
+}
+.at-menu[open] .at-burger::after {
+  transform: translateY(-7px) rotate(-45deg);
+}
+.at-panel {
+  position: absolute;
+  left: calc(-1 * var(--at-gap));
+  right: calc(-1 * var(--at-gap));
+  top: 100%;
+  background: var(--at-white);
+  padding: 0.5rem var(--at-gap) 1.6rem;
+  box-shadow: 0 18px 24px -18px #0004;
+  border-top: 1px solid var(--at-line);
+  display: grid;
+  gap: 1rem;
+}
+.at-panel .at-nav ul {
+  flex-direction: column;
+  gap: 0;
+}
+.at-panel .at-nav a {
+  display: block;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--at-line);
+}
+.at-panel .at-nav ul ul a {
+  padding-left: 1rem;
+}
+.at-cta-panel {
+  justify-self: start;
+}
+@media (max-width: 900px) {
+  .at-desktop {
+    display: none;
+  }
+  .at-mobile {
+    display: block;
+  }
+  .at-header-row {
+    min-height: 4.4rem;
+  }
+  .at-sitename {
+    font-size: 1.5rem;
+  }
+}
+
+/* Footer: light gray, a thin line above, the bottom row under another thin line. */
+.at-footer {
+  background: var(--at-paper);
+  color: var(--at-text);
+  font-size: 0.95rem;
+  border-top: 1px solid var(--at-paper-2);
+}
+.at-footer :is(h2, h3, h4) {
+  font-size: 1.3rem;
+}
+.at-footer-area {
+  padding-block: clamp(2.5rem, 6vw, 3.5rem);
+}
+.at-footer-area:empty {
+  display: none;
+}
+.at-footer-area .wp-block-columns {
+  margin-bottom: 0;
+  align-items: center;
+}
+.at-footer-area p:last-child {
+  margin-bottom: 0;
+}
+.at-footer-area .wp-block-image img {
+  border: 0;
+  box-shadow: none;
+}
+.at-footer-bottom {
+  border-top: 1px solid var(--at-paper-2);
+  font-size: 0.82rem;
+  background: var(--at-white);
+}
+.at-footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem 1.5rem;
+  padding: 1.3rem 0;
+}
+.at-footer-row p {
+  margin: 0;
+  color: var(--at-muted);
+}
+.at-footer-row ul:not(.at-social) {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+}
+.at-footer-row nav a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* WhatsApp button */
+.at-wa {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 60;
+  width: 3.3rem;
+  height: 3.3rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 10px 24px -8px #0008;
+  transition: transform 0.2s;
+}
+.at-wa:hover {
+  transform: scale(1.07);
+  color: #fff;
+}
+.at-wa svg {
+  width: 1.85rem;
+  height: 1.85rem;
+}
+
+/* Pages, posts and lists: a centered title with a thin vertical gold line under it. */
+.at-page-header {
+  text-align: center;
+  padding: clamp(2.8rem, 7vw, 4.5rem) 0 clamp(1.5rem, 4vw, 2.5rem);
+}
+.at-page-header h1::after,
+.at-vline > h2::after,
+.at-vline > .wp-block-heading:first-of-type::after,
+.wp-block-separator.at-vline {
+  content: '';
+  display: block;
+  width: 1px;
+  height: clamp(3rem, 7vw, 4.5rem);
+  background: var(--at-accent);
+  margin: 1.1rem auto 0;
+}
+.at-page-lead {
+  font-size: 1.12rem;
+  color: var(--at-muted);
+  max-width: 40rem;
+  margin-inline: auto;
+}
+.at-meta {
+  color: var(--at-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.at-featured {
+  margin: 0 auto 2.5rem;
+  max-width: 64rem;
+}
+.at-featured img {
+  display: block;
+  width: 100%;
+  box-shadow: var(--at-shadow-lg);
+}
+.entry-content {
+  padding-bottom: clamp(3rem, 7vw, 5rem);
+}
+.entry-content > * {
+  width: min(100% - 2 * var(--at-gap), var(--at-content));
+  margin-inline: auto;
+}
+.entry-content > .alignwide {
+  width: min(100% - 2 * var(--at-gap), var(--at-wide));
+}
+.entry-content > .alignfull,
+.entry-content > .at-section {
+  width: 100%;
+}
+/* A page that starts with a section is a landing page: no title, sections end to end. */
+.at-entry:has(.entry-content > .at-section:first-child) > .at-page-header {
+  display: none;
+}
+.entry-content:has(> .at-section:last-child) {
+  padding-bottom: 0;
+}
+/* Pages are the artist's, not an author's: no author box under them (posts keep it). */
+.at-page .cx-community > .cx-author,
+.at-page .cx-community:not(:has(> :not(.cx-author))) {
+  display: none;
+}
+.cx-community:has(> :not(.cx-author)) {
+  padding-bottom: 3rem;
+}
+.at-posts {
+  list-style: none;
+  padding: 0 0 4rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: 2.5rem 2rem;
+}
+.at-post {
+  display: flex;
+  flex-direction: column;
+}
+.at-post-image img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  box-shadow: var(--at-shadow);
+}
+.at-post-body {
+  padding: 1.2rem 0 0;
+}
+.at-post h2 {
+  font-size: 1.45rem;
+}
+.at-post h2 a {
+  color: var(--at-ink);
+  text-decoration: none;
+}
+.at-post h2 a:hover {
+  color: var(--at-accent);
+}
+.at-more {
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.at-pages {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 4rem;
+  font-weight: 400;
+}
+.at-search {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  max-width: 34rem;
+  margin-inline: auto;
+}
+.at-search input {
+  flex: 1;
+  font: inherit;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--at-paper-2);
+  background: #fff;
+}
+.at-search button,
+.at-button {
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 0;
+  background: var(--at-accent);
+  color: #fff;
+  padding: 0.75rem 1.4rem;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+}
+.at-button:hover {
+  color: #fff;
+  background: var(--at-accent-deep);
+}
+.at-message {
+  text-align: center;
+  padding-block: clamp(4rem, 12vw, 8rem);
+}
+.at-big {
+  font: italic clamp(4.5rem, 15vw, 8rem) / 1 var(--at-display);
+  color: var(--at-accent);
+  margin: 0;
+}
+.at-empty {
+  padding-bottom: 4rem;
+}
+/* The Forms plugin's contact form. */
+.contact-form form {
+  max-width: none;
+  gap: 1rem;
+}
+.contact-form label {
+  font-weight: 600;
+  color: var(--at-ink);
+}
+.contact-form :is(input, textarea, select) {
+  font: inherit;
+  font-weight: 300;
+  color: var(--at-text);
+  background: #fff;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--at-paper-2);
+  border-radius: 0;
+}
+.contact-form :is(input, textarea):focus {
+  outline: 1px solid var(--at-accent);
+  border-color: var(--at-accent);
+}
+.contact-form button[type='submit'] {
+  justify-self: start;
+  font: inherit;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 0;
+  background: var(--at-accent);
+  color: #fff;
+  padding: 0.85rem 1.6rem;
+  cursor: pointer;
+}
+.contact-form [role='status'] {
+  padding: 0.8rem 1rem;
+  background: #ecfdf5;
+  color: #065f46;
+}
+.contact-form [role='alert'] {
+  padding: 0.8rem 1rem;
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+/* Blocks outside sections */
+.wp-block-image {
+  margin: 0 0 1.4rem;
+}
+.wp-block-image img {
+  display: block;
+}
+.wp-element-caption {
+  color: var(--at-muted);
+  font-size: 0.85rem;
+  text-align: center;
+  margin-top: 0.7rem;
+}
+.wp-block-quote {
+  border-left: 1px solid var(--at-accent);
+  padding: 0.25rem 0 0.25rem 1.5rem;
+  margin-inline: 0;
+  font: italic 1.3rem/1.55 var(--at-display);
+  color: var(--at-ink);
+}
+.wp-block-quote cite {
+  display: block;
+  margin-top: 0.8rem;
+  font: normal 600 0.78rem var(--at-font);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--at-muted);
+}
+.wp-block-separator {
+  border: 0;
+  border-top: 1px solid var(--at-line);
+  margin-block: 2.5rem;
+}
+.wp-block-separator.at-vline {
+  border: 0;
+  margin-block: 0 2rem;
+  margin-inline: auto !important;
+}
+.wp-block-columns {
+  display: flex;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  margin-bottom: 1.1rem;
+}
+.wp-block-column {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.wp-block-column[style*='flex-basis'] {
+  flex-grow: 0;
+}
+@media (max-width: 781px) {
+  .wp-block-columns {
+    flex-wrap: wrap;
+  }
+  .wp-block-columns.is-stacked-on-mobile {
+    flex-direction: column;
+  }
+  .wp-block-columns.is-stacked-on-mobile > .wp-block-column {
+    flex-basis: 100% !important;
+  }
+}
+.wp-block-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.1rem;
+}
+.wp-block-button__link {
+  display: inline-block;
+  background: var(--at-accent);
+  color: #fff;
+  border: 1px solid var(--at-accent);
+  border-radius: 0;
+  padding: 0.75rem 1.5rem;
+  font-weight: 400;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.wp-block-button__link:hover {
+  background: var(--at-accent-deep);
+  border-color: var(--at-accent-deep);
+  color: #fff;
+}
+.is-style-outline .wp-block-button__link {
+  background: transparent;
+  color: var(--at-accent-deep);
+}
+.is-style-outline .wp-block-button__link:hover {
+  background: var(--at-accent);
+  color: #fff;
+}
+.wp-block-gallery {
+  gap: 1.25rem;
+}
+.wp-block-gallery .wp-block-image {
+  margin: 0;
+}
+.wp-block-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.wp-block-table :is(td, th) {
+  border: 0;
+  border-bottom: 1px solid var(--at-line);
+  padding: 0.6rem 0.4rem;
+  text-align: left;
+}
+
+/* == Sections == */
+/*
+ * A page is a stack of full-width sections: groups with the class at-section (tag section, align
+ * full) on white or light gray. Frames, galleries of works and timelines come from the classes below.
+ */
+.at-section {
+  --at-bg: var(--at-white);
+  position: relative;
+  background: var(--at-bg);
+  padding: clamp(3.5rem, 8vw, 6rem) var(--at-gap);
+  margin: 0 !important;
+}
+.at-section > * {
+  max-width: var(--at-wide);
+  margin-inline: auto;
+  position: relative;
+  z-index: 1;
+}
+.at-section > :is(p, h1, h2, h3, ul, ol):not(.at-wide) {
+  max-width: min(var(--at-wide), 46rem);
+  margin-inline: max(0px, (100% - var(--at-wide)) / 2) auto;
+}
+.at-center {
+  text-align: center;
+}
+.at-section.at-center > :is(p, h1, h2, h3, ul, ol) {
+  margin-inline: auto;
+}
+.at-center .wp-block-buttons {
+  justify-content: center;
+}
+.at-tight {
+  padding-block: clamp(2.2rem, 5vw, 3.5rem);
+}
+.at-bg-white {
+  --at-bg: var(--at-white);
+}
+.at-bg-paper {
+  --at-bg: var(--at-paper);
+}
+.at-bg-dark {
+  --at-bg: var(--at-ink);
+  color: #d9d9d6;
+}
+.at-bg-dark :is(h1, h2, h3, h4, strong) {
+  color: #fff;
+}
+.at-bg-dark a:not(.wp-block-button__link) {
+  color: #fff;
+}
+/* Two sections of the same color in a row read as one: no second top padding. */
+.at-section:not(.at-bg-paper, .at-bg-dark, .at-hero)
+  + .at-section:not(.at-bg-paper, .at-bg-dark, .at-hero, .at-line-top),
+.at-bg-paper:not(.at-hero) + .at-bg-paper:not(.at-hero, .at-line-top) {
+  padding-top: 0;
+}
+.at-line-top {
+  border-top: 1px solid var(--at-line);
+}
+.at-section > h2 {
+  margin-bottom: 0.9em;
+}
+
+/* Small capitals over a title, larger intro text, a gold title with a thin line under it. */
+.at-kicker {
+  font: 600 0.75rem/1.4 var(--at-font) !important;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--at-accent-deep);
+  margin-bottom: 0.9rem !important;
+}
+.at-bg-dark .at-kicker {
+  color: var(--at-accent);
+}
+.at-lead {
+  font-size: clamp(1.08rem, 1.6vw, 1.22rem);
+  line-height: 1.75;
+}
+.at-title {
+  color: var(--at-accent);
+  font-weight: 500;
+}
+.at-title::after {
+  content: '';
+  display: block;
+  width: min(100%, 22rem);
+  height: 1px;
+  background: var(--at-accent);
+  margin-top: 1.1rem;
+}
+.at-center .at-title::after {
+  margin-inline: auto;
+}
+/* The name written like a signature (footer, end of a page). */
+.at-signature {
+  font: italic 400 clamp(1.8rem, 3vw, 2.3rem) / 1.1 var(--at-display) !important;
+  color: var(--at-ink);
+  margin-bottom: 0.4rem !important;
+}
+/* A years line under a name: "1951 – 2019", "Since 2004". */
+.at-years {
+  font: 300 clamp(1.15rem, 2vw, 1.45rem) / 1.3 var(--at-font) !important;
+  letter-spacing: 0.06em;
+  color: var(--at-text);
+}
+/* A big serif initial in the accent color. */
+.at-dropcap::first-letter {
+  float: left;
+  font: 400 4.6em/0.82 var(--at-display);
+  color: var(--at-accent);
+  margin: 0.06em 0.12em 0 0;
+}
+/* Long text flowing in two or three newspaper columns. */
+.at-prose {
+  columns: 3 16rem;
+  column-gap: clamp(2rem, 4vw, 3.5rem);
+  text-align: left;
+}
+.at-prose > * {
+  break-inside: avoid-column;
+}
+.at-prose > :first-child {
+  margin-top: 0;
+}
+.at-center .at-prose {
+  text-align: left;
+}
+
+/* Hero: a framed artwork with a translucent card overlapping it (or the image as a background). */
+.at-hero {
+  --at-bg: var(--at-paper);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: center;
+  padding-inline: max(var(--at-gap), (100% - var(--at-wide)) / 2);
+  padding-block: clamp(3rem, 7vw, 5.5rem);
+  min-height: min(80vh, 44rem);
+}
+.at-hero > * {
+  grid-column: 1 / -1;
+  max-width: none;
+  margin-inline: 0;
+}
+.at-hero > .wp-block-image:first-child {
+  grid-column: 5 / -1;
+  grid-row: 1;
+  margin: 0;
+  z-index: 0;
+}
+/* The artwork keeps its own shape (never cropped), centered in its part of the grid. */
+.at-hero > .wp-block-image:first-child img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: min(72vh, 34rem);
+  margin-inline: auto;
+  box-shadow: var(--at-shadow-lg);
+}
+.at-hero > .wp-block-image:first-child + * {
+  grid-column: 1 / 7;
+  grid-row: 1;
+  z-index: 2;
+  text-align: center;
+  padding: clamp(1.8rem, 4vw, 3rem) clamp(1.4rem, 3.5vw, 3rem);
+  background: #ffffff8c;
+  border: 1px solid #ffffffb3;
+  box-shadow: 0 10px 40px -12px #0000002e;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+.at-hero h1 {
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  line-height: 1.12;
+  margin-bottom: 0.45em;
+}
+.at-hero .at-years,
+.at-hero p:last-child {
+  margin-bottom: 0;
+}
+.at-hero .wp-block-buttons {
+  justify-content: center;
+  margin: 1.5rem 0 0;
+}
+/* The artwork on the left, the card on the right. */
+.at-hero.at-reverse > .wp-block-image:first-child {
+  grid-column: 1 / 9;
+}
+.at-hero.at-reverse > .wp-block-image:first-child + * {
+  grid-column: 7 / -1;
+}
+/* The first image fills the section as a background; the card stays on the left. */
+.at-hero.at-full {
+  min-height: min(88vh, 48rem);
+  overflow: hidden;
+}
+.at-hero.at-full > .wp-block-image:first-child,
+.at-hero.at-full.at-reverse > .wp-block-image:first-child {
+  position: absolute;
+  inset: 0;
+  /* An absolute grid item placed in the grid would be sized to its area: not placed, it fills. */
+  grid-area: auto;
+}
+.at-hero.at-full > .wp-block-image:first-child img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-height: none;
+  box-shadow: none;
+}
+.at-hero.at-full > .wp-block-image:first-child + * {
+  grid-column: 1 / 6;
+  background: #ffffffbf;
+}
+@media (max-width: 781px) {
+  .at-hero {
+    min-height: 0;
+    padding-top: 2rem;
+  }
+  .at-hero:not(.at-full) > .wp-block-image:first-child {
+    grid-column: 2 / -1;
+  }
+  .at-hero > .wp-block-image:first-child + *,
+  .at-hero.at-reverse > .wp-block-image:first-child + * {
+    grid-column: 1 / 12;
+    grid-row: 2;
+    margin-top: -3.5rem;
+  }
+  .at-hero.at-full > .wp-block-image:first-child + * {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    margin-top: 0;
+  }
+  .at-hero.at-full {
+    min-height: 34rem;
+  }
+}
+
+/* Frames for artworks: a thin dark frame, a white mat, a tilted sheet of paper behind. */
+.at-frame img {
+  border: 2px solid var(--at-ink);
+  box-shadow: var(--at-shadow);
+}
+.at-mat img {
+  background: #fff;
+  padding: clamp(0.7rem, 3%, 1.6rem);
+  border: 1px solid var(--at-line);
+  box-shadow: var(--at-shadow);
+}
+.at-mat.at-frame img,
+.at-frame .at-mat img {
+  border: 2px solid var(--at-ink);
+}
+.at-shadow img {
+  box-shadow: var(--at-shadow-lg);
+}
+.wp-block-image.at-paper {
+  position: relative;
+  isolation: isolate;
+  padding: 6% 4% 4% 6%;
+}
+.wp-block-image.at-paper::before {
+  content: '';
+  position: absolute;
+  inset: 0 12% 6% 0;
+  background: var(--at-accent-soft);
+  transform: rotate(-9deg);
+  z-index: -1;
+}
+.wp-block-image.at-paper img {
+  width: 100%;
+  box-shadow: var(--at-shadow-lg);
+}
+.wp-block-image.at-paper .wp-element-caption {
+  margin-top: 1.4rem;
+}
+
+/* A single artwork: the picture and, beside it, the title, the details and a button. */
+.at-artwork.wp-block-columns {
+  align-items: center;
+  gap: clamp(2rem, 6vw, 5rem);
+}
+.at-specs {
+  list-style: none;
+  padding: 0;
+  margin: 1.6rem 0;
+}
+.at-specs li {
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+.at-specs li strong {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.15rem;
+}
+.at-center .at-specs,
+.at-center .at-specs li {
+  text-align: center;
+}
+
+/* Gallery of works: a grid of works with title, year, technique and size under each picture. */
+.at-works {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: clamp(1.5rem, 4vw, 3rem);
+  row-gap: 0;
+  text-align: left;
+}
+.at-works.at-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.at-works.at-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+@media (max-width: 900px) {
+  .at-works,
+  .at-works.at-cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 520px) {
+  .at-works,
+  .at-works.at-cols-2,
+  .at-works.at-cols-4 {
+    grid-template-columns: 1fr;
+  }
+}
+/* Every work spans three rows of the grid (picture, title, details), so the pictures stand on one
+   line, like on a wall, and the titles line up whatever the shape of each picture. */
+.at-work {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+  align-content: start;
+  margin-bottom: clamp(2.2rem, 5vw, 3.5rem);
+}
+.at-work > .wp-block-image:first-child {
+  align-self: end;
+  margin: 0 0 1.1rem;
+  position: relative;
+}
+.at-work > .wp-block-image:first-child img {
+  width: 100%;
+  box-shadow: var(--at-shadow);
+}
+.at-works.at-square .at-work > .wp-block-image:first-child img {
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+.at-works.at-portrait .at-work > .wp-block-image:first-child img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+.at-work h3 {
+  font-size: 1.25rem;
+  margin: 0 0 0.35rem;
+}
+.at-work h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+.at-work h3 a:hover {
+  color: var(--at-accent);
+}
+.at-work p {
+  font-size: 0.86rem;
+  line-height: 1.65;
+  color: var(--at-muted);
+  margin: 0;
+}
+/* The first line of the details (the year) in small gold capitals. */
+.at-work p::first-line {
+  color: var(--at-accent-deep);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+.at-center .at-work {
+  text-align: center;
+}
+
+/* Hover caption: the caption of an image slides up over it on hover, no lightbox. */
+:is(.at-hover.wp-block-image, .at-hover .wp-block-image) {
+  position: relative;
+  overflow: hidden;
+}
+:is(.at-hover.wp-block-image, .at-hover .wp-block-image) .wp-element-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0.9rem 1.1rem;
+  background: #ffffffd9;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  color: var(--at-ink);
+  font: italic 1rem/1.35 var(--at-display);
+  text-align: left;
+  transform: translateY(101%);
+  transition: transform 0.35s ease;
+}
+:is(.at-hover.wp-block-image, .at-hover .wp-block-image):is(:hover, :focus-within)
+  .wp-element-caption {
+  transform: none;
+}
+:is(.at-hover.wp-block-image, .at-hover .wp-block-image) img {
+  transition: transform 0.6s ease;
+}
+:is(.at-hover.wp-block-image, .at-hover .wp-block-image):hover img {
+  transform: scale(1.03);
+}
+@media (hover: none) {
+  :is(.at-hover.wp-block-image, .at-hover .wp-block-image) .wp-element-caption {
+    position: static;
+    transform: none;
+    background: none;
+    padding: 0.6rem 0 0;
+  }
+}
+
+/* A strip of works that scrolls sideways, each picture in its own shape. */
+.at-strip {
+  display: flex !important;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--at-accent) transparent;
+}
+.at-strip > * {
+  flex: none;
+  scroll-snap-align: start;
+  margin: 0 !important;
+}
+.at-strip img {
+  height: clamp(13rem, 28vw, 20rem) !important;
+  width: auto !important;
+  aspect-ratio: auto !important;
+  max-width: none;
+}
+
+/* Exhibitions and dates: a vertical gold line with a dot for each line of the list. */
+.at-timeline {
+  list-style: none;
+  padding: 0 0 0 2rem;
+  margin-inline: auto;
+  border-left: 1px solid var(--at-accent);
+  text-align: left;
+  max-width: 34rem;
+}
+.at-timeline li {
+  position: relative;
+  padding-bottom: 1.6rem;
+  line-height: 1.6;
+}
+.at-timeline li:last-child {
+  padding-bottom: 0.2rem;
+}
+.at-timeline li::before {
+  content: '';
+  position: absolute;
+  left: calc(-2rem - 5px);
+  top: 0.55rem;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--at-bg, #fff);
+  border: 1px solid var(--at-accent);
+}
+.at-timeline li > strong:first-child {
+  display: block;
+  font: 400 1.35rem/1.3 var(--at-display);
+  color: var(--at-accent);
+}
+.at-section.at-center > :is(ul, ol).at-timeline {
+  max-width: 34rem;
+  margin-inline: auto;
+}
+
+/* Events: cards with a gold line on top (dates, places, openings). */
+.at-events {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 1.5rem;
+  text-align: left;
+}
+.at-event {
+  background: var(--at-white);
+  border-top: 2px solid var(--at-accent);
+  padding: 1.6rem 1.6rem 1.3rem;
+  box-shadow: var(--at-shadow);
+}
+.at-bg-white .at-event {
+  background: var(--at-paper);
+  box-shadow: none;
+}
+.at-event h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.4rem;
+}
+.at-event p {
+  font-size: 0.93rem;
+}
+.at-event p:last-child {
+  margin-bottom: 0;
+}
+
+/* A line with a small icon before it (contacts, "visit the gallery"). */
+.at-icon {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+}
+.at-icon::before {
+  content: '';
+  flex: none;
+  width: 1.15em;
+  height: 1.15em;
+  align-self: center;
+  background: var(--at-accent);
+  -webkit-mask: var(--at-icon) center / contain no-repeat;
+  mask: var(--at-icon) center / contain no-repeat;
+}
+.at-center .at-icon {
+  justify-content: center;
+}
+h3.at-icon,
+h4.at-icon {
+  font-size: 1.15rem;
+  margin-bottom: 0.6rem;
+}
+
+/* An artist's statement: one large quote. */
+.at-quote.wp-block-quote {
+  border: 0;
+  padding: 0;
+  text-align: center;
+  max-width: 46rem;
+  margin-inline: auto;
+  font-size: clamp(1.35rem, 2.6vw, 1.8rem);
+  line-height: 1.5;
+}
+.at-quote.wp-block-quote::before {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 3rem;
+  background: var(--at-accent);
+  margin: 0 auto 1.6rem;
+}

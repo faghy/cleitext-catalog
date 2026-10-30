@@ -1,0 +1,52 @@
+@import url('https://fonts.bunny.net/css?family=forum:400|crimson-text:400,400i,600|plus-jakarta-sans:400,500,600,700&display=swap');
+/* Podere in the block editor: the same type, colors and sections as the site. */
+:root {
+  --pd-accent: #b9654b;
+  --pd-accent-deep: #94503c;
+  --pd-accent-soft: #f2dcd3;
+  --pd-cream: #fff5e0;
+  --pd-cream-2: #e8d9bd;
+  --pd-dark: #3b2a20;
+  --pd-ink: #2b211b;
+  --pd-text: #4a4038;
+  --pd-muted: #7a6d62;
+  --pd-line: #ead9bf;
+  --pd-white: #ffffff;
+  --pd-radius: 14px;
+  --pd-wide: 72rem;
+  --pd-gap: 1.25rem;
+  --pd-wave: 48px;
+  --pd-display: 'Forum', 'Crimson Text', Georgia, serif;
+  --pd-serif: 'Crimson Text', Georgia, serif;
+  --pd-font: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --pd-shadow: 0 2px 4px #3b2a2014, 0 18px 36px -18px #3b2a2059;
+}
+body {
+  font: 1rem/1.75 var(--pd-font);
+  color: var(--pd-text);
+  background: var(--pd-cream);
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--pd-serif);
+  font-weight: 600;
+  color: var(--pd-ink);
+  line-height: 1.2;
+}
+.wp-block-button__link {
+  background: var(--pd-accent);
+  color: #fff;
+  border: 2px solid var(--pd-accent);
+  border-radius: 999px;
+  padding: 0.65rem 1.6rem;
+  font-weight: 600;
+}
+.is-style-outline .wp-block-button__link {
+  background: transparent;
+  color: var(--pd-accent-deep);
+}
+.wp-block-image img {
+  border-radius: var(--pd-radius);
+}

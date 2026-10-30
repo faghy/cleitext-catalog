@@ -1,0 +1,8 @@
+{
+  "slug": "lanterna",
+  "name": "Lanterna",
+  "version": "1.0.0",
+  "description": "A theme for Asian and ethnic restaurants, takeaway and delivery: warm beige, red accents, a full-screen photo opening with a huge title, menu sections with prices and spicy or vegetarian marks, call and WhatsApp buttons.",
+  "license": "GPL-2.0-or-later",
+  "entry": "dist/index.js"
+}

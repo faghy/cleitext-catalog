@@ -1,0 +1,73 @@
+@import url('https://fonts.bunny.net/css?family=poiret-one:400|cormorant-garamond:400,400i,600|sulphur-point:400,700&display=swap');
+/* Bistrot in the block editor: the same type, colors and sections as the site. */
+:root {
+  --bs-gold: #c9a46c;
+  --bs-gold-light: #e6c993;
+  --bs-gold-deep: #8a6a3a;
+  --bs-navy: #15223a;
+  --bs-deep: #0c1424;
+  --bs-navy-2: #1d2d4b;
+  --bs-cream: #f5efe4;
+  --bs-text: #d5d9e2;
+  --bs-muted: #9aa3b5;
+  --bs-ink: #1b2234;
+  --bs-ink-text: #4a4f5c;
+  --bs-line: color-mix(in srgb, var(--bs-gold) 35%, transparent);
+  /* Buttons of the core and plugins (comments, account, shop) follow the theme. */
+  --cx-accent: var(--bs-gold);
+  --cx-on-accent: var(--bs-navy);
+  --bs-wide: 72rem;
+  --bs-content: 46rem;
+  --bs-gap: clamp(1.1rem, 4vw, 2rem);
+  --bs-band: clamp(36px, 5vw, 70px);
+  --bs-display: 'Poiret One', 'Cormorant Garamond', Georgia, serif;
+  --bs-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --bs-font: 'Sulphur Point', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --bs-shadow: 0 2px 6px #0000002e, 0 24px 44px -22px #000000a6;
+  --bs-arches: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='112' viewBox='0 0 80 112' fill='none' stroke='%23ffffff' stroke-opacity='.07' stroke-width='3'%3E%3Cpath d='M6 112V46a34 34 0 0 1 68 0v66M17 112V46a23 23 0 0 1 46 0v66M28 112V46a12 12 0 0 1 24 0v66'/%3E%3C/svg%3E");
+}
+body {
+  font: 1.05rem/1.75 var(--bs-font);
+  color: var(--bs-text);
+  background: var(--bs-navy);
+}
+a {
+  color: var(--bs-gold-light);
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--bs-serif);
+  font-weight: 600;
+  color: var(--bs-gold-light);
+  line-height: 1.2;
+}
+h1,
+h2 {
+  font-family: var(--bs-display);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+strong {
+  color: #fff;
+}
+.wp-block-button__link {
+  background: var(--bs-gold);
+  color: var(--bs-navy);
+  border: 1px solid var(--bs-gold);
+  border-radius: 999px;
+  padding: 0.7rem 1.8rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.is-style-outline .wp-block-button__link {
+  background: transparent;
+  color: var(--bs-gold-light);
+}
+.wp-block-separator {
+  border: 0;
+  border-top: 1px solid var(--bs-line);
+}

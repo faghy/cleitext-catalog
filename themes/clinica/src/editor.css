@@ -1,0 +1,57 @@
+@import url('https://fonts.bunny.net/css?family=montserrat:600,700,800|work-sans:400,500,600&display=swap');
+/* Clinica in the block editor: the same type, colors and sections as the site. */
+:root {
+  --cl-accent: #1f86bd;
+  --cl-accent-deep: #186994;
+  --cl-accent-soft: #e4f0f7;
+  --cl-accent-light: #9ccbe4;
+  --cl-ink: #0b4159;
+  --cl-strong: #175f84;
+  --cl-soft: #f1f6f9;
+  --cl-line: #dce6ec;
+  --cl-text: #4c5a63;
+  --cl-muted: #74828b;
+  --cl-white: #ffffff;
+  --cl-radius: 14px;
+  --cl-radius-sm: 8px;
+  --cl-wide: 74rem;
+  --cl-gap: 1.25rem;
+  --cl-head: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
+  --cl-font: 'Work Sans', system-ui, sans-serif;
+  --cl-shadow: 0 1px 3px #0b41590f, 0 14px 34px -16px #0b415940;
+  --cl-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill-opacity='.18'/%3E%3Cpath d='M7 12.5l3.2 3.2L17 9' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --cl-hex: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 432 251'%3E%3Cpolygon points='205,5 225,16 225,40 205,51 184,40 184,16' fill='none' stroke='black' stroke-width='1.6' stroke-opacity='.7'/%3E%3Cpolygon points='385,5 405,16 405,40 385,51 365,40 365,16' fill='none' stroke='black' stroke-width='1.6' stroke-opacity='.7'/%3E%3Cpolygon points='137,44 157,55 157,79 137,90 117,79 117,55' fill-opacity='.3'/%3E%3Cpolygon points='317,44 337,55 337,79 317,90 297,79 297,55' fill-opacity='.75'/%3E%3Cpolygon points='205,83 225,94 225,118 205,129 184,118 184,94' fill-opacity='.3'/%3E%3Cpolygon points='250,83 270,94 270,118 250,129 229,118 229,94' fill-opacity='.75'/%3E%3Cpolygon points='340,83 360,94 360,118 340,129 319,118 319,94' fill-opacity='.75'/%3E%3Cpolygon points='227,122 247,133 247,157 227,168 207,157 207,133' fill-opacity='.5'/%3E%3Cpolygon points='272,122 292,133 292,157 272,168 252,157 252,133' fill='none' stroke='black' stroke-width='1.6' stroke-opacity='.7'/%3E%3Cpolygon points='317,122 337,133 337,157 317,168 297,157 297,133' fill='none' stroke='black' stroke-width='1.6' stroke-opacity='.7'/%3E%3Cpolygon points='407,122 428,133 428,157 407,168 387,157 387,133' fill='none' stroke='black' stroke-width='1.6' stroke-opacity='.7'/%3E%3Cpolygon points='70,161 90,172 90,196 70,207 49,196 49,172' fill='none' stroke='black' stroke-width='1.6' stroke-opacity='.7'/%3E%3Cpolygon points='115,161 135,172 135,196 115,207 94,196 94,172' fill='none' stroke='black' stroke-width='1.6' stroke-opacity='.7'/%3E%3Cpolygon points='205,161 225,172 225,196 205,207 184,196 184,172' fill-opacity='.5'/%3E%3Cpolygon points='295,161 315,172 315,196 295,207 274,196 274,172' fill='none' stroke='black' stroke-width='1.6' stroke-opacity='.7'/%3E%3Cpolygon points='385,161 405,172 405,196 385,207 365,196 365,172' fill-opacity='.3'/%3E%3Cpolygon points='182,200 202,211 202,235 182,246 162,235 162,211' fill='none' stroke='black' stroke-width='1.6' stroke-opacity='.7'/%3E%3Cpolygon points='227,200 247,211 247,235 227,246 207,235 207,211' fill-opacity='.5'/%3E%3Cpolygon points='272,200 292,211 292,235 272,246 252,235 252,211' fill='none' stroke='black' stroke-width='1.6' stroke-opacity='.7'/%3E%3Cpolygon points='362,200 383,211 383,235 362,246 342,235 342,211' fill='none' stroke='black' stroke-width='1.6' stroke-opacity='.7'/%3E%3Cpolygon points='407,200 428,211 428,235 407,246 387,235 387,211' fill-opacity='.3'/%3E%3C/svg%3E");
+}
+body {
+  font: 1rem/1.7 var(--cl-font);
+  color: var(--cl-text);
+  background: var(--cl-white);
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--cl-head);
+  font-weight: 800;
+  color: var(--cl-ink);
+  line-height: 1.22;
+}
+h3,
+h4 {
+  font-weight: 700;
+}
+.wp-block-button__link {
+  background: var(--cl-accent);
+  color: #fff;
+  border: 2px solid var(--cl-accent);
+  border-radius: var(--cl-radius-sm);
+  padding: 0.7rem 1.6rem;
+  font-weight: 600;
+}
+.is-style-outline .wp-block-button__link {
+  background: transparent;
+  color: var(--cl-accent-deep);
+}
+.wp-block-image img {
+  border-radius: var(--cl-radius);
+}

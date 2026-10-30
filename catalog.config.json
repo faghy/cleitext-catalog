@@ -724,6 +724,139 @@
       "screenshots": [
         "assets/zenit.png"
       ]
+    },
+    {
+      "type": "theme",
+      "slug": "podere",
+      "name": "Podere",
+      "summary": {
+        "en": "A warm theme for farm stays, country houses and rural B&Bs: terracotta and cream, serif titles, wave dividers, rounded photos, service cards, line icons, a Book now button and a WhatsApp button. Four ready palettes.",
+        "it": "Un tema caldo per agriturismi, case di campagna e B&B: terracotta e crema, titoli con grazie, separatori a onda, foto arrotondate, card dei servizi, icone a linea, pulsante Prenota e pulsante WhatsApp. Quattro palette pronte."
+      },
+      "tags": [
+        "hospitality",
+        "farm stay",
+        "bed and breakfast"
+      ],
+      "requires": ">=0.79.0",
+      "icon": "assets/podere.svg",
+      "screenshots": [
+        "assets/podere.png"
+      ]
+    },
+    {
+      "type": "theme",
+      "slug": "bistrot",
+      "name": "Bistrot",
+      "summary": {
+        "en": "Elegant navy-and-gold theme for restaurants, bistrots and cocktail bars: Art Deco titles and arches, full-height photo opening, menus with prices and a Book a table button.",
+        "it": "Tema elegante blu notte e oro per ristoranti, bistrot e cocktail bar: titoli e archi Art Déco, apertura con foto a tutta altezza, menu con prezzi e pulsante Prenota un tavolo."
+      },
+      "tags": [
+        "restaurant",
+        "bar",
+        "dark"
+      ],
+      "requires": ">=0.79.0",
+      "icon": "assets/bistrot.svg",
+      "screenshots": [
+        "assets/bistrot.png"
+      ]
+    },
+    {
+      "type": "theme",
+      "slug": "atelier",
+      "name": "Atelier",
+      "summary": {
+        "en": "A quiet portfolio for painters, photographers and artisans: a serif name over a framed artwork, thin gold lines, a gallery of works with year, technique and size, and a timeline of exhibitions.",
+        "it": "Un portfolio sobrio per pittori, fotografi e artigiani: il nome in serif su un'opera incorniciata, sottili linee oro, una galleria di opere con anno, tecnica e misure e il percorso delle mostre."
+      },
+      "tags": [
+        "portfolio",
+        "art",
+        "gallery"
+      ],
+      "requires": ">=0.79.0",
+      "icon": "assets/atelier.svg",
+      "screenshots": [
+        "assets/atelier.png"
+      ]
+    },
+    {
+      "type": "theme",
+      "slug": "locanda",
+      "name": "Locanda",
+      "summary": {
+        "en": "A classic theme for historic hotels, inns and country restaurants: a white boxed page, the name with its founding year, a deep green menu bar, a framed opening photo and condensed titles with an arrow.",
+        "it": "Un tema classico per alberghi storici, locande e trattorie: pagina bianca a scatola, il nome con l'anno di fondazione, barra menu verde scuro, foto d'apertura incorniciata e titoli stretti con la freccia."
+      },
+      "tags": [
+        "hotel",
+        "restaurant",
+        "classic"
+      ],
+      "requires": ">=0.79.0",
+      "icon": "assets/locanda.svg",
+      "screenshots": [
+        "assets/locanda.png"
+      ]
+    },
+    {
+      "type": "theme",
+      "slug": "clinica",
+      "name": "Clinica",
+      "summary": {
+        "en": "A clean, professional theme for dental studios and medical practices, with an appointment button, a photo hero with an opening-hours card and treatment grids.",
+        "it": "Un tema pulito e professionale per studi dentistici e medici, con pulsante per gli appuntamenti, hero fotografico con la card degli orari e griglie dei trattamenti."
+      },
+      "tags": [
+        "health",
+        "dental",
+        "medical"
+      ],
+      "requires": ">=0.79.0",
+      "icon": "assets/clinica.svg",
+      "screenshots": [
+        "assets/clinica.png"
+      ]
+    },
+    {
+      "type": "theme",
+      "slug": "lido",
+      "name": "Lido",
+      "summary": {
+        "en": "A sunny theme for beach clubs and lidos: an aerial photo with a Book now pill, wave edges, a handwritten title, price lists, season promos and event cards.",
+        "it": "Un tema solare per stabilimenti balneari e lounge beach: foto aerea con il pulsante Prenota, onde, titolo scritto a mano, listino prezzi, promo stagionali ed eventi."
+      },
+      "tags": [
+        "beach",
+        "booking",
+        "restaurant"
+      ],
+      "requires": ">=0.79.0",
+      "icon": "assets/lido.svg",
+      "screenshots": [
+        "assets/lido.png"
+      ]
+    },
+    {
+      "type": "theme",
+      "slug": "lanterna",
+      "name": "Lanterna",
+      "summary": {
+        "en": "A theme for Asian and ethnic restaurants: full-screen photo opening, menus with prices and spicy or vegetarian marks, takeaway and delivery panels, call and WhatsApp buttons.",
+        "it": "Un tema per ristoranti asiatici ed etnici: apertura con foto a tutto schermo, menu con prezzi e segni piccante o vegetariano, riquadri per asporto e consegna, pulsanti Chiama e WhatsApp."
+      },
+      "tags": [
+        "restaurant",
+        "food-delivery",
+        "multilingual"
+      ],
+      "requires": ">=0.79.0",
+      "icon": "assets/lanterna.svg",
+      "screenshots": [
+        "assets/lanterna.png"
+      ]
     }
   ]
 }

@@ -1,0 +1,8 @@
+{
+  "slug": "atelier",
+  "name": "Atelier",
+  "version": "1.0.0",
+  "description": "A quiet portfolio theme for painters, photographers and artisans: white and light gray, a serif name over a framed artwork, thin gold lines, a gallery of works and a timeline of exhibitions.",
+  "license": "GPL-2.0-or-later",
+  "entry": "dist/index.js"
+}

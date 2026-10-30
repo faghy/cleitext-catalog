@@ -1,0 +1,51 @@
+@import url('https://fonts.bunny.net/css?family=playfair-display:400,400i,500,600|open-sans:300,400,600&display=swap');
+/* Atelier in the block editor: the same type, colors and sections as the site. */
+:root {
+  --at-accent: #b89d4f;
+  --at-accent-deep: #85713a;
+  --at-accent-soft: #f4f0e5;
+  --at-paper: #f3f3f1;
+  --at-paper-2: #e0e0dd;
+  --at-ink: #3d3e40;
+  --at-text: #55565a;
+  --at-muted: #85868a;
+  --at-line: #e4e4e1;
+  --at-white: #ffffff;
+  --at-wide: 74rem;
+  --at-gap: 1.25rem;
+  --at-display: 'Playfair Display', Georgia, serif;
+  --at-font: 'Open Sans', system-ui, sans-serif;
+  --at-shadow: 0 1px 3px #0000001a, 0 14px 28px -14px #00000040;
+  --at-shadow-lg: 0 2px 6px #0000001a, 0 30px 60px -20px #00000059;
+}
+body {
+  font: 300 1rem/1.8 var(--at-font);
+  color: var(--at-text);
+  background: var(--at-white);
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--at-display);
+  font-weight: 400;
+  color: var(--at-ink);
+  line-height: 1.2;
+}
+strong {
+  font-weight: 600;
+}
+.wp-block-button__link {
+  background: var(--at-accent);
+  color: #fff;
+  border: 1px solid var(--at-accent);
+  border-radius: 0;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.is-style-outline .wp-block-button__link {
+  background: transparent;
+  color: var(--at-accent-deep);
+}

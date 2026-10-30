@@ -1,0 +1,1376 @@
+/* Bistrot — a theme for restaurants, wine and cocktail bars. Inlined in every page. */
+:root {
+  --bs-gold: #c9a46c;
+  --bs-gold-light: #e6c993;
+  --bs-gold-deep: #8a6a3a;
+  --bs-navy: #15223a;
+  --bs-deep: #0c1424;
+  --bs-navy-2: #1d2d4b;
+  --bs-cream: #f5efe4;
+  --bs-text: #d5d9e2;
+  --bs-muted: #9aa3b5;
+  --bs-ink: #1b2234;
+  --bs-ink-text: #4a4f5c;
+  --bs-line: color-mix(in srgb, var(--bs-gold) 35%, transparent);
+  /* Buttons of the core and plugins (comments, account, shop) follow the theme. */
+  --cx-accent: var(--bs-gold);
+  --cx-on-accent: var(--bs-navy);
+  --bs-wide: 72rem;
+  --bs-content: 46rem;
+  --bs-gap: clamp(1.1rem, 4vw, 2rem);
+  --bs-band: clamp(36px, 5vw, 70px);
+  --bs-display: 'Poiret One', 'Cormorant Garamond', Georgia, serif;
+  --bs-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --bs-font: 'Sulphur Point', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --bs-shadow: 0 2px 6px #0000002e, 0 24px 44px -22px #000000a6;
+  --bs-arches: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='112' viewBox='0 0 80 112' fill='none' stroke='%23ffffff' stroke-opacity='.07' stroke-width='3'%3E%3Cpath d='M6 112V46a34 34 0 0 1 68 0v66M17 112V46a23 23 0 0 1 46 0v66M28 112V46a12 12 0 0 1 24 0v66'/%3E%3C/svg%3E");
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--bs-navy);
+  color: var(--bs-text);
+  font: 1.05rem/1.75 var(--bs-font);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+main {
+  flex: 1;
+}
+a {
+  color: var(--bs-gold-light);
+  text-underline-offset: 0.2em;
+}
+a:hover {
+  text-decoration-thickness: 2px;
+}
+:focus-visible {
+  outline: 2px solid var(--bs-gold);
+  outline-offset: 3px;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--bs-serif);
+  font-weight: 600;
+  color: var(--bs-gold-light);
+  line-height: 1.2;
+  margin: 0 0 0.6em;
+}
+h1,
+h2 {
+  font-family: var(--bs-display);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+h1 {
+  font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+}
+h2 {
+  font-size: clamp(1.9rem, 3.8vw, 2.7rem);
+}
+h3 {
+  font-size: 1.55rem;
+}
+h4 {
+  font-size: 1.2rem;
+}
+p,
+ul,
+ol {
+  margin: 0 0 1.1em;
+}
+strong {
+  font-weight: 700;
+  color: #fff;
+}
+.bs-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.bs-skip {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  background: var(--bs-gold);
+  color: var(--bs-navy);
+  padding: 0.6rem 1rem;
+}
+.bs-skip:focus {
+  top: 1rem;
+}
+.bs-wrap {
+  width: min(100% - 2 * var(--bs-gap), var(--bs-wide));
+  margin-inline: auto;
+}
+
+/* Header: a navy bar with a thin gold line, or transparent over the opening photo (setting "Header"). */
+.bs-header {
+  background: var(--bs-navy);
+  color: var(--bs-text);
+  position: sticky;
+  top: var(--cx-admin-bar-height, 0px);
+  z-index: 50;
+  border-bottom: 1px solid var(--bs-line);
+}
+.bs-header-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 5rem;
+}
+.bs-brand {
+  display: flex;
+  align-items: center;
+  color: var(--bs-gold-light);
+  text-decoration: none;
+  margin-right: auto;
+}
+.bs-logo {
+  display: block;
+  max-height: 3.6rem;
+  width: auto;
+}
+.bs-sitename {
+  font: 1.8rem/1 var(--bs-display);
+  letter-spacing: 0.08em;
+}
+.bs-desktop {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+.bs-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0.2rem 1.8rem;
+  flex-wrap: wrap;
+}
+.bs-nav li {
+  position: relative;
+}
+.bs-nav a {
+  color: inherit;
+  text-decoration: none;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  padding: 0.4rem 0;
+  display: inline-block;
+  border-bottom: 1px solid transparent;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+.bs-nav a:hover,
+.bs-nav [aria-current='page'] {
+  color: var(--bs-gold-light);
+  border-bottom-color: var(--bs-gold);
+}
+/* Sub-menus open on hover and focus on wide screens. */
+.bs-desktop .bs-nav ul ul {
+  position: absolute;
+  top: 100%;
+  left: -1rem;
+  min-width: 13rem;
+  display: none;
+  flex-direction: column;
+  gap: 0;
+  background: var(--bs-deep);
+  border: 1px solid var(--bs-line);
+  box-shadow: var(--bs-shadow);
+  padding: 0.5rem 0;
+}
+.bs-desktop .bs-nav li:hover > ul,
+.bs-desktop .bs-nav li:focus-within > ul {
+  display: flex;
+}
+.bs-desktop .bs-nav ul ul a {
+  padding: 0.45rem 1rem;
+  border: 0;
+  display: block;
+}
+.bs-desktop .bs-nav ul ul a:hover {
+  background: var(--bs-navy-2);
+}
+.bs-langs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.bs-langs a {
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.7;
+}
+.bs-langs a[aria-current='true'] {
+  opacity: 1;
+  color: var(--bs-gold-light);
+}
+.bs-book {
+  display: inline-block;
+  color: var(--bs-gold-light);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.6rem 1.3rem;
+  border: 1px solid var(--bs-gold);
+  border-radius: 999px;
+  white-space: nowrap;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.bs-book:hover {
+  background: var(--bs-gold);
+  color: var(--bs-navy);
+}
+.bs-header-area:empty {
+  display: none;
+}
+.bs-social {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0.8rem;
+}
+.bs-social a {
+  color: var(--bs-gold-light);
+  display: block;
+  opacity: 0.85;
+}
+.bs-social a:hover {
+  opacity: 1;
+}
+.bs-social svg {
+  display: block;
+  width: 1.15rem;
+  height: 1.15rem;
+}
+.bs-mobile {
+  display: none;
+}
+.bs-menu summary {
+  list-style: none;
+  cursor: pointer;
+  width: 2.6rem;
+  height: 2.6rem;
+  display: grid;
+  place-items: center;
+  color: var(--bs-gold-light);
+}
+.bs-menu summary::-webkit-details-marker {
+  display: none;
+}
+.bs-burger,
+.bs-burger::before,
+.bs-burger::after {
+  display: block;
+  width: 1.5rem;
+  height: 1.5px;
+  background: currentColor;
+  position: relative;
+  transition: transform 0.2s;
+}
+.bs-burger::before,
+.bs-burger::after {
+  content: '';
+  position: absolute;
+}
+.bs-burger::before {
+  top: -7px;
+}
+.bs-burger::after {
+  top: 7px;
+}
+.bs-menu[open] .bs-burger {
+  background: transparent;
+}
+.bs-menu[open] .bs-burger::before {
+  transform: translateY(7px) rotate(45deg);
+}
+.bs-menu[open] .bs-burger::after {
+  transform: translateY(-7px) rotate(-45deg);
+}
+.bs-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  background: var(--bs-deep);
+  border-bottom: 1px solid var(--bs-line);
+  padding: 0.5rem var(--bs-gap) 1.6rem;
+  box-shadow: 0 18px 30px -18px #000a;
+  display: grid;
+  gap: 1rem;
+  text-align: center;
+}
+.bs-panel .bs-nav ul {
+  flex-direction: column;
+  gap: 0;
+}
+.bs-panel .bs-nav a {
+  display: block;
+  padding: 0.75rem 0;
+  font-family: var(--bs-display);
+  font-size: 1.3rem;
+  border-bottom: 1px solid #ffffff14;
+}
+.bs-panel .bs-langs {
+  justify-content: center;
+}
+.bs-book-panel {
+  justify-self: center;
+}
+@media (max-width: 900px) {
+  .bs-desktop {
+    display: none;
+  }
+  .bs-mobile {
+    display: block;
+  }
+  .bs-social-head {
+    display: none;
+  }
+}
+/* Transparent over the photo of a page that opens with a hero; elsewhere the bar stays. */
+body:has(.entry-content > .bs-hero:first-child) .bs-header-over {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: linear-gradient(#0c1424b3, transparent);
+  border-bottom-color: transparent;
+}
+
+/* Footer */
+.bs-footer {
+  background: var(--bs-deep);
+  color: var(--bs-muted);
+  font-size: 0.95rem;
+  border-top: 1px solid var(--bs-line);
+}
+.bs-footer a {
+  color: var(--bs-gold-light);
+}
+.bs-footer :is(h2, h3, h4) {
+  color: var(--bs-gold-light);
+  font: 400 1.5rem/1.2 var(--bs-display);
+  letter-spacing: 0.05em;
+}
+.bs-footer-area {
+  padding-top: clamp(2.8rem, 6vw, 4.5rem);
+  text-align: center;
+}
+.bs-footer-area:empty {
+  display: none;
+}
+.bs-footer-area .wp-block-columns {
+  margin-bottom: 0;
+}
+.bs-footer-area .wp-block-image img {
+  margin-inline: auto;
+}
+.bs-footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  padding: 1.6rem 0 2rem;
+  margin-top: 2rem;
+  border-top: 1px solid #ffffff14;
+  font-size: 0.85rem;
+}
+.bs-footer-area:empty + .bs-footer-bottom {
+  margin-top: 0;
+  border-top: 0;
+}
+.bs-footer-bottom p {
+  margin: 0;
+}
+.bs-footer-bottom ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.2rem;
+}
+.bs-footer-bottom nav a {
+  color: var(--bs-text);
+  text-decoration: none;
+}
+.bs-hours-note {
+  color: var(--bs-gold-light);
+  letter-spacing: 0.04em;
+}
+.bs-hours-note::before {
+  content: '';
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+  vertical-align: -0.15em;
+  background: currentColor;
+  -webkit-mask: var(--bs-icon) center / contain no-repeat;
+  mask: var(--bs-icon) center / contain no-repeat;
+}
+
+/* WhatsApp button */
+.bs-wa {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 60;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 10px 24px -8px #000a;
+  transition: transform 0.2s;
+}
+.bs-wa:hover {
+  transform: scale(1.07);
+}
+.bs-wa svg {
+  width: 1.9rem;
+  height: 1.9rem;
+}
+
+/* Pages, posts and lists */
+.bs-page-header {
+  text-align: center;
+  padding: clamp(3rem, 7vw, 5rem) 0 clamp(1.5rem, 4vw, 2.5rem);
+}
+.bs-page-header h1::after,
+.bs-title::after,
+.bs-center > h2::after {
+  content: '';
+  display: block;
+  width: 5rem;
+  height: 1px;
+  background: var(--bs-gold);
+  margin: 0.9rem auto 0;
+}
+.bs-page-lead {
+  font-size: 1.15rem;
+  color: var(--bs-muted);
+  max-width: 40rem;
+  margin-inline: auto;
+}
+.bs-meta {
+  color: var(--bs-gold);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.bs-featured {
+  margin: 0 auto 2.5rem;
+}
+.bs-featured img {
+  display: block;
+  width: 100%;
+  box-shadow: var(--bs-shadow);
+}
+.entry-content {
+  padding-bottom: clamp(3rem, 7vw, 5rem);
+}
+.entry-content > * {
+  width: min(100% - 2 * var(--bs-gap), var(--bs-content));
+  margin-inline: auto;
+}
+.entry-content > .alignwide {
+  width: min(100% - 2 * var(--bs-gap), var(--bs-wide));
+}
+.entry-content > .alignfull,
+.entry-content > .bs-section {
+  width: 100%;
+}
+/* A page that starts with a section is a landing page: no title, sections end to end. */
+.bs-entry:has(.entry-content > .bs-section:first-child) > .bs-page-header {
+  display: none;
+}
+.entry-content:has(> .bs-section:last-child),
+.bs-page .entry-content:has(> .bs-section + .cx-community:last-child) {
+  padding-bottom: 0;
+}
+/* Pages are the venue's, not someone's: no author box under them (posts keep it). */
+.bs-page .cx-community > .cx-author,
+.bs-page .cx-community:not(:has(> :not(.cx-author))) {
+  display: none;
+}
+.cx-community:has(> :not(.cx-author)) {
+  padding-bottom: 3rem;
+}
+.bs-posts {
+  list-style: none;
+  padding: 0 0 4rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: 1.75rem;
+}
+.bs-post {
+  background: var(--bs-navy-2);
+  border: 1px solid var(--bs-line);
+  display: flex;
+  flex-direction: column;
+}
+.bs-post-image img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.bs-post-body {
+  padding: 1.3rem 1.4rem 1.5rem;
+}
+.bs-post h2 {
+  font-size: 1.6rem;
+}
+.bs-post h2 a {
+  color: var(--bs-gold-light);
+  text-decoration: none;
+}
+.bs-more {
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.bs-pages {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 4rem;
+}
+.bs-search {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  max-width: 34rem;
+  margin-inline: auto;
+}
+.bs-search input {
+  flex: 1;
+  font: inherit;
+  color: #fff;
+  padding: 0.7rem 1.1rem;
+  border: 1px solid var(--bs-line);
+  border-radius: 999px;
+  background: var(--bs-deep);
+}
+.bs-search button,
+.bs-button {
+  font: inherit;
+  font-weight: 700;
+  border: 0;
+  background: var(--bs-gold);
+  color: var(--bs-navy);
+  border-radius: 999px;
+  padding: 0.7rem 1.5rem;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+}
+.bs-message {
+  text-align: center;
+  padding-block: clamp(4rem, 12vw, 8rem);
+}
+.bs-big {
+  font: clamp(4.5rem, 15vw, 8rem) / 1 var(--bs-display);
+  color: var(--bs-gold);
+  margin: 0;
+}
+.bs-empty {
+  padding-bottom: 4rem;
+}
+/* The Forms plugin's contact form. */
+.contact-form form {
+  max-width: none;
+  gap: 1rem;
+}
+.contact-form label {
+  font-weight: 700;
+  color: var(--bs-gold-light);
+}
+.contact-form :is(input, textarea, select) {
+  font: inherit;
+  font-weight: 400;
+  color: #fff;
+  background: var(--bs-deep);
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--bs-line);
+  border-radius: 4px;
+}
+.contact-form :is(input, textarea):focus {
+  outline: 2px solid var(--bs-gold);
+  outline-offset: 1px;
+}
+.contact-form button[type='submit'] {
+  justify-self: start;
+  font: inherit;
+  font-weight: 700;
+  border: 0;
+  background: var(--bs-gold);
+  color: var(--bs-navy);
+  border-radius: 999px;
+  padding: 0.8rem 1.7rem;
+  cursor: pointer;
+}
+.contact-form [role='status'] {
+  padding: 0.8rem 1rem;
+  background: #ecfdf5;
+  color: #065f46;
+}
+.contact-form [role='alert'] {
+  padding: 0.8rem 1rem;
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+/* Blocks outside sections */
+.wp-block-image {
+  margin: 0 0 1.4rem;
+}
+.wp-block-image img {
+  display: block;
+}
+.wp-element-caption {
+  color: var(--bs-muted);
+  font-size: 0.88rem;
+  text-align: center;
+  margin-top: 0.6rem;
+}
+.wp-block-quote {
+  border-left: 1px solid var(--bs-gold);
+  padding: 0.25rem 0 0.25rem 1.4rem;
+  margin-inline: 0;
+  font: italic 1.45rem/1.5 var(--bs-serif);
+  color: var(--bs-gold-light);
+}
+.wp-block-separator {
+  border: 0;
+  border-top: 1px solid var(--bs-line);
+  margin-block: 2.5rem;
+}
+.wp-block-columns {
+  display: flex;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  margin-bottom: 1.1rem;
+}
+.wp-block-column {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.wp-block-column[style*='flex-basis'] {
+  flex-grow: 0;
+}
+@media (max-width: 781px) {
+  .wp-block-columns {
+    flex-wrap: wrap;
+  }
+  .wp-block-columns.is-stacked-on-mobile {
+    flex-direction: column;
+  }
+  .wp-block-columns.is-stacked-on-mobile > .wp-block-column {
+    flex-basis: 100% !important;
+  }
+}
+.wp-block-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-bottom: 1.1rem;
+}
+.wp-block-button__link {
+  display: inline-block;
+  background: var(--bs-gold);
+  color: var(--bs-navy);
+  border: 1px solid var(--bs-gold);
+  border-radius: 999px;
+  padding: 0.7rem 1.8rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+.wp-block-button__link:hover {
+  background: var(--bs-gold-light);
+  border-color: var(--bs-gold-light);
+}
+.is-style-outline .wp-block-button__link {
+  background: transparent;
+  color: var(--bs-gold-light);
+}
+.is-style-outline .wp-block-button__link:hover {
+  background: var(--bs-gold);
+  color: var(--bs-navy);
+}
+.wp-block-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 1rem;
+}
+.wp-block-gallery .wp-block-image {
+  margin: 0;
+}
+.wp-block-gallery img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 1px solid var(--bs-line);
+}
+.wp-block-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.wp-block-table :is(td, th) {
+  border-bottom: 1px solid var(--bs-line);
+  padding: 0.6rem 0.4rem;
+  text-align: left;
+}
+
+/* == Sections == */
+/*
+ * A page is a stack of full-width sections: groups with the class bs-section (tag section, align
+ * full) and a background. Bands, arches, menus and icons come from the classes below.
+ */
+.bs-section {
+  --bs-bg: var(--bs-navy);
+  position: relative;
+  background: var(--bs-bg);
+  padding: clamp(3.8rem, 8vw, 6.5rem) var(--bs-gap);
+  margin: 0 !important;
+}
+.bs-section > * {
+  max-width: var(--bs-wide);
+  margin-inline: auto;
+  position: relative;
+  z-index: 1;
+}
+.bs-section > :is(p, h1, h2, h3, ul):not(.bs-wide) {
+  max-width: min(var(--bs-wide), 46rem);
+  margin-inline: max(0px, (100% - var(--bs-wide)) / 2) auto;
+}
+.bs-center {
+  text-align: center;
+}
+.bs-section.bs-center > :is(p, h1, h2, h3, ul) {
+  margin-inline: auto;
+}
+.bs-center .wp-block-buttons {
+  justify-content: center;
+}
+.bs-tight {
+  padding-block: clamp(2.4rem, 5vw, 3.6rem);
+}
+.bs-bg-navy {
+  --bs-bg: var(--bs-navy);
+}
+.bs-bg-deep {
+  --bs-bg: var(--bs-deep);
+}
+.bs-bg-light {
+  --bs-bg: var(--bs-cream);
+  color: var(--bs-ink-text);
+}
+.bs-bg-gold {
+  --bs-bg: linear-gradient(100deg, var(--bs-gold), var(--bs-gold-light) 55%, var(--bs-gold));
+  color: var(--bs-ink);
+}
+.bs-bg-light :is(h1, h2, h3, h4) {
+  color: var(--bs-ink);
+}
+.bs-bg-light strong,
+.bs-bg-gold strong {
+  color: var(--bs-ink);
+}
+.bs-bg-light a:not(.wp-block-button__link) {
+  color: var(--bs-gold-deep);
+}
+.bs-bg-gold :is(h1, h2, h3, h4, a:not(.wp-block-button__link)) {
+  color: var(--bs-navy);
+}
+.bs-bg-light .wp-block-button__link,
+.bs-bg-gold .wp-block-button__link {
+  background: var(--bs-navy);
+  border-color: var(--bs-navy);
+  color: var(--bs-gold-light);
+}
+.bs-bg-light .is-style-outline .wp-block-button__link,
+.bs-bg-gold .is-style-outline .wp-block-button__link {
+  background: transparent;
+  color: var(--bs-navy);
+}
+.bs-bg-gold .bs-title::after,
+.bs-bg-gold.bs-center > h2::after {
+  background: var(--bs-navy);
+}
+/* Art Deco arches over the section's color. */
+.bs-arches {
+  background-image: var(--bs-arches), linear-gradient(var(--bs-navy-2), var(--bs-navy));
+  background-size:
+    80px 112px,
+    auto;
+  background-position: center top;
+}
+.bs-bg-deep.bs-arches {
+  background-image: var(--bs-arches), linear-gradient(var(--bs-deep), var(--bs-deep));
+}
+/* The gold band: a thin slanted gold strip at the bottom edge of the section, over the next one. */
+.bs-band {
+  --bs-band-next: var(--bs-navy);
+  padding-bottom: calc(clamp(3.8rem, 8vw, 6.5rem) + var(--bs-band));
+}
+.bs-band::before,
+.bs-band::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: calc(var(--bs-band) + 1px);
+  z-index: 2;
+  pointer-events: none;
+}
+.bs-band::before {
+  background: linear-gradient(90deg, var(--bs-gold-light), var(--bs-gold) 60%, var(--bs-gold-deep));
+  clip-path: polygon(0 62%, 100% 0, 100% 22%, 0 84%);
+}
+.bs-band::after {
+  background: var(--bs-band-next);
+  clip-path: polygon(0 84%, 100% 22%, 100% 100%, 0 100%);
+  box-shadow: none;
+}
+.bs-band.bs-next-deep {
+  --bs-band-next: var(--bs-deep);
+}
+.bs-band.bs-next-light {
+  --bs-band-next: var(--bs-cream);
+}
+
+/* Titles: Art Deco display font with a thin gold line under it. */
+.bs-title::after {
+  margin-inline: 0;
+}
+.bs-center .bs-title::after,
+.bs-center > h2::after {
+  margin-inline: auto;
+}
+.bs-kicker {
+  font: italic 1.35rem/1.3 var(--bs-serif) !important;
+  color: var(--bs-gold) !important;
+  margin-bottom: 0.3rem !important;
+  letter-spacing: 0.02em;
+}
+.bs-bg-light .bs-kicker {
+  color: var(--bs-gold-deep) !important;
+}
+.bs-bg-gold .bs-kicker {
+  color: var(--bs-navy) !important;
+}
+.bs-lead {
+  font-size: clamp(1.1rem, 1.6vw, 1.25rem);
+  line-height: 1.7;
+}
+/* One large, light line of text, in the display font. */
+.bs-statement {
+  font: clamp(1.55rem, 3.2vw, 2.4rem) / 1.45 var(--bs-display) !important;
+  color: var(--bs-gold-light);
+  letter-spacing: 0.02em;
+  text-align: center;
+  max-width: 54rem !important;
+  margin-inline: auto !important;
+}
+.bs-bg-light .bs-statement,
+.bs-bg-gold .bs-statement {
+  color: var(--bs-ink);
+}
+/* A gold rule with a small diamond in the middle (separator). */
+.wp-block-separator.bs-divider {
+  border: 0;
+  height: 1px;
+  overflow: visible;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--bs-gold) 30%,
+    var(--bs-gold) 70%,
+    transparent
+  );
+  max-width: 22rem;
+  margin: 2.2rem auto;
+  position: relative;
+}
+.wp-block-separator.bs-divider::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 1px solid var(--bs-gold);
+  background: var(--bs-bg, var(--bs-navy));
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* Hero: the first image of the group fills it as a background, the text is centered over it. */
+.bs-hero {
+  --bs-bg: var(--bs-deep);
+  min-height: calc(100vh - var(--cx-admin-bar-height, 0px));
+  min-height: calc(100svh - var(--cx-admin-bar-height, 0px));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+  padding-top: clamp(7rem, 14vw, 9rem);
+}
+.bs-hero > .wp-block-image:first-child {
+  position: absolute;
+  inset: 0;
+  max-width: none;
+  margin: 0;
+  z-index: 0;
+}
+.bs-hero > .wp-block-image:first-child :is(img, picture) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.bs-hero > .wp-block-image:first-child::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center, #0c142473, #0c1424b8 75%),
+    linear-gradient(#0c142466, transparent 30%);
+}
+.bs-hero > :not(.wp-block-image:first-child) {
+  z-index: 1;
+  width: 100%;
+  margin-inline: auto;
+}
+.bs-hero h1 {
+  font: clamp(3.4rem, 10vw, 7.2rem) / 1.05 var(--bs-display);
+  letter-spacing: 0.04em;
+  color: var(--bs-gold-light);
+  margin-bottom: 1.2rem;
+  text-shadow: 0 2px 30px #0009;
+}
+.bs-hero h1::after {
+  content: '';
+  display: block;
+  width: min(10rem, 40%);
+  height: 1px;
+  background: var(--bs-gold);
+  margin: 1.4rem auto 0;
+}
+.bs-hero p {
+  font-size: clamp(1.25rem, 2.6vw, 2rem);
+  line-height: 1.35;
+  color: var(--bs-gold-light);
+  text-shadow: 0 1px 14px #000a;
+}
+.bs-hero .bs-kicker {
+  font-size: clamp(1.2rem, 2vw, 1.5rem) !important;
+  color: var(--bs-gold-light) !important;
+}
+.bs-hero .wp-block-buttons {
+  justify-content: center;
+  margin-top: 1.6rem;
+  gap: 1rem 2.5rem;
+}
+.bs-hero .is-style-outline .wp-block-button__link {
+  border-color: var(--bs-gold-light);
+  backdrop-filter: blur(2px);
+}
+
+/* Photos */
+.bs-round img {
+  border-radius: 50%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  width: 100%;
+  -webkit-mask: radial-gradient(closest-side, #000 72%, transparent);
+  mask: radial-gradient(closest-side, #000 72%, transparent);
+}
+.bs-arch img {
+  border-radius: 999px 999px 0 0;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  width: 100%;
+}
+.bs-frame {
+  position: relative;
+}
+.bs-frame img {
+  box-shadow: var(--bs-shadow);
+}
+.bs-frame::before {
+  content: '';
+  position: absolute;
+  inset: -0.9rem 0.9rem 0.9rem -0.9rem;
+  border: 1px solid var(--bs-gold);
+  pointer-events: none;
+}
+.bs-frame.bs-arch::before {
+  border-radius: 999px 999px 0 0;
+}
+.bs-frame.bs-arch img {
+  position: relative;
+}
+.bs-split.wp-block-columns {
+  align-items: center;
+}
+@media (min-width: 782px) {
+  .bs-reverse.wp-block-columns {
+    flex-direction: row-reverse;
+  }
+}
+
+/* A framed box with a double gold border, like a printed menu card. */
+.bs-box {
+  border: 1px solid var(--bs-gold);
+  outline: 1px solid var(--bs-line);
+  outline-offset: 6px;
+  padding: clamp(1.6rem, 4vw, 3.2rem);
+  margin: 6px auto;
+}
+.bs-section > .bs-box {
+  max-width: min(54rem, 100% - 12px);
+}
+.bs-bg-light .bs-box {
+  background: #fff;
+}
+
+/* Menu: dish, price on the right after dotted leaders, description under it. */
+.bs-menu {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+.bs-menu li {
+  display: grid;
+  grid-template-columns: auto minmax(1.5rem, 1fr) auto;
+  align-items: baseline;
+  column-gap: 0.6rem;
+  padding: 0.75rem 0;
+  font: 600 1.3rem/1.3 var(--bs-serif);
+  color: var(--bs-gold-light);
+}
+.bs-menu li::before {
+  content: '';
+  grid-column: 2;
+  grid-row: 1;
+  border-bottom: 1px dotted color-mix(in srgb, var(--bs-gold) 60%, transparent);
+  transform: translateY(-0.3em);
+}
+.bs-menu li strong {
+  grid-column: 3;
+  grid-row: 1;
+  font: 700 1rem/1.3 var(--bs-font);
+  color: var(--bs-gold);
+  white-space: nowrap;
+}
+.bs-menu li em {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  font: normal 400 0.95rem/1.55 var(--bs-font);
+  color: var(--bs-muted);
+  margin-top: 0.25rem;
+}
+.bs-bg-light .bs-menu li {
+  color: var(--bs-ink);
+}
+.bs-bg-light .bs-menu li strong {
+  color: var(--bs-gold-deep);
+}
+.bs-bg-light .bs-menu li em {
+  color: var(--bs-ink-text);
+}
+.bs-menu.bs-cols-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(2rem, 5vw, 4rem);
+}
+@media (max-width: 781px) {
+  .bs-menu.bs-cols-2 {
+    grid-template-columns: 1fr;
+  }
+}
+.bs-section > .bs-menu:not(.bs-cols-2) {
+  max-width: 44rem;
+  margin-inline: auto;
+}
+
+/* Opening hours, prices, contacts: a list of lines with the value on the right. */
+.bs-hours {
+  list-style: none;
+  padding: 0;
+  max-width: 30rem;
+  text-align: left;
+}
+.bs-hours li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--bs-line);
+}
+.bs-hours li strong {
+  color: var(--bs-gold-light);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+.bs-bg-light .bs-hours li strong {
+  color: var(--bs-gold-deep);
+}
+.bs-center .bs-hours,
+.bs-section.bs-center > .bs-hours {
+  margin-inline: auto;
+}
+
+/* Cards: an arched or square photo, a title, a few lines and a price (groups with bs-card in bs-cards). */
+.bs-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3.5vw, 2.75rem);
+  margin-top: 2.5rem;
+}
+.bs-cards.bs-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.bs-cards.bs-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+@media (max-width: 900px) {
+  .bs-cards,
+  .bs-cards.bs-cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .bs-cards,
+  .bs-cards.bs-cols-2,
+  .bs-cards.bs-cols-4 {
+    grid-template-columns: 1fr;
+  }
+  .bs-card {
+    width: 100%;
+    max-width: 21rem;
+    margin-inline: auto;
+  }
+}
+.bs-card {
+  text-align: center;
+}
+.bs-card > .wp-block-image:first-child {
+  margin-bottom: 1.2rem;
+}
+.bs-card > .wp-block-image:first-child img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 999px 999px 0 0;
+  border: 1px solid var(--bs-line);
+  padding: 6px;
+}
+.bs-card h3 {
+  font-size: 1.6rem;
+  margin-bottom: 0.3rem;
+}
+.bs-card p {
+  font-size: 0.96rem;
+  color: var(--bs-muted);
+  margin-bottom: 0.6rem;
+}
+.bs-bg-light .bs-card p {
+  color: var(--bs-ink-text);
+}
+.bs-price {
+  font: 700 1rem/1.3 var(--bs-font) !important;
+  color: var(--bs-gold) !important;
+  letter-spacing: 0.08em;
+}
+.bs-price::before,
+.bs-price::after {
+  content: '—';
+  margin-inline: 0.5rem;
+  opacity: 0.6;
+}
+
+/* Features with a line icon in a thin gold ring (groups with bs-feature bs-i-ICON in bs-features). */
+.bs-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 2.2rem 1.6rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+.bs-feature,
+.bs-icon {
+  position: relative;
+  --bs-disc: 4.8rem;
+}
+.bs-icon {
+  --bs-disc: 3.2rem;
+}
+.bs-feature::before,
+.bs-icon::before {
+  content: '';
+  display: block;
+  width: var(--bs-disc);
+  height: var(--bs-disc);
+  margin: 0 auto 1.1rem;
+  border: 1px solid var(--bs-gold);
+  transform: rotate(45deg) scale(0.82);
+}
+.bs-feature::after,
+.bs-icon::after {
+  content: '';
+  position: absolute;
+  top: calc(var(--bs-disc) * 0.25);
+  left: calc(50% - var(--bs-disc) * 0.25);
+  width: calc(var(--bs-disc) * 0.5);
+  height: calc(var(--bs-disc) * 0.5);
+  background: var(--bs-gold-light);
+  -webkit-mask: var(--bs-icon) center / contain no-repeat;
+  mask: var(--bs-icon) center / contain no-repeat;
+}
+.bs-icon::before {
+  margin-left: 0;
+}
+.bs-icon::after {
+  left: calc(var(--bs-disc) * 0.25);
+}
+.bs-center .bs-icon::before {
+  margin-inline: auto;
+}
+.bs-center .bs-icon::after {
+  left: calc(50% - var(--bs-disc) * 0.25);
+}
+.bs-bg-light :is(.bs-feature, .bs-icon)::after,
+.bs-bg-gold :is(.bs-feature, .bs-icon)::after {
+  background: var(--bs-gold-deep);
+}
+.bs-bg-gold :is(.bs-feature, .bs-icon)::before {
+  border-color: var(--bs-navy);
+}
+.bs-bg-gold :is(.bs-feature, .bs-icon)::after {
+  background: var(--bs-navy);
+}
+.bs-feature h3 {
+  font-size: 1.45rem;
+  margin-bottom: 0.3rem;
+}
+.bs-feature p {
+  font-size: 0.95rem;
+}
+
+/* Reviews */
+.bs-quote.wp-block-quote {
+  border: 0;
+  padding: 0;
+  text-align: center;
+  max-width: 46rem;
+  margin-inline: auto;
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
+}
+.bs-quote.wp-block-quote::before {
+  content: '“';
+  display: block;
+  font: 5rem/0.6 var(--bs-display);
+  color: var(--bs-gold);
+  margin-bottom: 0.6rem;
+}
+.bs-quote cite,
+.bs-reviews cite {
+  display: block;
+  margin-top: 1rem;
+  font: normal 700 0.8rem var(--bs-font);
+  color: var(--bs-gold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.bs-reviews {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.bs-reviews .wp-block-quote {
+  border: 1px solid var(--bs-line);
+  padding: 1.8rem 1.6rem 1.5rem;
+  margin: 0;
+  font-size: 1.25rem;
+  text-align: center;
+  background: #ffffff08;
+}
+.bs-reviews .wp-block-quote::before {
+  content: '★ ★ ★ ★ ★';
+  display: block;
+  font: 0.9rem/1 var(--bs-font);
+  letter-spacing: 0.1em;
+  color: var(--bs-gold);
+  margin-bottom: 0.9rem;
+}
+.bs-bg-light .bs-reviews .wp-block-quote {
+  background: #fff;
+  color: var(--bs-ink);
+}
+
+/* A map or a video at full width of the column, with a thin gold frame. */
+.bs-map iframe,
+.bs-map .wp-block-embed__wrapper > * {
+  width: 100%;
+  min-height: 22rem;
+  border: 1px solid var(--bs-gold);
+  padding: 6px;
+  background: var(--bs-deep);
+}
+@media (max-width: 600px) {
+  body:has(.bs-wa) .bs-footer-bottom {
+    padding-bottom: 5.5rem;
+  }
+}

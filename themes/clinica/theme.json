@@ -1,0 +1,8 @@
+{
+  "slug": "clinica",
+  "name": "Clinica",
+  "version": "1.0.0",
+  "description": "A clean, professional theme for dental studios, medical and physiotherapy practices: white header with an appointment button, photo hero with an opening-hours card, treatment grids, team and FAQ.",
+  "license": "GPL-2.0-or-later",
+  "entry": "dist/index.js"
+}

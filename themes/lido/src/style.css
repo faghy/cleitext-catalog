@@ -1,0 +1,1504 @@
+/* Lido — a theme for beach clubs and lidos. Inlined in every page. */
+:root {
+  --ld-accent: #2b7ea1;
+  --ld-accent-deep: #216380;
+  --ld-accent-soft: #e6f1f6;
+  --ld-button: #2b7ea1;
+  --ld-button-deep: #236884;
+  --ld-sand: #fffaf2;
+  --ld-sand-2: #f4ead9;
+  --ld-blush: color-mix(in srgb, #f3a58c 16%, var(--ld-sand));
+  --ld-dark: #163b4d;
+  --ld-ink: #1f3440;
+  --ld-text: #43525a;
+  --ld-muted: #74838b;
+  --ld-line: #e7dccb;
+  --ld-white: #ffffff;
+  /* Text on the buttons: white on dark colors, dark gray on light ones (white where unsupported). */
+  --ld-on-button: #fff;
+  /* Buttons of the core and plugins (comments, account, shop) follow the theme. */
+  --cx-accent: var(--ld-button);
+  --cx-on-accent: var(--ld-on-button);
+  --ld-radius: 10px;
+  --ld-wide: 72rem;
+  --ld-content: 46rem;
+  --ld-gap: clamp(1.1rem, 4vw, 2rem);
+  --ld-wave: 56px;
+  --ld-script: 'Dancing Script', 'Alice', cursive;
+  --ld-script-weight: 600;
+  --ld-display: 'Alice', Georgia, serif;
+  --ld-font: 'Nunito Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --ld-shadow: 0 2px 4px #1f344012, 0 22px 40px -20px #1f344066;
+}
+@supports (color: lch(from red l c h)) {
+  :root {
+    --ld-on-button: lch(from var(--ld-button) clamp(16, calc((64 - l) * 1000), 100) 0 0);
+  }
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--ld-sand);
+  color: var(--ld-text);
+  font: 1rem/1.75 var(--ld-font);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+main {
+  flex: 1;
+}
+a {
+  color: var(--ld-accent-deep);
+  text-underline-offset: 0.18em;
+}
+a:hover {
+  text-decoration-thickness: 2px;
+}
+:focus-visible {
+  outline: 3px solid var(--ld-accent);
+  outline-offset: 2px;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--ld-display);
+  font-weight: 400;
+  color: var(--ld-ink);
+  line-height: 1.2;
+  margin: 0 0 0.6em;
+}
+h1 {
+  font-size: clamp(2.3rem, 5vw, 3.4rem);
+}
+h2 {
+  font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+}
+h3 {
+  font-size: 1.45rem;
+}
+h4 {
+  font-size: 1.15rem;
+}
+p,
+ul,
+ol {
+  margin: 0 0 1.1em;
+}
+strong {
+  font-weight: 700;
+  color: var(--ld-ink);
+}
+.ld-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.ld-skip {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  background: var(--ld-ink);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+}
+.ld-skip:focus {
+  top: 1rem;
+}
+.ld-wrap {
+  width: min(100% - 2 * var(--ld-gap), var(--ld-wide));
+  margin-inline: auto;
+}
+
+/* Header: a white bar, or transparent over the opening photo (setting "Header"). */
+.ld-header {
+  background: var(--ld-white);
+  color: var(--ld-ink);
+  position: sticky;
+  top: var(--cx-admin-bar-height, 0px);
+  z-index: 50;
+  box-shadow:
+    0 1px 0 #1f34401a,
+    0 8px 24px -18px #1f344066;
+}
+.ld-header-row {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  min-height: 4.8rem;
+}
+.ld-brand {
+  display: flex;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+  margin-right: auto;
+}
+.ld-logo {
+  display: block;
+  max-height: 3.3rem;
+  width: auto;
+}
+.ld-logo-light {
+  display: none;
+}
+.ld-sitename {
+  font: var(--ld-script-weight) 2rem/1 var(--ld-script);
+  white-space: nowrap;
+}
+.ld-desktop {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.ld-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0.2rem 1.7rem;
+  flex-wrap: wrap;
+}
+.ld-nav li {
+  position: relative;
+}
+.ld-nav a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.4rem 0;
+  display: inline-block;
+  border-bottom: 2px solid transparent;
+}
+.ld-nav a:hover,
+.ld-nav [aria-current='page'] {
+  border-bottom-color: currentColor;
+}
+/* Sub-menus open on hover and focus on wide screens. */
+.ld-desktop .ld-nav ul ul {
+  position: absolute;
+  top: 100%;
+  left: -1rem;
+  min-width: 13rem;
+  display: none;
+  flex-direction: column;
+  gap: 0;
+  background: var(--ld-white);
+  border-radius: var(--ld-radius);
+  box-shadow: var(--ld-shadow);
+  padding: 0.5rem 0;
+}
+.ld-desktop .ld-nav li:hover > ul,
+.ld-desktop .ld-nav li:focus-within > ul {
+  display: flex;
+}
+.ld-desktop .ld-nav ul ul a {
+  color: var(--ld-ink);
+  padding: 0.45rem 1rem;
+  border: 0;
+  display: block;
+  text-shadow: none;
+}
+.ld-desktop .ld-nav ul ul a:hover {
+  background: var(--ld-sand);
+}
+.ld-langs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.ld-langs a {
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.7;
+}
+.ld-langs a[aria-current='true'] {
+  opacity: 1;
+  text-decoration: underline;
+}
+.ld-book {
+  display: inline-block;
+  background: var(--ld-button);
+  color: var(--ld-on-button);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  padding: 0.6rem 1.35rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  box-shadow: 0 8px 18px -10px #1f344099;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+.ld-book:hover {
+  background: var(--ld-button-deep);
+  transform: translateY(-1px);
+}
+.ld-header-area:empty {
+  display: none;
+}
+.ld-social {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0.75rem;
+}
+.ld-social a {
+  color: inherit;
+  display: block;
+  opacity: 0.85;
+}
+.ld-social a:hover {
+  opacity: 1;
+}
+.ld-social svg {
+  display: block;
+  width: 1.15rem;
+  height: 1.15rem;
+}
+.ld-mobile {
+  display: none;
+}
+.ld-menu summary {
+  list-style: none;
+  cursor: pointer;
+  width: 2.7rem;
+  height: 2.7rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+}
+.ld-menu summary::-webkit-details-marker {
+  display: none;
+}
+.ld-burger,
+.ld-burger::before,
+.ld-burger::after {
+  display: block;
+  width: 1.4rem;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  position: relative;
+  transition: transform 0.2s;
+}
+.ld-burger::before,
+.ld-burger::after {
+  content: '';
+  position: absolute;
+}
+.ld-burger::before {
+  top: -7px;
+}
+.ld-burger::after {
+  top: 7px;
+}
+.ld-menu[open] .ld-burger {
+  background: transparent;
+}
+.ld-menu[open] .ld-burger::before {
+  transform: translateY(7px) rotate(45deg);
+}
+.ld-menu[open] .ld-burger::after {
+  transform: translateY(-7px) rotate(-45deg);
+}
+.ld-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  background: var(--ld-white);
+  color: var(--ld-ink);
+  padding: 0.5rem var(--ld-gap) 1.6rem;
+  box-shadow: 0 18px 30px -18px #0005;
+  display: grid;
+  gap: 1rem;
+  text-shadow: none;
+}
+.ld-panel .ld-nav ul {
+  flex-direction: column;
+  gap: 0;
+}
+.ld-panel .ld-nav a {
+  display: block;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--ld-line);
+}
+.ld-panel .ld-nav ul ul a {
+  padding-left: 1rem;
+}
+.ld-book-panel {
+  justify-self: start;
+}
+@media (max-width: 960px) {
+  .ld-desktop {
+    display: none;
+  }
+  .ld-mobile {
+    display: block;
+  }
+  .ld-social-head {
+    display: none;
+  }
+}
+/* Transparent over the photo of a page that opens with a hero; elsewhere the white bar stays. */
+.ld-over:has(.entry-content > .ld-hero:first-child) .ld-header {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: linear-gradient(#0f2a3666, #0f2a3600);
+  box-shadow: none;
+  color: #fff;
+  text-shadow: 0 1px 10px #0006;
+}
+.ld-over:has(.entry-content > .ld-hero:first-child) .ld-logo-dark {
+  display: none;
+}
+.ld-over:has(.entry-content > .ld-hero:first-child) .ld-logo-light {
+  display: block;
+}
+.ld-over:has(.entry-content > .ld-hero:first-child) .ld-desktop .ld-book {
+  text-shadow: none;
+  background: var(--ld-sand);
+  color: var(--ld-ink);
+}
+.ld-over:has(.entry-content > .ld-hero:first-child) .ld-desktop .ld-book:hover {
+  background: #fff;
+}
+
+/* Footer: sand (default) or deep sea, with a wave on top. */
+.ld-footer {
+  --ld-bg: var(--ld-sand-2);
+  background: var(--ld-bg);
+  color: var(--ld-text);
+  font-size: 0.95rem;
+  position: relative;
+}
+.ld-footer::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(1px - var(--ld-wave));
+  height: var(--ld-wave);
+  background: var(--ld-bg);
+  -webkit-mask: var(--ld-wave-shape) 0 0 / 100% 100% no-repeat;
+  mask: var(--ld-wave-shape) 0 0 / 100% 100% no-repeat;
+}
+.ld-footer :is(h2, h3, h4) {
+  font: var(--ld-script-weight) 1.9rem/1.2 var(--ld-script);
+  color: var(--ld-accent-deep);
+  margin-bottom: 0.5rem;
+}
+.ld-footer-area {
+  padding-top: clamp(2rem, 5vw, 3rem);
+  text-align: center;
+}
+.ld-footer-area:empty {
+  display: none;
+}
+.ld-footer-area p {
+  margin-bottom: 0.6em;
+}
+.ld-footer-area .wp-block-columns {
+  margin-bottom: 0;
+}
+.ld-footer-area .wp-block-image img {
+  margin-inline: auto;
+  border-radius: 0;
+}
+.ld-footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem 0 2rem;
+  margin-top: 2rem;
+  border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  font-size: 0.85rem;
+}
+.ld-footer-area:empty + .ld-footer-bottom {
+  margin-top: 0;
+  border-top: 0;
+}
+.ld-footer-bottom p {
+  margin: 0;
+}
+.ld-footer-bottom ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.2rem;
+}
+.ld-footer-bottom nav a {
+  color: inherit;
+  text-decoration: none;
+}
+.ld-footer .ld-social a {
+  color: var(--ld-accent-deep);
+}
+.ld-footer-sea .ld-footer {
+  --ld-bg: var(--ld-dark);
+  color: #d5e4ea;
+}
+.ld-footer-sea .ld-footer :is(h2, h3, h4, strong, a, .ld-social a) {
+  color: #fff;
+}
+
+/* The booking bar on phones and the WhatsApp button */
+.ld-bar {
+  display: none;
+}
+@media (max-width: 700px) {
+  .ld-has-bar .ld-bar {
+    display: block;
+    position: fixed;
+    left: 1rem;
+    right: 5.4rem;
+    bottom: 1rem;
+    z-index: 60;
+    text-align: center;
+    background: var(--ld-button);
+    color: var(--ld-on-button);
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    padding: 0.95rem 1rem;
+    border-radius: 999px;
+    box-shadow: 0 12px 26px -10px #0009;
+  }
+  .ld-has-bar:not(:has(.ld-wa)) .ld-bar {
+    right: 1rem;
+  }
+  .ld-has-bar .ld-footer {
+    padding-bottom: 4.5rem;
+  }
+}
+.ld-wa {
+  position: fixed;
+  right: 1.1rem;
+  bottom: 1rem;
+  z-index: 60;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 10px 24px -8px #0008;
+  transition: transform 0.2s;
+}
+.ld-wa:hover {
+  transform: scale(1.07);
+}
+.ld-wa svg {
+  width: 1.9rem;
+  height: 1.9rem;
+}
+
+/* Pages, posts and lists */
+.ld-page-header {
+  text-align: center;
+  padding: clamp(2.8rem, 7vw, 4.5rem) 0 clamp(1.5rem, 4vw, 2.5rem);
+}
+.ld-page-header h1 {
+  font-family: var(--ld-script);
+  font-weight: var(--ld-script-weight);
+  font-size: clamp(2.6rem, 6vw, 4rem);
+  color: var(--ld-accent-deep);
+}
+.ld-page-lead {
+  font-size: 1.15rem;
+  color: var(--ld-muted);
+  max-width: 40rem;
+  margin-inline: auto;
+}
+.ld-meta {
+  color: var(--ld-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.ld-featured {
+  margin: 0 auto 2.5rem;
+}
+.ld-featured img {
+  display: block;
+  width: 100%;
+  border-radius: var(--ld-radius);
+  box-shadow: var(--ld-shadow);
+}
+.entry-content {
+  padding-bottom: clamp(3rem, 7vw, 5rem);
+}
+.entry-content > * {
+  width: min(100% - 2 * var(--ld-gap), var(--ld-content));
+  margin-inline: auto;
+}
+.entry-content > .alignwide {
+  width: min(100% - 2 * var(--ld-gap), var(--ld-wide));
+}
+.entry-content > .alignfull,
+.entry-content > .ld-section {
+  width: 100%;
+}
+/* A page that starts with a section is a landing page: no title, sections end to end. */
+.ld-entry:has(.entry-content > .ld-section:first-child) > .ld-page-header {
+  display: none;
+}
+/* (Pages end with the core's community block, hidden when it only has the author box.) */
+.entry-content:has(> :is(.ld-section, .ld-band):last-child),
+.ld-page .entry-content:has(> :is(.ld-section, .ld-band) + .cx-community:last-child) {
+  padding-bottom: 0;
+}
+/* Pages are the beach's, not someone's: no author box under them (posts keep it). */
+.ld-page .cx-community > .cx-author,
+.ld-page .cx-community:not(:has(> :not(.cx-author))) {
+  display: none;
+}
+.cx-community:has(> :not(.cx-author)) {
+  padding-bottom: 3rem;
+}
+.ld-posts {
+  list-style: none;
+  padding: 0 0 4rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: 1.75rem;
+}
+.ld-post {
+  background: var(--ld-white);
+  border-radius: var(--ld-radius);
+  overflow: hidden;
+  box-shadow: var(--ld-shadow);
+  display: flex;
+  flex-direction: column;
+}
+.ld-post-image img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.ld-post-body {
+  padding: 1.3rem 1.4rem 1.5rem;
+}
+.ld-post h2 {
+  font-size: 1.45rem;
+}
+.ld-post h2 a {
+  color: var(--ld-ink);
+  text-decoration: none;
+}
+.ld-more {
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.ld-pages {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 4rem;
+  font-weight: 700;
+}
+.ld-search {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  max-width: 34rem;
+  margin-inline: auto;
+}
+.ld-search input {
+  flex: 1;
+  font: inherit;
+  padding: 0.7rem 1.1rem;
+  border: 1px solid var(--ld-line);
+  border-radius: 999px;
+  background: #fff;
+}
+.ld-search button,
+.ld-button {
+  font: inherit;
+  font-weight: 700;
+  border: 0;
+  background: var(--ld-button);
+  color: var(--ld-on-button);
+  border-radius: 999px;
+  padding: 0.7rem 1.5rem;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+}
+.ld-message {
+  text-align: center;
+  padding-block: clamp(4rem, 12vw, 8rem);
+}
+.ld-big {
+  font: var(--ld-script-weight) clamp(4.5rem, 15vw, 8rem) / 1 var(--ld-script);
+  color: var(--ld-accent);
+  margin: 0;
+}
+.ld-empty {
+  padding-bottom: 4rem;
+}
+/* The Forms plugin's contact form. */
+.contact-form form {
+  max-width: none;
+  gap: 1rem;
+}
+.contact-form label {
+  font-weight: 700;
+  color: var(--ld-ink);
+}
+.contact-form :is(input, textarea, select) {
+  font: inherit;
+  font-weight: 400;
+  color: var(--ld-text);
+  background: #fff;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--ld-line);
+  border-radius: var(--ld-radius);
+}
+.contact-form :is(input, textarea):focus {
+  outline: 2px solid var(--ld-accent);
+  outline-offset: 1px;
+}
+.contact-form button[type='submit'] {
+  justify-self: start;
+  font: inherit;
+  font-weight: 700;
+  border: 0;
+  background: var(--ld-button);
+  color: var(--ld-on-button);
+  border-radius: 999px;
+  padding: 0.8rem 1.7rem;
+  cursor: pointer;
+}
+.contact-form [role='status'] {
+  padding: 0.8rem 1rem;
+  border-radius: var(--ld-radius);
+  background: #ecfdf5;
+  color: #065f46;
+}
+.contact-form [role='alert'] {
+  padding: 0.8rem 1rem;
+  border-radius: var(--ld-radius);
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+/* Blocks outside sections */
+.wp-block-image {
+  margin: 0 0 1.4rem;
+}
+.wp-block-image img {
+  display: block;
+  border-radius: var(--ld-radius);
+}
+.wp-element-caption {
+  color: var(--ld-muted);
+  font-size: 0.88rem;
+  text-align: center;
+  margin-top: 0.6rem;
+}
+.wp-block-quote {
+  border-left: 3px solid var(--ld-accent);
+  padding: 0.25rem 0 0.25rem 1.25rem;
+  margin-inline: 0;
+  font: italic 1.3rem/1.55 var(--ld-display);
+  color: var(--ld-ink);
+}
+.wp-block-separator {
+  border: 0;
+  border-top: 1px solid var(--ld-line);
+  margin-block: 2.5rem;
+}
+.wp-block-columns {
+  display: flex;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  margin-bottom: 1.1rem;
+}
+.wp-block-column {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.wp-block-column[style*='flex-basis'] {
+  flex-grow: 0;
+}
+@media (max-width: 781px) {
+  .wp-block-columns {
+    flex-wrap: wrap;
+  }
+  .wp-block-columns.is-stacked-on-mobile {
+    flex-direction: column;
+  }
+  .wp-block-columns.is-stacked-on-mobile > .wp-block-column {
+    flex-basis: 100% !important;
+  }
+}
+.wp-block-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-bottom: 1.1rem;
+}
+.wp-block-button__link {
+  display: inline-block;
+  background: var(--ld-button);
+  color: var(--ld-on-button);
+  border: 2px solid var(--ld-button);
+  border-radius: 999px;
+  padding: 0.62rem 1.7rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  box-shadow: 0 10px 20px -12px #1f3440a6;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    transform 0.2s;
+}
+.wp-block-button__link:hover {
+  background: var(--ld-button-deep);
+  border-color: var(--ld-button-deep);
+  transform: translateY(-1px);
+}
+.is-style-outline .wp-block-button__link {
+  background: transparent;
+  color: var(--ld-accent-deep);
+  border-color: currentColor;
+  box-shadow: none;
+}
+.is-style-outline .wp-block-button__link:hover {
+  background: var(--ld-button);
+  border-color: var(--ld-button);
+  color: var(--ld-on-button);
+}
+.wp-block-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 1rem;
+}
+.wp-block-gallery .wp-block-image {
+  margin: 0;
+}
+.wp-block-gallery img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  box-shadow: var(--ld-shadow);
+}
+.wp-block-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.wp-block-table :is(td, th) {
+  border-bottom: 1px solid var(--ld-line);
+  padding: 0.6rem 0.4rem;
+  text-align: left;
+}
+
+/* == Sections == */
+/*
+ * A page is a stack of full-width sections: groups with the class ld-section (tag section, align
+ * full) and a background. Waves, photos, promos, events and icons come from the classes below.
+ */
+:root {
+  --ld-wave-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 56' preserveAspectRatio='none'%3E%3Cpath d='M0 56V34C120 14 260 4 400 16s250 34 400 30 300-38 400-40V56z'/%3E%3C/svg%3E");
+}
+.ld-section {
+  --ld-bg: var(--ld-sand);
+  position: relative;
+  background: var(--ld-bg);
+  padding: clamp(3.5rem, 8vw, 6rem) var(--ld-gap);
+  margin: 0 !important;
+}
+.ld-section > * {
+  max-width: var(--ld-wide);
+  margin-inline: auto;
+  position: relative;
+  z-index: 1;
+}
+.ld-section > :is(p, h1, h2, h3, ul):not(.ld-wide) {
+  max-width: min(var(--ld-wide), 48rem);
+  margin-inline: max(0px, (100% - var(--ld-wide)) / 2) auto;
+}
+.ld-center {
+  text-align: center;
+}
+.ld-section.ld-center > :is(p, h1, h2, h3, ul) {
+  margin-inline: auto;
+}
+.ld-center .wp-block-buttons {
+  justify-content: center;
+}
+.ld-tight {
+  padding-block: clamp(2.2rem, 5vw, 3.5rem);
+}
+.ld-bg-sand {
+  --ld-bg: var(--ld-sand);
+}
+.ld-bg-white {
+  --ld-bg: var(--ld-white);
+}
+.ld-bg-soft {
+  --ld-bg: var(--ld-accent-soft);
+}
+.ld-bg-blush {
+  --ld-bg: var(--ld-blush);
+}
+.ld-bg-sea {
+  --ld-bg: var(--ld-accent);
+  color: #eef7fa;
+}
+.ld-bg-dark {
+  --ld-bg: var(--ld-dark);
+  color: #d5e4ea;
+}
+:is(.ld-bg-sea, .ld-bg-dark) :is(h1, h2, h3, h4, strong) {
+  color: #fff;
+}
+:is(.ld-bg-sea, .ld-bg-dark) a:not(.wp-block-button__link) {
+  color: #fff;
+}
+:is(.ld-bg-sea, .ld-bg-dark) .wp-block-button__link {
+  background: var(--ld-sand);
+  border-color: var(--ld-sand);
+  color: var(--ld-ink);
+}
+:is(.ld-bg-sea, .ld-bg-dark) .wp-block-button__link:hover {
+  background: #fff;
+  border-color: #fff;
+}
+:is(.ld-bg-sea, .ld-bg-dark) .is-style-outline .wp-block-button__link {
+  background: transparent;
+  color: #fff;
+  border-color: #ffffffb3;
+}
+/* Waves: the edge of the section is a soft wave in its own color, over the section above or below. */
+.ld-wave-top::before,
+.ld-wave-bottom::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: var(--ld-wave);
+  background: var(--ld-bg);
+  -webkit-mask: var(--ld-wave-shape) 0 0 / 100% 100% no-repeat;
+  mask: var(--ld-wave-shape) 0 0 / 100% 100% no-repeat;
+  pointer-events: none;
+  z-index: 2;
+}
+.ld-wave-top::before {
+  top: calc(1px - var(--ld-wave));
+}
+.ld-wave-bottom::after {
+  bottom: calc(1px - var(--ld-wave));
+  transform: scaleY(-1);
+}
+
+/* Titles: a handwritten display title, a widely spaced line under it, a small line before it. */
+.ld-script {
+  font-family: var(--ld-script) !important;
+  font-weight: var(--ld-script-weight) !important;
+  font-size: clamp(2.8rem, 7vw, 4.6rem);
+  line-height: 1.05;
+  color: var(--ld-ink);
+  margin-bottom: 0.15em;
+}
+h2.ld-script,
+h3.ld-script {
+  font-size: clamp(2.3rem, 5vw, 3.4rem);
+}
+.ld-spaced {
+  font-size: clamp(0.95rem, 2vw, 1.25rem) !important;
+  font-weight: 400;
+  letter-spacing: 0.55em;
+  text-transform: lowercase;
+  color: var(--ld-muted);
+  margin-bottom: 2rem !important;
+}
+.ld-center .ld-spaced {
+  /* The spacing after the last letter would push the text off center. */
+  padding-left: 0.55em;
+}
+.ld-kicker {
+  font-size: 0.8rem !important;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ld-accent);
+  margin-bottom: 0.5rem !important;
+}
+:is(.ld-bg-sea, .ld-bg-dark, .ld-hero) :is(.ld-kicker, .ld-spaced, .ld-script) {
+  color: #fff;
+}
+.ld-title {
+  font-family: var(--ld-display);
+  color: var(--ld-ink);
+}
+.ld-title::after,
+.ld-center > h2:not(.ld-script)::after {
+  content: '';
+  display: block;
+  width: 4.5rem;
+  height: 10px;
+  margin-top: 0.6rem;
+  background: var(--ld-accent);
+  opacity: 0.75;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 10'%3E%3Cpath d='M1 5c6-5 11-5 17 0s11 5 17 0 11-5 17 0 11 5 18 0' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 10'%3E%3Cpath d='M1 5c6-5 11-5 17 0s11 5 17 0 11-5 17 0 11 5 18 0' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+}
+.ld-center > h2::after,
+.ld-center .ld-title::after {
+  margin-inline: auto;
+}
+:is(.ld-bg-sea, .ld-bg-dark) :is(.ld-title, .ld-center > h2)::after {
+  background: #fff;
+}
+.ld-lead {
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+  line-height: 1.75;
+}
+
+/* Hero: the first image of the group fills it as a background (an aerial photo of the beach). */
+.ld-hero {
+  --ld-bg: var(--ld-dark);
+  min-height: min(92vh, 52rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+  padding-top: clamp(7rem, 14vw, 9rem);
+  padding-bottom: calc(var(--ld-wave) + clamp(3rem, 8vw, 5rem));
+}
+.ld-hero > .wp-block-image:first-child {
+  position: absolute;
+  inset: 0;
+  max-width: none;
+  margin: 0;
+  z-index: 0;
+}
+.ld-hero > .wp-block-image:first-child :is(img, picture) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  box-shadow: none;
+}
+.ld-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, #0f2a3647, #0f2a3614 70%);
+  z-index: 0;
+}
+.ld-hero > :not(.wp-block-image:first-child) {
+  z-index: 1;
+  width: 100%;
+}
+.ld-hero.ld-section > :is(p, h1, h2, h3, ul) {
+  margin-inline: auto;
+}
+.ld-hero :is(h1, h2) {
+  color: #fff;
+  font-family: var(--ld-script);
+  font-weight: var(--ld-script-weight);
+  font-size: clamp(3.2rem, 9vw, 6.5rem);
+  line-height: 1;
+  text-shadow: 0 2px 22px #0007;
+  margin-bottom: 0.25em;
+}
+.ld-hero p {
+  font-size: 1.15rem;
+  text-shadow: 0 1px 12px #0008;
+}
+.ld-hero .wp-block-buttons {
+  justify-content: center;
+  margin-top: 1rem;
+}
+/* The pill over the photo: sand, with the display font, as on a beach sign. */
+.ld-hero .wp-block-button__link {
+  background: var(--ld-sand);
+  border-color: var(--ld-sand);
+  color: var(--ld-ink);
+  font: 400 clamp(1.25rem, 2.4vw, 1.6rem) / 1.2 var(--ld-display);
+  letter-spacing: 0.02em;
+  padding: 0.7rem 1.9rem;
+  border-radius: 14px;
+  box-shadow: 0 14px 34px -12px #000a;
+}
+.ld-hero .wp-block-button__link:hover {
+  background: #fff;
+  border-color: #fff;
+}
+.ld-hero .is-style-outline .wp-block-button__link {
+  background: #ffffff1f;
+  color: #fff;
+  border-color: #fff;
+  backdrop-filter: blur(4px);
+}
+/* ld-plain: the photo as it is, no shade (an aerial photo with only the pill over it). */
+.ld-hero.ld-plain::after {
+  background: linear-gradient(#0f2a3633, transparent 30%);
+}
+/* ld-short: a lower hero, for inner pages. */
+.ld-hero.ld-short {
+  min-height: min(60vh, 30rem);
+}
+
+/* A photo as wide as the page, as a band between sections. */
+.ld-band.wp-block-image,
+.entry-content > .ld-band {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+.ld-band img {
+  display: block;
+  width: 100%;
+  height: clamp(16rem, 50vw, 34rem);
+  object-fit: cover;
+  border-radius: 0 !important;
+}
+
+/* Photos */
+.ld-shadow img {
+  box-shadow: var(--ld-shadow);
+}
+.ld-round img {
+  border-radius: 50% !important;
+  aspect-ratio: 1;
+  object-fit: cover;
+  width: 100%;
+}
+/* A row of photos with a deep shadow (three, or two with ld-cols-2). */
+.ld-photos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+  margin-block: 1rem 2.5rem;
+}
+.ld-photos.ld-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.ld-photos .wp-block-image {
+  margin: 0;
+}
+.ld-photos img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: var(--ld-shadow);
+}
+.ld-photos.ld-tall img {
+  aspect-ratio: 3 / 4;
+}
+@media (max-width: 600px) {
+  .ld-photos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ld-photos:not(.ld-cols-2) > :first-child {
+    grid-column: 1 / -1;
+  }
+}
+.ld-split.wp-block-columns {
+  align-items: center;
+}
+@media (min-width: 782px) {
+  .ld-reverse.wp-block-columns {
+    flex-direction: row-reverse;
+  }
+}
+
+/* Cards: season promos and events (groups with ld-promo / ld-event inside ld-promos / ld-events). */
+.ld-promos,
+.ld-events {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3vw, 2.25rem);
+  margin-top: 2.5rem;
+}
+:is(.ld-promos, .ld-events).ld-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+:is(.ld-promos, .ld-events).ld-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+@media (max-width: 900px) {
+  .ld-promos,
+  .ld-events,
+  :is(.ld-promos, .ld-events).ld-cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .ld-promos,
+  .ld-events,
+  :is(.ld-promos, .ld-events):is(.ld-cols-2, .ld-cols-4) {
+    grid-template-columns: 1fr;
+  }
+}
+.ld-promo,
+.ld-event {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.ld-promo > .wp-block-image:first-child,
+.ld-event > .wp-block-image:first-child {
+  margin: 0 0 1.2rem;
+}
+.ld-promo > .wp-block-image:first-child img,
+.ld-event > .wp-block-image:first-child img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: var(--ld-shadow);
+}
+.ld-promo h3 {
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+.ld-promo p:not(.ld-badge) {
+  color: var(--ld-muted);
+  font-size: 0.95rem;
+}
+.ld-promo .wp-block-buttons,
+.ld-event .wp-block-buttons {
+  justify-content: center;
+  margin-top: auto;
+  padding-top: 0.6rem;
+}
+/* The price of a promo or a line: large, in the sea color. */
+.ld-price {
+  font: 400 1.5rem/1.3 var(--ld-display) !important;
+  color: var(--ld-accent-deep) !important;
+  margin-bottom: 0.8rem !important;
+}
+.ld-price strong {
+  font-size: 2.1rem;
+  color: inherit;
+  font-weight: 400;
+}
+/* ld-boxed: a white card with padding (the default look on colored sections). */
+:is(.ld-promo, .ld-event).ld-boxed,
+.ld-events > .ld-event {
+  background: var(--ld-white);
+  border-radius: var(--ld-radius);
+  box-shadow: var(--ld-shadow);
+  padding: 0 0 1.5rem;
+  overflow: hidden;
+}
+:is(.ld-promo, .ld-event).ld-boxed > :not(.wp-block-image:first-child),
+.ld-events > .ld-event > :not(.wp-block-image:first-child) {
+  padding-inline: 1.4rem;
+}
+:is(.ld-promo, .ld-event).ld-boxed > .wp-block-image:first-child img,
+.ld-events > .ld-event > .wp-block-image:first-child img {
+  border-radius: 0;
+  box-shadow: none;
+}
+/* ld-highlight: the promo to look at first, with a ring in the button color. */
+.ld-promo.ld-highlight {
+  outline: 3px solid var(--ld-button);
+  outline-offset: 6px;
+  border-radius: 8px;
+}
+.ld-event {
+  text-align: left;
+}
+.ld-event h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.3rem;
+}
+.ld-event p:not(.ld-badge) {
+  font-size: 0.95rem;
+}
+.ld-event .wp-block-buttons {
+  justify-content: flex-start;
+}
+/* A small label (a date, "Best price"): right after the card's photo it sits on its corner. */
+.ld-badge {
+  display: inline-block;
+  align-self: center;
+  background: var(--ld-button);
+  color: var(--ld-on-button);
+  font-size: 0.75rem !important;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.85rem !important;
+  border-radius: 999px;
+  margin-bottom: 0.8rem !important;
+}
+:is(.ld-promo, .ld-event) > .wp-block-image:first-child + .ld-badge {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  z-index: 1;
+  box-shadow: 0 6px 16px -6px #0008;
+}
+.ld-event > .ld-badge {
+  align-self: flex-start;
+}
+
+/* Price lists: a table (ld-prices) or a list of lines with the value on the right (ld-lines). */
+.ld-prices table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--ld-white);
+  border-radius: var(--ld-radius);
+  box-shadow: var(--ld-shadow);
+  overflow: hidden;
+  font-size: 0.97rem;
+}
+.ld-prices :is(td, th) {
+  padding: 0.85rem 1.1rem;
+  border-bottom: 1px solid var(--ld-line);
+  text-align: right;
+  white-space: nowrap;
+}
+.ld-prices :is(td, th):first-child {
+  text-align: left;
+  white-space: normal;
+  font-weight: 700;
+  color: var(--ld-ink);
+}
+.ld-prices thead th {
+  background: var(--ld-accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 0;
+}
+.ld-prices thead th:first-child {
+  color: #fff;
+}
+.ld-prices tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--ld-accent-soft) 55%, #fff);
+}
+.ld-prices tbody tr:last-child :is(td, th) {
+  border-bottom: 0;
+}
+.ld-prices figcaption {
+  color: var(--ld-muted);
+  font-size: 0.85rem;
+  margin-top: 0.8rem;
+}
+@media (max-width: 600px) {
+  .ld-prices :is(td, th) {
+    padding: 0.65rem 0.5rem;
+    font-size: 0.88rem;
+  }
+  .ld-prices thead th {
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    white-space: normal;
+  }
+}
+.wp-block-table.ld-prices {
+  overflow-x: auto;
+  margin-block: 1.5rem;
+}
+.ld-lines {
+  list-style: none;
+  padding: 0;
+  max-width: 36rem;
+}
+.ld-lines li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed color-mix(in srgb, currentColor 30%, transparent);
+}
+.ld-lines li strong {
+  white-space: nowrap;
+}
+.ld-center .ld-lines {
+  margin-inline: auto;
+  text-align: left;
+}
+
+/* Services with a line icon in a thin ring (groups with ld-feature ld-i-ICON inside ld-features). */
+.ld-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 2.2rem 1.5rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+.ld-feature,
+.ld-icon {
+  position: relative;
+  --ld-disc: 4.8rem;
+}
+.ld-icon {
+  --ld-disc: 3.4rem;
+}
+.ld-feature::before,
+.ld-icon::before {
+  content: '';
+  display: block;
+  width: var(--ld-disc);
+  height: var(--ld-disc);
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  background: var(--ld-accent-soft);
+  border: 1.5px dashed color-mix(in srgb, var(--ld-accent) 45%, transparent);
+}
+.ld-feature::after,
+.ld-icon::after {
+  content: '';
+  position: absolute;
+  top: calc(var(--ld-disc) * 0.22);
+  left: calc(50% - var(--ld-disc) * 0.28);
+  width: calc(var(--ld-disc) * 0.56);
+  height: calc(var(--ld-disc) * 0.56);
+  background: var(--ld-accent-deep);
+  -webkit-mask: var(--ld-icon) center / contain no-repeat;
+  mask: var(--ld-icon) center / contain no-repeat;
+}
+.ld-icon::before {
+  margin-left: 0;
+}
+.ld-icon::after {
+  left: calc(var(--ld-disc) * 0.22);
+}
+.ld-center .ld-icon::before {
+  margin-inline: auto;
+}
+.ld-center .ld-icon::after {
+  left: calc(50% - var(--ld-disc) * 0.28);
+}
+:is(.ld-bg-sea, .ld-bg-dark) :is(.ld-feature, .ld-icon)::before {
+  background: #ffffff1f;
+  border-color: #ffffff80;
+}
+:is(.ld-bg-sea, .ld-bg-dark) :is(.ld-feature, .ld-icon)::after {
+  background: #fff;
+}
+.ld-feature h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.3rem;
+}
+.ld-feature p {
+  font-size: 0.93rem;
+}
+
+/* Reviews */
+.ld-quote.wp-block-quote {
+  border: 0;
+  padding: 0;
+  text-align: center;
+  max-width: 44rem;
+  margin-inline: auto;
+  font-size: clamp(1.35rem, 2.6vw, 1.75rem);
+}
+.ld-quote.wp-block-quote::before {
+  content: '“';
+  display: block;
+  font: var(--ld-script-weight) 5rem/0.6 var(--ld-script);
+  color: var(--ld-accent);
+  margin-bottom: 0.4rem;
+}
+.ld-quote cite,
+.ld-reviews cite {
+  display: block;
+  margin-top: 1rem;
+  font: normal 700 0.85rem var(--ld-font);
+  color: var(--ld-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+:is(.ld-bg-sea, .ld-bg-dark) :is(.ld-quote, .ld-reviews) cite {
+  color: inherit;
+}
+.ld-reviews {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+  text-align: left;
+}
+.ld-reviews .wp-block-quote {
+  background: var(--ld-white);
+  border: 0;
+  border-radius: var(--ld-radius);
+  padding: 1.6rem 1.6rem 1.4rem;
+  margin: 0;
+  font: 400 1.02rem/1.7 var(--ld-font);
+  color: var(--ld-text);
+  box-shadow: var(--ld-shadow);
+}
+.ld-reviews .wp-block-quote::before {
+  content: '★★★★★';
+  display: block;
+  font: 1rem/1 var(--ld-font);
+  letter-spacing: 0.15em;
+  color: #e8a93a;
+  margin-bottom: 0.8rem;
+}
+.ld-reviews .wp-block-quote :is(h3, h4) {
+  font: var(--ld-script-weight) 1.6rem/1.2 var(--ld-script);
+  color: var(--ld-ink);
+  margin-bottom: 0.4rem;
+}
+
+/* A map or a video at full width of the column, with rounded corners. */
+.ld-map iframe,
+.ld-map .wp-block-embed__wrapper > * {
+  width: 100%;
+  min-height: 22rem;
+  border: 0;
+  border-radius: var(--ld-radius);
+  box-shadow: var(--ld-shadow);
+}

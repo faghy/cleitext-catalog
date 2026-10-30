@@ -1,0 +1,8 @@
+{
+  "slug": "podere",
+  "name": "Podere",
+  "version": "1.0.0",
+  "description": "A warm theme for farm stays and country houses: terracotta and cream, serif titles, wave dividers, rounded photos and a WhatsApp button.",
+  "license": "GPL-2.0-or-later",
+  "entry": "dist/index.js"
+}

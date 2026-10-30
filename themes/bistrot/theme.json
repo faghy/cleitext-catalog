@@ -1,0 +1,8 @@
+{
+  "slug": "bistrot",
+  "name": "Bistrot",
+  "version": "1.0.0",
+  "description": "An elegant theme for restaurants, wine and cocktail bars: dark navy and gold, Art Deco titles and arches, a full-height photo opening, menus with prices and a Book a table button.",
+  "license": "GPL-2.0-or-later",
+  "entry": "dist/index.js"
+}
