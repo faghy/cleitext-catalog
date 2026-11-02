@@ -11,6 +11,8 @@ Pages are stacks of full-width **sections** made of normal blocks; the look come
 
 ## Social profiles
 
+**Appearance → Customize → Site** has the footer text, where a link is written as `[text](https://address)`, and **Show “Made with Cleitext” in the footer** (on by default; turn it off for a client's site).
+
 **Appearance → Customize → Social profiles** takes the addresses (`https://…`) of the site's Facebook, Instagram, LinkedIn, X, YouTube, TikTok and GitHub profiles, shown as icons in the header and the footer, the footer only, or nowhere. On phones the header icons stay beside the menu button when few, otherwise they move into the menu. No address, no icons.
 
 ## Classes

@@ -29,11 +29,30 @@ import { NETWORKS, profiles, settingName, type Profile } from './social.js';
  * editor. No JavaScript on the public site: the mobile menu is a <details>.
  */
 
+/** The footer text, with `[text](address)` links (https, http, mailto, tel or a path of the site). */
+function withLinks(text: string): ReactNode[] {
+  const out: ReactNode[] = [];
+  const re = /\[([^\]]{1,120})\]\(((?:https?:\/\/|mailto:|tel:|\/)[^\s)]{0,300})\)/g;
+  let last = 0;
+  for (let m = re.exec(text); m; m = re.exec(text)) {
+    if (m.index > last) out.push(text.slice(last, m.index));
+    out.push(
+      <a key={m.index} href={m[2]}>
+        {m[1]}
+      </a>,
+    );
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) out.push(text.slice(last));
+  return out;
+}
+
 interface Settings extends Record<string, unknown> {
   logo?: string;
   favicon?: string;
   accentColor?: string;
   showTagline?: boolean;
+  showPoweredBy?: boolean;
   footerText?: string;
   socialPlacement?: 'both' | 'footer' | 'none';
 }
@@ -232,8 +251,13 @@ function Layout({ head, css, children }: LayoutProps) {
                 </nav>
               )}
               <p>
-                {settings.footerText || `© ${new Date().getFullYear()} ${page.site.title}`} · {t.poweredBy}{' '}
-                <a href="https://cleitext.com">Cleitext</a>
+                {settings.footerText ? withLinks(settings.footerText) : `© ${new Date().getFullYear()} ${page.site.title}`}
+                {settings.showPoweredBy !== false && (
+                  <>
+                    {' '}
+                    · {t.poweredBy} <a href="https://cleitext.com">Cleitext</a>
+                  </>
+                )}
               </p>
               {social.length > 0 && <SocialLinks items={social} className="cv-social-foot" />}
             </div>
@@ -470,7 +494,15 @@ export const theme = defineTheme({
       type: 'text',
       section: 'site',
       label: { en: 'Footer text', it: 'Testo del piè di pagina' },
-      maxLength: 200,
+      help: { en: 'A link is written as [text](https://address).', it: 'Un link si scrive [testo](https://indirizzo).' },
+      maxLength: 300,
+    },
+    {
+      name: 'showPoweredBy',
+      type: 'boolean',
+      section: 'site',
+      label: { en: 'Show “Made with Cleitext” in the footer', it: 'Mostra «Realizzato con Cleitext» nel piè di pagina' },
+      default: true,
     },
     ...NETWORKS.map((network) => ({
       name: settingName(network),
