@@ -1,0 +1,12 @@
+{
+  "name": "taccuino-blocks",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Taccuino Blocks: the blocks that come with the Taccuino theme.",
+  "license": "GPL-3.0-or-later",
+  "type": "module",
+  "scripts": {
+    "build": "node ../../../../../cleitext/packages/cli/dist/bin.js plugin:build .",
+    "test": "node ../../../../../cleitext/node_modules/vitest/vitest.mjs run"
+  }
+}

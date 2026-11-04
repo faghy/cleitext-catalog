@@ -270,6 +270,23 @@
     },
     {
       "type": "plugin",
+      "slug": "shortcode-embeds",
+      "name": "Shortcode Embeds",
+      "summary": {
+        "en": "The [fve] video shortcodes and the [spreaker] podcast players of WordPress sites become embeds on import, with a Spreaker player block; players wait for consent with Privacy.",
+        "it": "Gli shortcode video [fve] e i player podcast [spreaker] dei siti WordPress diventano embed all'importazione, con un blocco Player Spreaker; i player aspettano il consenso con Privacy."
+      },
+      "tags": [
+        "import",
+        "embed",
+        "podcast"
+      ],
+      "category": "tools",
+      "requires": ">=0.95.0",
+      "icon": "assets/shortcode-embeds.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "captcha",
       "name": "Captcha",
       "summary": {
@@ -856,6 +873,25 @@
       "icon": "assets/lanterna.svg",
       "screenshots": [
         "assets/lanterna.png"
+      ]
+    },
+    {
+      "type": "theme",
+      "slug": "taccuino",
+      "name": "Taccuino",
+      "summary": {
+        "en": "A theme for news sites, magazines and blogs: the latest article over its photo, cards of the others, articles with a sidebar and share buttons, a colored band of podcast players, a footer with two menus. Colors, fonts and texts from Customize.",
+        "it": "Un tema per testate online, magazine e blog: l'ultimo articolo sulla sua foto, le card degli altri, articoli con barra laterale e pulsanti di condivisione, una fascia colorata con i player del podcast, un piè di pagina con due menu. Colori, caratteri e testi da Personalizza."
+      },
+      "tags": [
+        "news",
+        "magazine",
+        "blog"
+      ],
+      "requires": ">=0.95.0",
+      "icon": "assets/taccuino.svg",
+      "screenshots": [
+        "assets/taccuino.png"
       ]
     }
   ]
