@@ -60,4 +60,4 @@ The markup follows the usual magazine themes made with Understrap/Bootstrap: car
 
 ## License
 
-GPL-3.0-or-later © Faghy. Brand icons: Font Awesome Free (CC BY 4.0, https://fontawesome.com/license/free).
+GPL-2.0-or-later. Brand icons: Font Awesome Free (CC BY 4.0, https://fontawesome.com/license/free).

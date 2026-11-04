@@ -919,7 +919,7 @@ export const theme = defineTheme({
     line('notFoundText', 'notfound', 'Text', 'Testo', 200),
   ],
   presets: [
-    { id: 'volley', label: { en: 'Blue and orange', it: 'Blu e arancio' }, values: { accentColor: '#0770b8', highlightColor: '#f9b238' } },
+    { id: 'blue-orange', label: { en: 'Blue and orange', it: 'Blu e arancio' }, values: { accentColor: '#0770b8', highlightColor: '#f9b238' } },
     { id: 'press', label: { en: 'Newspaper red', it: 'Rosso quotidiano' }, values: { accentColor: '#c8102e', highlightColor: '#f2c14e', headingFont: 'Oswald' } },
     { id: 'green', label: { en: 'Pitch green', it: 'Verde campo' }, values: { accentColor: '#0b7a4b', highlightColor: '#ffd166' } },
   ],

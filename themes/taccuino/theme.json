@@ -3,7 +3,7 @@
   "name": "Taccuino",
   "version": "1.0.0",
   "description": "A theme for news sites, magazines and blogs: the latest article over its photo, article cards, articles with a sidebar and share buttons, a band of podcast players, a footer with two menus. Colors, fonts and texts from Customize.",
-  "license": "GPL-3.0-or-later",
+  "license": "GPL-2.0-or-later",
   "plugins": ["taccuino-blocks"],
   "entry": "dist/index.js"
 }

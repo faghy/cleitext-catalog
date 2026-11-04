@@ -5,4 +5,4 @@ articles, the first over its photo, then cards, with a list for phones and a "lo
 articles** (the players saved in a field of the latest articles of a category, as a colored band or a list).
 They use the theme's markup and styles, in the block editor and in Fresco. See the theme's README.
 
-GPL-3.0-or-later © Faghy.
+GPL-2.0-or-later.

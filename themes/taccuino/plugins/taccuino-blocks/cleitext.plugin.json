@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "apiVersion": "^1.36",
   "description": "The blocks of the Taccuino theme: Articles (the latest article over its photo and cards of the others, by category) and Embeds of articles (a band of players, e.g. podcast episodes, read from a field of the articles).",
-  "author": "Faghy",
-  "license": "GPL-3.0-or-later",
+  "author": "Cleitext",
+  "license": "GPL-2.0-or-later",
   "server": "dist/server.js",
   "permissions": ["blocks"]
 }
