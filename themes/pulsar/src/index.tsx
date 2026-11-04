@@ -246,7 +246,13 @@ function Index(props: TemplateProps) {
       const editorData = entry.document.editor?.data as
         | { hideTitle?: unknown; hideFeatured?: unknown; layout?: unknown }
         | undefined;
-      const hideTitle = editorData?.hideTitle === true;
+      // A page opening with a psx-hero section has its own h1: no page header then.
+      const hero = (
+        (entry.document.blocks ?? []) as { attrs?: { className?: unknown } }[]
+      ).some((block) =>
+        /(^|\s)psx-hero(\s|$)/.test(String(block.attrs?.className ?? "")),
+      );
+      const hideTitle = editorData?.hideTitle === true || hero;
       // Nor the featured image when the editor asks, or on its full-width and canvas layouts.
       const hideFeatured =
         editorData?.hideFeatured === true ||
