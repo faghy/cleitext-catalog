@@ -287,6 +287,23 @@
     },
     {
       "type": "plugin",
+      "slug": "share-buttons",
+      "name": "Share Buttons",
+      "summary": {
+        "en": "Share buttons with their icons under your posts and as a block: Facebook, X, LinkedIn, Instagram, WhatsApp, Telegram, Bluesky, Threads, Reddit, Pinterest and more, the fediverse (Disbigle, Diaspora, Mastodon and other servers), email and copy link. You choose the networks and their order. No tracking.",
+        "it": "Pulsanti di condivisione con le loro icone sotto gli articoli e come blocco: Facebook, X, LinkedIn, Instagram, WhatsApp, Telegram, Bluesky, Threads, Reddit, Pinterest e altri, il fediverso (Disbigle, Diaspora, Mastodon e altri server), email e copia link. Scegli tu le reti e il loro ordine. Nessun tracciamento."
+      },
+      "tags": [
+        "share",
+        "social",
+        "fediverse"
+      ],
+      "category": "tools",
+      "requires": ">=0.96.0",
+      "icon": "assets/share-buttons.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "captcha",
       "name": "Captcha",
       "summary": {
