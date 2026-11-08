@@ -506,6 +506,39 @@
     },
     {
       "type": "plugin",
+      "slug": "tell-me-more",
+      "name": "Tell me more",
+      "summary": {
+        "en": "Articles by topic from the channels and blogs you follow: add YouTube, PeerTube and Vimeo channels and playlists and RSS feeds (or let the AI suggest some), and the site's AI groups their latest videos and posts by topic and writes original drafts in your words, with an optional «Further reading» list you choose. Also short summaries of your own articles. Everything stays a draft until you publish it; needs an AI provider in Chriss. Paid: €49 a year per site.",
+        "it": "Articoli per argomento dai canali e dai blog che segui: aggiungi canali e playlist di YouTube, PeerTube e Vimeo e feed RSS (o fattele suggerire dall'IA), e l'IA del sito raggruppa i loro ultimi video e articoli per argomento e scrive bozze originali con parole tue, con gli «Approfondimenti» che scegli tu. Anche riassunti brevi dei tuoi articoli. Tutto resta in bozza finché non lo pubblichi; serve un fornitore di IA in Chriss. A pagamento: 49 € l'anno per sito."
+      },
+      "tags": [
+        "ai",
+        "articles",
+        "youtube",
+        "rss",
+        "blog"
+      ],
+      "category": "editor",
+      "source": "private",
+      "requires": ">=0.96.6",
+      "paid": {
+        "price": {
+          "amount": 49,
+          "currency": "EUR",
+          "per": "site"
+        },
+        "updatesMonths": 12,
+        "purchaseUrl": "https://cleitext.com/plugins/tell-me-more",
+        "licenseServer": "https://cleitext.com/api/v1/ext/store/v1"
+      },
+      "icon": "assets/tell-me-more.svg",
+      "screenshots": [
+        "assets/tell-me-more.png"
+      ]
+    },
+    {
+      "type": "plugin",
       "slug": "antispam",
       "name": "Antispam",
       "summary": {
