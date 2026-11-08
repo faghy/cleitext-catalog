@@ -304,6 +304,23 @@
     },
     {
       "type": "plugin",
+      "slug": "setax",
+      "name": "Setax",
+      "summary": {
+        "en": "A filter by type and place (\"Washing machines in Albenga\"): two selects and the matching pages, and for each choice with results a page of its own for search engines, with title, description, canonical address, structured data and sitemap. Imports the place from WordPress (ACF).",
+        "it": "Un filtro per tipo e zona («Lavatrici ad Albenga»): due selezioni e le pagine corrispondenti, e per ogni scelta con risultati una pagina sua per i motori di ricerca, con titolo, descrizione, indirizzo canonico, dati strutturati e sitemap. Importa la zona da WordPress (ACF)."
+      },
+      "tags": [
+        "filter",
+        "seo",
+        "import"
+      ],
+      "category": "seo",
+      "requires": ">=0.96.5",
+      "icon": "assets/setax.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "captcha",
       "name": "Captcha",
       "summary": {
