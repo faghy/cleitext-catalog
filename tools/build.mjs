@@ -60,10 +60,22 @@ function releaseAssets(tag, repo = REPO) {
   }
 }
 
+/** A release file; GitHub's own errors (5xx, a dropped connection) are tried again, up to 4 times. */
 async function download(url, file) {
-  const res = await fetch(url, { redirect: 'follow' });
-  if (!res.ok) throw new Error(`${url}: ${res.status}`);
-  writeFileSync(file, Buffer.from(await res.arrayBuffer()));
+  for (let attempt = 1; ; attempt++) {
+    let res;
+    try {
+      res = await fetch(url, { redirect: 'follow' });
+    } catch (error) {
+      if (attempt >= 4) throw error;
+    }
+    if (res?.ok) {
+      writeFileSync(file, Buffer.from(await res.arrayBuffer()));
+      return;
+    }
+    if (res && (res.status < 500 || attempt >= 4)) throw new Error(`${url}: ${res.status}`);
+    await new Promise((resolve) => setTimeout(resolve, attempt * 5000));
+  }
 }
 
 /**
