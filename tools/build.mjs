@@ -65,7 +65,14 @@ async function download(url, file) {
   for (let attempt = 1; ; attempt++) {
     let res;
     try {
-      res = await fetch(url, { redirect: 'follow' });
+      // Signed in with the workflow's token: GitHub answers anonymous downloads with timeouts
+      // when it is busy (the header is dropped on the redirect to its file storage).
+      const token = process.env.GH_TOKEN;
+      const github = new URL(url).hostname === 'github.com';
+      res = await fetch(url, {
+        redirect: 'follow',
+        ...(token && github ? { headers: { authorization: `Bearer ${token}` } } : {}),
+      });
     } catch (error) {
       if (attempt >= 4) throw error;
     }
