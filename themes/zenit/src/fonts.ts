@@ -34,6 +34,10 @@ export function fontsUrl(o: Options): string | null {
     const weights = wanted.get(family) ?? new Set<string>();
     const weight = str(o.get(weightKey));
     for (const w of ['400', weight, '700']) if (font.weights.includes(w)) weights.add(w);
+    // The text's font also in italic (quotes, emphasis), so the browser does not fake it;
+    // the service leaves out the styles a family does not have.
+    if (familyKey === 'body-font-family')
+      for (const w of ['400', '700']) if (font.weights.includes(w)) weights.add(`${w}i`);
     wanted.set(family, weights);
   }
   if (wanted.size === 0) return null;
