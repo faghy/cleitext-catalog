@@ -60,28 +60,28 @@ function releaseAssets(tag, repo = REPO) {
   }
 }
 
-/** A release file; GitHub's own errors (5xx, a dropped connection) are tried again, up to 4 times. */
+/**
+ * A release file. Files of GitHub releases come through its API with the
+ * workflow's token (`gh release download`): its public download links time
+ * out when GitHub is busy. Each try is made again on an error, up to 4 times.
+ */
 async function download(url, file) {
+  const release = /^https:\/\/github\.com\/([\w.-]+\/[\w.-]+)\/releases\/download\/([^/]+)\/([^/]+)$/.exec(url);
   for (let attempt = 1; ; attempt++) {
-    let res;
     try {
-      // Signed in with the workflow's token: GitHub answers anonymous downloads with timeouts
-      // when it is busy (the header is dropped on the redirect to its file storage).
-      const token = process.env.GH_TOKEN;
-      const github = new URL(url).hostname === 'github.com';
-      res = await fetch(url, {
-        redirect: 'follow',
-        ...(token && github ? { headers: { authorization: `Bearer ${token}` } } : {}),
-      });
-    } catch (error) {
-      if (attempt >= 4) throw error;
-    }
-    if (res?.ok) {
+      if (release) {
+        const [, repo, tag, name] = release;
+        run('gh', ['release', 'download', decodeURIComponent(tag), '-R', repo, '-p', decodeURIComponent(name), '-O', file, '--clobber']);
+        return;
+      }
+      const res = await fetch(url, { redirect: 'follow' });
+      if (!res.ok) throw new Error(`${url}: ${res.status}`);
       writeFileSync(file, Buffer.from(await res.arrayBuffer()));
       return;
+    } catch (error) {
+      if (attempt >= 4) throw error;
+      await new Promise((resolve) => setTimeout(resolve, attempt * 5000));
     }
-    if (res && (res.status < 500 || attempt >= 4)) throw new Error(`${url}: ${res.status}`);
-    await new Promise((resolve) => setTimeout(resolve, attempt * 5000));
   }
 }
 
