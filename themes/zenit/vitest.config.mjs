@@ -6,7 +6,11 @@
  */
 import { fileURLToPath } from 'node:url';
 
-const cleitext = (path) => fileURLToPath(new URL(`../../../cleitext/${path}`, import.meta.url));
+// $CLEITEXT_DIR in the catalog's CI (tools/verify.mjs), where the checkout sits elsewhere.
+const cleitext = (path) =>
+  process.env.CLEITEXT_DIR
+    ? `${process.env.CLEITEXT_DIR.replace(/\/$/, '')}/${path}`
+    : fileURLToPath(new URL(`../../../cleitext/${path}`, import.meta.url));
 
 export default {
   resolve: {
