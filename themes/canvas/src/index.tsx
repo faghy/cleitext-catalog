@@ -305,6 +305,15 @@ function Index(props: TemplateProps) {
                         )}
                       </>
                     )}
+                    {/* Its categories, so their archives are reachable from the post (1.2.1). */}
+                    {(entry.terms.category ?? []).map((term, i) => (
+                      <span key={term.slug}>
+                        {i === 0 ? ' · ' : ', '}
+                        <a href={term.url} rel="category tag">
+                          {term.name}
+                        </a>
+                      </span>
+                    ))}
                   </p>
                 )}
                 <h1>{entry.title}</h1>
