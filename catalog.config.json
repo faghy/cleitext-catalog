@@ -157,6 +157,22 @@
     },
     {
       "type": "plugin",
+      "slug": "palinsest",
+      "name": "Palinsest",
+      "summary": {
+        "en": "The editorial calendar of your site: what comes out and when, cadences such as once a day or once a week, slots you write by hand or that a service such as Tell me more fills. Move or remove any slot; automatic publishing is off until you turn it on.",
+        "it": "Il calendario editoriale del tuo sito: cosa esce e quando, cadenze come una volta al giorno o una a settimana, slot che scrivi a mano o che riempie un servizio come Tell me more. Ogni slot si sposta o si toglie; la pubblicazione automatica è spenta finché non la accendi."
+      },
+      "tags": [
+        "calendar",
+        "editorial-calendar",
+        "scheduling"
+      ],
+      "category": "tools",
+      "icon": "assets/palinsest.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "maps",
       "name": "Maps",
       "summary": {
