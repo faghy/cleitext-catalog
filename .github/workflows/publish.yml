@@ -39,11 +39,20 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version-file: cleitext/.nvmrc
-      - name: Build the Cleitext CLI
+      - name: Build the Cleitext CLI and packages
         working-directory: cleitext
         run: |
           pnpm install --frozen-lockfile
-          pnpm exec turbo run build --filter=@cleitext/cli...
+          pnpm exec turbo run build --filter=@cleitext/cli... --filter='./packages/*'
+      # The catalog's CI (tools/verify.mjs): type checks and tests of the paid
+      # plugins and of the themes that have them, then every theme and paid
+      # plugin built, installed on a test Cleitext and tried. Any failure stops
+      # here: nothing is built, signed or published.
+      - name: Verify themes and paid plugins
+        env:
+          CATALOG_WORKSPACE: ${{ github.workspace }}
+          CLEITEXT_CLI: ${{ github.workspace }}/cleitext/packages/cli/dist/bin.js
+        run: node tools/verify.mjs
       - name: Build and publish
         env:
           CATALOG_SIGNING_KEY: ${{ secrets.CATALOG_SIGNING_KEY }}
