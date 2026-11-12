@@ -82,10 +82,10 @@ for (const dir of privatePlugins) {
 for (const dir of [...publicThemes, ...privateThemes]) {
   if (!existsSync(join(dir, 'test'))) continue;
   const slug = dir.split('/').pop();
-  // Their imports (React, the theme SDK) resolve from the Cleitext checkout's packages.
+  // Their imports (React, the theme SDK) resolve from the Cleitext server's packages.
   const modules = join(dir, 'node_modules');
   const linked = !existsSync(modules);
-  if (linked) symlinkSync(join(cleitext, 'node_modules/.pnpm/node_modules'), modules);
+  if (linked) symlinkSync(join(cleitext, 'apps/server/node_modules'), modules);
   step(`${slug}: tests`, () =>
     run(join(cleitext, 'node_modules/.bin/vitest'), ['run', '--root', dir], { cwd: cleitext }),
   );
