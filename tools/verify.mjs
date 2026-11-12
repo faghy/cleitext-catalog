@@ -17,7 +17,7 @@
  * nothing. `--skip-install` leaves out step 3 (faster, for a quick check).
  */
 import { execFileSync } from 'node:child_process';
-import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, symlinkSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -82,9 +82,14 @@ for (const dir of privatePlugins) {
 for (const dir of [...publicThemes, ...privateThemes]) {
   if (!existsSync(join(dir, 'test'))) continue;
   const slug = dir.split('/').pop();
+  // Their imports (React, the theme SDK) resolve from the Cleitext checkout's packages.
+  const modules = join(dir, 'node_modules');
+  const linked = !existsSync(modules);
+  if (linked) symlinkSync(join(cleitext, 'node_modules/.pnpm/node_modules'), modules);
   step(`${slug}: tests`, () =>
     run(join(cleitext, 'node_modules/.bin/vitest'), ['run', '--root', dir], { cwd: cleitext }),
   );
+  if (linked) rmSync(modules, { force: true });
 }
 
 // ---- 3. Built, installed and tried on a test Cleitext ---------------------------------

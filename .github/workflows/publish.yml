@@ -43,7 +43,7 @@ jobs:
         working-directory: cleitext
         run: |
           pnpm install --frozen-lockfile
-          pnpm exec turbo run build --filter=@cleitext/cli... --filter='./packages/*'
+          pnpm exec turbo run build --filter=@cleitext/cli... --filter=@cleitext/server... --filter='./packages/*'
       # The catalog's CI (tools/verify.mjs): type checks and tests of the paid
       # plugins and of the themes that have them, then every theme and paid
       # plugin built, installed on a test Cleitext and tried. Any failure stops
