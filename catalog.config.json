@@ -657,6 +657,23 @@
     },
     {
       "type": "plugin",
+      "slug": "shop-woo-import",
+      "name": "WooCommerce Import",
+      "summary": {
+        "en": "A Cleishop add-on: a WooCommerce shop's customers and orders into Cleishop. Accounts without passwords with their addresses, every order with its number, lines, taxes, notes and refunds; no email sent, nothing imported twice.",
+        "it": "Un componente aggiuntivo di Cleishop: clienti e ordini di un negozio WooCommerce in Cleishop. Account senza password con i loro indirizzi, ogni ordine con numero, righe, tasse, note e rimborsi; nessuna email inviata, niente importato due volte."
+      },
+      "tags": [
+        "woocommerce",
+        "import",
+        "orders",
+        "customers"
+      ],
+      "category": "shop",
+      "icon": "assets/shop-woo-import.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "fresco",
       "name": "Fresco",
       "summary": {
