@@ -674,6 +674,22 @@
     },
     {
       "type": "plugin",
+      "slug": "shop-wishlist",
+      "name": "Wishlist",
+      "summary": {
+        "en": "A Cleishop add-on: a heart on every product to save it for later, also without an account. A wishlist page with prices and «Add to cart», a link to share it, a header count, and the import of YITH WooCommerce Wishlist lists.",
+        "it": "Un componente aggiuntivo di Cleishop: un cuore su ogni prodotto per salvarlo per dopo, anche senza account. Una pagina con prezzi e «Aggiungi al carrello», un link per condividerla, il conteggio nell'header e l'import delle liste di YITH WooCommerce Wishlist."
+      },
+      "tags": [
+        "wishlist",
+        "favorites",
+        "yith"
+      ],
+      "category": "shop",
+      "icon": "assets/shop-wishlist.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "fresco",
       "name": "Fresco",
       "summary": {
