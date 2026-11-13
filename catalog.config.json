@@ -690,6 +690,22 @@
     },
     {
       "type": "plugin",
+      "slug": "shop-invoices",
+      "name": "PDF Invoices",
+      "summary": {
+        "en": "A Cleishop add-on: an invoice in PDF for each order, numbered without gaps, with your logo and details, attached to the order emails and downloaded from the customer's account. A packing slip, a month of invoices in one PDF, and the numbers of WooCommerce PDF Invoices kept.",
+        "it": "Un componente aggiuntivo di Cleishop: una fattura PDF per ogni ordine, numerata senza buchi, con il tuo logo e i tuoi dati, allegata alle email e scaricabile dall'account del cliente. Documento di trasporto, le fatture di un mese in un solo PDF e i numeri di WooCommerce PDF Invoices conservati."
+      },
+      "tags": [
+        "invoices",
+        "pdf",
+        "packing slip"
+      ],
+      "category": "shop",
+      "icon": "assets/shop-invoices.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "fresco",
       "name": "Fresco",
       "summary": {
