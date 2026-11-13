@@ -424,6 +424,13 @@ mark {
     flex-wrap: nowrap;
   }
 }
+/* The bar did not fit (see FIT_MENU): the panel instead, at any width. */
+.cv-folded .cv-desktop {
+  display: none;
+}
+.cv-folded .cv-mobile {
+  display: block;
+}
 @media (max-width: 960px) {
   .cv-desktop {
     display: none;

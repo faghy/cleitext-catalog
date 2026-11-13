@@ -108,7 +108,8 @@ function Layout({ head, css, children }: LayoutProps) {
   const settings = useThemeSettings<Settings>();
   const logo = settings.logo ? page.media.get(settings.logo) : undefined;
   const favicon = settings.favicon ? page.media.get(settings.favicon) : undefined;
-  const accent = settings.accentColor && HEX.test(settings.accentColor) ? settings.accentColor : null;
+  const accent =
+    settings.accentColor && HEX.test(settings.accentColor) ? settings.accentColor : null;
   const primary = page.menus.primary ?? [];
   // Canvas's own list of language codes; with a language plugin (Cleitext 0.83) its switcher, in this look.
   const languages =
@@ -169,7 +170,10 @@ function Layout({ head, css, children }: LayoutProps) {
         {Object.entries(head.og).map(([property, content]) => (
           <meta key={property} property={property} content={content} />
         ))}
-        <meta name="twitter:card" content={head.og['og:image'] ? 'summary_large_image' : 'summary'} />
+        <meta
+          name="twitter:card"
+          content={head.og['og:image'] ? 'summary_large_image' : 'summary'}
+        />
         <meta name="theme-color" content="#ffffff" />
         <link rel="preconnect" href="https://fonts.bunny.net" />
         <link rel="stylesheet" href={FONTS} />
@@ -238,6 +242,8 @@ function Layout({ head, css, children }: LayoutProps) {
                 </details>
               )}
             </div>
+            {/* A menu longer than the bar (long labels, many items): the panel, as on small screens. */}
+            <script dangerouslySetInnerHTML={{ __html: FIT_MENU }} />
           </header>
         </Location>
         <main id="content">{children}</main>
@@ -251,7 +257,9 @@ function Layout({ head, css, children }: LayoutProps) {
                 </nav>
               )}
               <p>
-                {settings.footerText ? withLinks(settings.footerText) : `© ${new Date().getFullYear()} ${page.site.title}`}
+                {settings.footerText
+                  ? withLinks(settings.footerText)
+                  : `© ${new Date().getFullYear()} ${page.site.title}`}
                 {settings.showPoweredBy !== false && (
                   <>
                     {' '}
@@ -277,8 +285,7 @@ function Index(props: TemplateProps) {
       const isPost = entry.type === 'article' || entry.type === 'post';
       // A visual editor (Fresco) may hide the title: then no header, and no second h1.
       const editorData = entry.document.editor?.data as
-        | { hideTitle?: unknown; hideFeatured?: unknown; layout?: unknown }
-        | undefined;
+        { hideTitle?: unknown; hideFeatured?: unknown; layout?: unknown } | undefined;
       const hideTitle = editorData?.hideTitle === true;
       // Nor the featured image when the editor asks, or on its full-width and canvas layouts.
       const hideFeatured =
@@ -362,11 +369,21 @@ function Index(props: TemplateProps) {
                 <label className="cv-sr" htmlFor="cv-q">
                   {t.search}
                 </label>
-                <input id="cv-q" type="search" name="q" defaultValue={props.query ?? ''} placeholder={t.searchPlaceholder} />
+                <input
+                  id="cv-q"
+                  type="search"
+                  name="q"
+                  defaultValue={props.query ?? ''}
+                  placeholder={t.searchPlaceholder}
+                />
                 <button type="submit">{t.search}</button>
               </form>
             </header>
-            <EntryList entries={props.entries} empty={props.query ? t.noResults : t.typeToSearch} more={t.readMore} />
+            <EntryList
+              entries={props.entries}
+              empty={props.query ? t.noResults : t.typeToSearch}
+              more={t.readMore}
+            />
             <PageLinks pagination={props.pagination} />
           </div>
         </Location>
@@ -410,7 +427,12 @@ function EntryList({
         <li key={entry.id} className="cv-post">
           {entry.image && (
             <a href={entry.url} tabIndex={-1} aria-hidden="true" className="cv-post-image">
-              <Image media={entry.image} alt="" eager={index === 0} sizes="(max-width: 760px) 100vw, 400px" />
+              <Image
+                media={entry.image}
+                alt=""
+                eager={index === 0}
+                sizes="(max-width: 760px) 100vw, 400px"
+              />
             </a>
           )}
           <div className="cv-post-body">
@@ -503,14 +525,20 @@ export const theme = defineTheme({
       type: 'text',
       section: 'site',
       label: { en: 'Footer text', it: 'Testo del piè di pagina' },
-      help: { en: 'A link is written as [text](https://address).', it: 'Un link si scrive [testo](https://indirizzo).' },
+      help: {
+        en: 'A link is written as [text](https://address).',
+        it: 'Un link si scrive [testo](https://indirizzo).',
+      },
       maxLength: 300,
     },
     {
       name: 'showPoweredBy',
       type: 'boolean',
       section: 'site',
-      label: { en: 'Show “Made with Cleitext” in the footer', it: 'Mostra «Realizzato con Cleitext» nel piè di pagina' },
+      label: {
+        en: 'Show “Made with Cleitext” in the footer',
+        it: 'Mostra «Realizzato con Cleitext» nel piè di pagina',
+      },
       default: true,
     },
     ...NETWORKS.map((network) => ({
@@ -540,5 +568,13 @@ export const theme = defineTheme({
   editorCss,
   aiGuide: AI_GUIDE,
 });
+
+/**
+ * The header's bar folds into the menu panel when it does not fit the width,
+ * not only below 960px: e.g. French or German labels at 1024px. Measured
+ * with the bar shown, on load, on resize and once the fonts are in.
+ */
+const FIT_MENU =
+  "(function(){var h=document.currentScript&&document.currentScript.parentElement;if(!h)return;var r=h.querySelector('.cv-header-row');if(!r)return;function f(){h.classList.remove('cv-folded');if(window.innerWidth>960&&r.scrollWidth>r.clientWidth+1)h.classList.add('cv-folded')}f();window.addEventListener('resize',f);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(f)})();";
 
 export default theme;
