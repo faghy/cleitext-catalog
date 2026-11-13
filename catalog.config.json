@@ -706,6 +706,22 @@
     },
     {
       "type": "plugin",
+      "slug": "shop-avatax",
+      "name": "AvaTax",
+      "summary": {
+        "en": "A Cleishop add-on: US sales taxes worked out by Avalara AvaTax in the cart and at checkout, by jurisdiction on the order, with the address checked. Paid orders recorded in Avalara when you turn it on; without an answer from Avalara no order goes through with taxes missing.",
+        "it": "Un componente aggiuntivo di Cleishop: le imposte sulle vendite USA calcolate da Avalara AvaTax nel carrello e al checkout, per giurisdizione nell'ordine, con l'indirizzo verificato. Ordini pagati registrati in Avalara quando lo attivi; se Avalara non risponde, nessun ordine passa senza imposte."
+      },
+      "tags": [
+        "taxes",
+        "avalara",
+        "usa"
+      ],
+      "category": "shop",
+      "icon": "assets/shop-avatax.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "fresco",
       "name": "Fresco",
       "summary": {
