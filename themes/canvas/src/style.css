@@ -316,6 +316,29 @@ mark {
   color: var(--cv-muted);
   text-decoration: none;
 }
+/* Multilingual's dropdown (its button and its list) in the same pill. */
+.cv-langs .ml-switcher__toggle {
+  padding: 0.3rem 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--cv-ink);
+  border-radius: 999px;
+}
+.cv-langs .ml-switcher__toggle:hover {
+  background: #fff;
+  color: var(--cv-brand);
+}
+.cv-langs .ml-switcher__dropdown .ml-switcher__list {
+  border-radius: 14px;
+  border-color: var(--cv-line);
+  box-shadow: var(--cv-shadow);
+  padding: 0.3rem;
+}
+.cv-langs .ml-switcher__dropdown .ml-switcher__list a {
+  border-radius: 10px;
+  padding: 0.4rem 0.8rem;
+}
 .cv-langs a[aria-current] {
   background: #fff;
   color: var(--cv-brand);
