@@ -320,6 +320,23 @@
     },
     {
       "type": "plugin",
+      "slug": "disbigle",
+      "name": "Disbigle",
+      "summary": {
+        "en": "Your articles announced on the fediverse through Disbigle: when an article is published, one post goes out with its title, a short summary, the link and the languages it has, and everyone you mention gets one notification in their own language. Connect the site to your Disbigle account (or any Mastodon-compatible server) in a few clicks; under each article a link invites readers to comment on the fediverse, and their public replies appear as comments.",
+        "it": "I tuoi articoli annunciati sul fediverso tramite Disbigle: quando pubblichi un articolo parte un post con il titolo, un breve riassunto, il link e le lingue in cui è scritto, e ogni persona che menzioni riceve una sola notifica nella sua lingua. Colleghi il sito al tuo account Disbigle (o a un server compatibile con Mastodon) in pochi clic; sotto ogni articolo un link invita a commentare sul fediverso, e le risposte pubbliche compaiono come commenti."
+      },
+      "tags": [
+        "fediverse",
+        "social",
+        "mastodon"
+      ],
+      "category": "tools",
+      "requires": ">=0.108.0",
+      "icon": "assets/disbigle.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "setax",
       "name": "Setax",
       "summary": {
