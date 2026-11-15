@@ -78,3 +78,13 @@ Tests (`test/`, not packaged), from a Cleitext checkout next to the catalog:
 `node_modules/.bin/vitest run --root ../cleitext-catalog/themes/zenit`.
 
 Social icons: Font Awesome Free (icons under CC BY 4.0).
+
+## Credits and licenses
+
+Zenit is free software under the GPL-2.0-or-later. It is a port to Cleitext of the
+**Astra** theme by Brainstorm Force (GPL-2.0-or-later, https://wpastra.com): its base
+stylesheet keeps Astra's class names and part of its rules, and its customizer reads Astra's
+settings and defaults, so that a site moving from WordPress looks the same. The base styles of
+core blocks come from **WordPress** (GPL-2.0-or-later, https://wordpress.org). Both are used
+under their GPL licenses; their copyright stays with their authors.
+

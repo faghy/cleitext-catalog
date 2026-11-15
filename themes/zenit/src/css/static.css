@@ -1,5 +1,8 @@
 @charset "UTF-8";
 /*
+ * Zenit's base styles. Based on Astra by Brainstorm Force (https://wpastra.com) and on
+ * WordPress's block styles (https://wordpress.org), both GPL-2.0-or-later; see README.md.
+ *
  * WordPress's base styles of core blocks (block-library style.css and theme.css of
  * WordPress 6.x, and the layout rules WordPress prints for classic themes), which the
  * original theme counts on: before the theme's own rules, as WordPress loads them.
