@@ -572,6 +572,36 @@
     },
     {
       "type": "plugin",
+      "slug": "sigyl",
+      "name": "Sigyl",
+      "summary": {
+        "en": "License keys for Cleishop: sell software, games, courses or services with a key, without outside platforms or fees. Keys from your own generators or from lists you upload, kept encrypted, delivered after payment in the order email, the order page and the customer's account. Your software activates, checks and frees devices through a signed address, renewals take one click with reminders before the end, refunds revoke the keys. Paid: €99 a year per site.",
+        "it": "Chiavi di licenza per Cleishop: vendi software, giochi, corsi o servizi con una chiave, senza piattaforme esterne né commissioni. Chiavi dai tuoi generatori o da elenchi che carichi, conservate cifrate, consegnate dopo il pagamento nell'email dell'ordine, nella pagina dell'ordine e nell'area clienti. Il tuo software attiva, verifica e libera i dispositivi tramite un indirizzo firmato, il rinnovo è con un clic e i promemoria arrivano prima della scadenza, i rimborsi revocano le chiavi. A pagamento: 99 € l'anno per sito."
+      },
+      "tags": [
+        "licenses",
+        "keys",
+        "shop",
+        "software",
+        "activation"
+      ],
+      "category": "shop",
+      "source": "private",
+      "requires": ">=0.113.0",
+      "paid": {
+        "price": {
+          "amount": 99,
+          "currency": "EUR",
+          "per": "site"
+        },
+        "updatesMonths": 12,
+        "purchaseUrl": "https://cleitext.com/plugins/sigyl",
+        "licenseServer": "https://cleitext.com/api/v1/ext/store/v1"
+      },
+      "icon": "assets/sigyl.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "antispam",
       "name": "Antispam",
       "summary": {
