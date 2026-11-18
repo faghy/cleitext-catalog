@@ -635,36 +635,6 @@
     },
     {
       "type": "plugin",
-      "slug": "fatturo",
-      "name": "Fatturo",
-      "summary": {
-        "en": "Italian electronic invoices for Cleishop, for Aruba Fatturazione Elettronica: each paid order becomes a FatturaPA invoice with the same number and date as its PDF, sent to the SdI through your Aruba account, for businesses (SDI code or PEC), private customers and customers abroad. Refunds get their credit note, every document shows its SdI status (delivered, rejected with the reasons, not delivered) and keeps its XML; send again after a fix, test first in Aruba's demo, leave out orders already invoiced elsewhere. Paid: €39 a year per site.",
-        "it": "Fatture elettroniche italiane per Cleishop, per Aruba Fatturazione Elettronica: ogni ordine pagato diventa una fattura FatturaPA con lo stesso numero e la stessa data del suo PDF, inviata allo SdI tramite il tuo account Aruba, per aziende (codice SDI o PEC), privati e clienti esteri. I rimborsi hanno la loro nota di credito, ogni documento mostra il suo stato presso lo SdI (consegnata, scartata con i motivi, non consegnata) e conserva il suo XML; invia di nuovo dopo una correzione, prova prima nella demo di Aruba, escludi gli ordini già fatturati altrove. A pagamento: 39 € l'anno per sito."
-      },
-      "tags": [
-        "invoices",
-        "fatturapa",
-        "e-invoicing",
-        "shop",
-        "italy"
-      ],
-      "category": "shop",
-      "source": "private",
-      "requires": ">=0.116.3",
-      "paid": {
-        "price": {
-          "amount": 39,
-          "currency": "EUR",
-          "per": "site"
-        },
-        "updatesMonths": 12,
-        "purchaseUrl": "https://cleitext.com/plugins/fatturo",
-        "licenseServer": "https://cleitext.com/api/v1/ext/store/v1"
-      },
-      "icon": "assets/fatturo.svg"
-    },
-    {
-      "type": "plugin",
       "slug": "antispam",
       "name": "Antispam",
       "summary": {
