@@ -142,6 +142,26 @@
     },
     {
       "type": "plugin",
+      "slug": "zaphook",
+      "name": "Zaphook",
+      "summary": {
+        "en": "Every message of your contact forms sent to the services you already use, through a webhook: Zapier, Make, n8n or any https address. The form fields arrive with their own names, ready for your automations, together with the form, the page and the time. Choose all forms or only some, keep or skip the usual email, sign the requests with a secret if you like, send a test with one click and see every delivery in a log. Failed deliveries are retried by themselves; the privacy policy names the recipients.",
+        "it": "Ogni messaggio dei tuoi moduli di contatto mandato ai servizi che usi già, con un webhook: Zapier, Make, n8n o qualsiasi indirizzo https. I campi del modulo arrivano con i loro nomi, pronti per le tue automazioni, insieme al modulo, alla pagina e all'ora. Scegli tutti i moduli o solo alcuni, tieni o salta la solita email, firma le richieste con un segreto se vuoi, manda una prova con un clic e vedi ogni invio in un registro. Gli invii falliti vengono ritentati da soli; l'informativa privacy nomina i destinatari."
+      },
+      "tags": [
+        "webhook",
+        "zapier",
+        "make",
+        "n8n",
+        "forms",
+        "automation"
+      ],
+      "category": "tools",
+      "requires": ">=0.115.0",
+      "icon": "assets/zaphook.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "hi-john",
       "name": "Hi John",
       "summary": {
@@ -340,16 +360,29 @@
       "slug": "setax",
       "name": "Setax",
       "summary": {
-        "en": "A filter by type and place (\"Washing machines in Albenga\"): two selects and the matching pages, and for each choice with results a page of its own for search engines, with title, description, canonical address, structured data and sitemap. Imports the place from WordPress (ACF).",
-        "it": "Un filtro per tipo e zona («Lavatrici ad Albenga»): due selezioni e le pagine corrispondenti, e per ogni scelta con risultati una pagina sua per i motori di ricerca, con titolo, descrizione, indirizzo canonico, dati strutturati e sitemap. Importa la zona da WordPress (ACF)."
+        "en": "Filters by kind and by area, with any taxonomies of your pages and their place, crossed with each other (\"Bosch washing machines in Albenga\"): one select per dimension, the matching pages, and for each choice with results a page of its own for search engines, with title, heading, description, canonical address, structured data and sitemap. Several filters, wording templates of your own, selects that show only the values with results, and the place imported from the old site's fields. Paid: €99 a year per site.",
+        "it": "Filtri per tipo e per zona, con qualsiasi tassonomia delle pagine e la loro località, incrociate tra loro («Lavatrici Bosch ad Albenga»): una selezione per dimensione, le pagine corrispondenti e, per ogni scelta con risultati, una pagina sua per i motori di ricerca, con titolo, intestazione, descrizione, indirizzo canonico, dati strutturati e sitemap. Più filtri, testi a modello tuoi, selezioni che mostrano solo i valori con risultati, e la località importata dai campi del vecchio sito. A pagamento: 99 € l'anno per sito."
       },
       "tags": [
         "filter",
         "seo",
+        "taxonomies",
+        "local",
         "import"
       ],
       "category": "seo",
-      "requires": ">=0.96.5",
+      "source": "private",
+      "requires": ">=0.96.7",
+      "paid": {
+        "price": {
+          "amount": 99,
+          "currency": "EUR",
+          "per": "site"
+        },
+        "updatesMonths": 12,
+        "purchaseUrl": "https://cleitext.com/plugins/setax",
+        "licenseServer": "https://cleitext.com/api/v1/ext/store/v1"
+      },
       "icon": "assets/setax.svg"
     },
     {
