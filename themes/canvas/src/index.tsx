@@ -222,6 +222,10 @@ function Layout({ head, css, children }: LayoutProps) {
               )}
               {/* Blocks of the site in the header (Appearance → Areas), e.g. a shop's cart and search. */}
               <BlockArea name="header" className="cv-header-area" />
+              {/* Small screens: the languages stay in the bar, beside the menu button (1.2.4). */}
+              {languages && (
+                <div className="cv-mobile cv-langs-bar">{languageSwitcher('mobile')}</div>
+              )}
               {(primary.length > 0 || languages) && (
                 <details className="cv-menu cv-mobile">
                   <summary>
@@ -234,7 +238,6 @@ function Layout({ head, css, children }: LayoutProps) {
                         <Menu items={primary} />
                       </nav>
                     )}
-                    {languageSwitcher('mobile')}
                     {headerSocial.length > 0 && fit !== ' cv-fit-tablet cv-fit-phone' && (
                       <SocialLinks items={headerSocial} className={`cv-social-panel${fit}`} />
                     )}

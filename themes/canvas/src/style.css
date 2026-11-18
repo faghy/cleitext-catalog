@@ -419,6 +419,17 @@ mark {
 .cv-panel .cv-langs {
   justify-self: start;
 }
+/* Small screens: the languages in the bar, beside the menu button; a dropdown opens to the left. */
+.cv-langs-bar .cv-langs {
+  padding: 0.15rem;
+}
+.cv-langs-bar .cv-langs a {
+  padding: 0.3rem 0.5rem;
+}
+.cv-langs-bar .ml-switcher__dropdown .ml-switcher__list {
+  left: auto;
+  right: 0;
+}
 /* Between phone and wide screens: the menu stays on one line, a little tighter. */
 .cv-brand,
 .cv-mark {
