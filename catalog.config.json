@@ -289,6 +289,23 @@
     },
     {
       "type": "plugin",
+      "slug": "piuma",
+      "name": "Piuma",
+      "summary": {
+        "en": "Lighter pictures: new photos made smaller when larger than needed and saved again with good compression, PNG photos turned into JPEG, and the whole media library done in the background with the space saved shown. Addresses never change.",
+        "it": "Immagini più leggere: le nuove foto vengono ridotte quando sono più grandi del necessario e salvate di nuovo con una buona compressione, le foto PNG diventano JPEG, e tutta la libreria viene alleggerita in background mostrando lo spazio risparmiato. Gli indirizzi non cambiano mai."
+      },
+      "tags": [
+        "images",
+        "performance",
+        "webp"
+      ],
+      "category": "tools",
+      "requires": ">=0.120.0",
+      "icon": "assets/piuma.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "kross-booking",
       "name": "Kross Booking",
       "summary": {
