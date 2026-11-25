@@ -969,6 +969,34 @@
     },
     {
       "type": "theme",
+      "slug": "vetrin",
+      "name": "Vetrin",
+      "summary": {
+        "en": "A shop theme for Cleishop: a side cart that adds products without leaving the page, a classic product page with a buy bar on phones, a centered catalog header with subcategories, filters beside the products or in a panel, cards, cart and checkout in the theme's style, header over the first section, colors and fonts from Customize. Paid: €65 a year + VAT; try the demo with Live Preview.",
+        "it": "Un tema per negozi con Cleishop: carrello laterale che aggiunge i prodotti senza lasciare la pagina, scheda prodotto classica con barra d'acquisto sui telefoni, intestazione del catalogo centrata con le sottocategorie, filtri accanto ai prodotti o in un pannello, schede, carrello e cassa nello stile del tema, intestazione sopra la prima sezione, colori e caratteri da Personalizza. A pagamento: 65 € l'anno + IVA; prova la demo con l'Anteprima dal vivo."
+      },
+      "tags": [
+        "shop",
+        "ecommerce",
+        "fashion",
+        "cleishop"
+      ],
+      "requires": ">=0.106.0",
+      "source": "private",
+      "paid": {
+        "price": {
+          "amount": 65,
+          "currency": "EUR",
+          "per": "site"
+        },
+        "updatesMonths": 12,
+        "purchaseUrl": "https://cleitext.com/themes/vetrin",
+        "licenseServer": "https://cleitext.com/api/v1/ext/store/v1"
+      },
+      "icon": "assets/vetrin.svg"
+    },
+    {
+      "type": "theme",
       "slug": "zenit",
       "name": "Zenit",
       "summary": {
