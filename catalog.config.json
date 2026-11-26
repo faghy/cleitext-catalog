@@ -35,6 +35,34 @@
     },
     {
       "type": "plugin",
+      "slug": "vetta-pro",
+      "name": "Vetta SEO Pro",
+      "summary": {
+        "en": "More for Vetta SEO: up to five keywords per page, SEO on each category and tag, local business data, the log of pages not found, IndexNow and llms.txt. If the license ends, what is on keeps working. Paid: €49 a year per site + VAT.",
+        "it": "Di più per Vetta SEO: fino a cinque parole chiave per pagina, SEO di ogni categoria e tag, dati dell'attività locale, registro delle pagine non trovate, IndexNow e llms.txt. Se la licenza scade, ciò che è acceso continua a funzionare. A pagamento: 49 € l'anno per sito + IVA."
+      },
+      "tags": [
+        "seo",
+        "schema",
+        "local seo"
+      ],
+      "category": "seo",
+      "source": "private",
+      "requires": ">=0.121.0",
+      "paid": {
+        "price": {
+          "amount": 49,
+          "currency": "EUR",
+          "per": "site"
+        },
+        "updatesMonths": 12,
+        "purchaseUrl": "https://cleitext.com/plugins/vetta-pro",
+        "licenseServer": "https://cleitext.com/api/v1/ext/store/v1"
+      },
+      "icon": "assets/vetta-pro.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "multilingual-pro",
       "name": "Multilingual Pro",
       "summary": {
@@ -244,8 +272,8 @@
       "slug": "vetta",
       "name": "Vetta SEO",
       "summary": {
-        "en": "Complete SEO: search titles and descriptions with variables, a content analysis with a score out of 100 for up to five keywords, social cards, schema.org with local business data, sitemap rules, a log of pages not found, IndexNow, llms.txt and robots.txt. Free, a full alternative to the SEO plugin.",
-        "it": "SEO completa: titoli e descrizioni per i motori con variabili, un'analisi dei contenuti con punteggio su 100 per fino a cinque parole chiave, schede social, schema.org con i dati dell'attività locale, regole della sitemap, registro delle pagine non trovate, IndexNow, llms.txt e robots.txt. Gratuito, un'alternativa completa al plugin SEO."
+        "en": "SEO for every site, free: search titles and descriptions with variables, a content analysis with a score out of 100, social cards, schema.org, sitemap rules, breadcrumbs and robots.txt. Vetta SEO Pro adds more keywords, SEO on each term, local business data, the 404 log, IndexNow and llms.txt.",
+        "it": "SEO per ogni sito, gratis: titoli e descrizioni per i motori con variabili, un'analisi dei contenuti con punteggio su 100, schede social, schema.org, regole della sitemap, briciole di pane e robots.txt. Vetta SEO Pro aggiunge più parole chiave, SEO di categorie e tag, dati dell'attività locale, registro delle pagine non trovate, IndexNow e llms.txt."
       },
       "tags": [
         "seo",
