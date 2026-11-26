@@ -6,8 +6,8 @@
       "slug": "seo",
       "name": "SEO",
       "summary": {
-        "en": "Yoast-style SEO, included in Cleitext: XML sitemaps for Search Console, SEO and readability analysis in the editor, breadcrumbs, structured data, title templates and automatic redirects.",
-        "it": "SEO in stile Yoast, incluso in Cleitext: sitemap XML per Search Console, analisi SEO e di leggibilità nell'editor, briciole di pane, dati strutturati, modelli dei titoli e redirect automatici."
+        "en": "Light SEO, included in Cleitext: XML sitemaps for Search Console, SEO and readability analysis in the editor, breadcrumbs, structured data, title templates and automatic redirects.",
+        "it": "SEO leggera, inclusa in Cleitext: sitemap XML per Search Console, analisi SEO e di leggibilità nell'editor, briciole di pane, dati strutturati, modelli dei titoli e redirect automatici."
       },
       "tags": [
         "seo",
