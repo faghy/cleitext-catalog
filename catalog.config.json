@@ -149,6 +149,34 @@
     },
     {
       "type": "plugin",
+      "slug": "drive-maps",
+      "name": "Drive Maps",
+      "summary": {
+        "en": "Maps of a Drive guide: the venues and attractions of a place, those near a page or the whole guide, with markers by kind, a card with picture and link on click, drag and zoom. Its own light map over OpenStreetMap (or another provider), no cookies, optionally loaded on a click. Drive suite: €69 a year per site + VAT, one licence with Drive and Drive Reviews.",
+        "it": "Mappe di una guida Drive: locali e attrazioni di un luogo, quelli vicini a una pagina o tutta la guida, con segnaposti per tipo, una scheda con foto e link al clic, trascinamento e zoom. Una mappa leggera propria su OpenStreetMap (o un altro fornitore), senza cookie, anche caricata con un clic. Suite Drive: 69 € l'anno per sito + IVA, una licenza con Drive e Drive Recensioni."
+      },
+      "tags": [
+        "maps",
+        "directory",
+        "tourism"
+      ],
+      "category": "tools",
+      "source": "private",
+      "requires": ">=0.124.0",
+      "paid": {
+        "price": {
+          "amount": 69,
+          "currency": "EUR",
+          "per": "site"
+        },
+        "updatesMonths": 12,
+        "purchaseUrl": "https://cleitext.com/plugins/drive",
+        "licenseServer": "https://cleitext.com/api/v1/ext/store/v1"
+      },
+      "icon": "assets/drive-maps.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "multilingual-pro",
       "name": "Multilingual Pro",
       "summary": {
