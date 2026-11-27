@@ -120,6 +120,35 @@
     },
     {
       "type": "plugin",
+      "slug": "drive-reviews",
+      "name": "Drive Reviews",
+      "summary": {
+        "en": "Visitors' reviews with a 1–5 rating for Drive's venues and attractions (or any content type): online at once unless the spam filter, Captcha or banned words hold them, a Report button, one review per email and device, replies of the venue, average and count, AggregateRating in the structured data. Drive suite: €69 a year per site + VAT, one licence with Drive and Drive Maps.",
+        "it": "Recensioni dei visitatori con voto da 1 a 5 per locali e attrazioni di Drive (o qualsiasi tipo di contenuto): online subito, salvo quelle fermate da antispam, Captcha o parole vietate; pulsante Segnala, una recensione per email e dispositivo, risposte del locale, media e conteggio, AggregateRating nei dati strutturati. Suite Drive: 69 € l'anno per sito + IVA, una licenza con Drive e Drive Mappe."
+      },
+      "tags": [
+        "reviews",
+        "ratings",
+        "directory",
+        "tourism"
+      ],
+      "category": "tools",
+      "source": "private",
+      "requires": ">=0.124.0",
+      "paid": {
+        "price": {
+          "amount": 69,
+          "currency": "EUR",
+          "per": "site"
+        },
+        "updatesMonths": 12,
+        "purchaseUrl": "https://cleitext.com/plugins/drive",
+        "licenseServer": "https://cleitext.com/api/v1/ext/store/v1"
+      },
+      "icon": "assets/drive-reviews.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "multilingual-pro",
       "name": "Multilingual Pro",
       "summary": {
