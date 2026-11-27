@@ -41,12 +41,23 @@ beforeAll(async () => {
   const appRole = new URL(inject('appUrl')).username;
   themes = await list(THEMES);
   paid = await list(PLUGINS);
-  // The free plugins the paid ones need (Fresco for Fresco Pro…), from this Cleitext.
+  // The free plugins the paid ones need (Fresco for Fresco Pro…), from this Cleitext;
+  // a paid plugin another paid one needs (Drive for Drive Maps) is installed first.
   const needed = new Set<string>();
+  const deps = new Map<string, string[]>();
   for (const slug of paid) {
     const manifest = JSON.parse(await readFile(join(PLUGINS, slug, 'cleitext.plugin.json'), 'utf8'));
-    for (const dep of Object.keys(manifest.requires?.plugins ?? {})) needed.add(dep);
+    deps.set(slug, Object.keys(manifest.requires?.plugins ?? {}));
+    for (const dep of deps.get(slug)!) if (!paid.includes(dep)) needed.add(dep);
   }
+  const ordered: string[] = [];
+  const visit = (slug: string) => {
+    if (ordered.includes(slug)) return;
+    for (const dep of deps.get(slug) ?? []) if (paid.includes(dep)) visit(dep);
+    ordered.push(slug);
+  };
+  paid.forEach(visit);
+  paid = ordered;
   // Built where they are: their imports resolve in the Cleitext workspace.
   for (const slug of needed) {
     const source = join(freePlugins, slug);
