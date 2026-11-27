@@ -38,8 +38,8 @@
       "slug": "vetta-pro",
       "name": "Vetta SEO Pro",
       "summary": {
-        "en": "More for Vetta SEO: up to five keywords per page, SEO on each category and tag, local business data, the log of pages not found, IndexNow and llms.txt. If the license ends, what is on keeps working. Paid: €49 a year per site + VAT.",
-        "it": "Di più per Vetta SEO: fino a cinque parole chiave per pagina, SEO di ogni categoria e tag, dati dell'attività locale, registro delle pagine non trovate, IndexNow e llms.txt. Se la licenza scade, ciò che è acceso continua a funzionare. A pagamento: 49 € l'anno per sito + IVA."
+        "en": "More for Vetta SEO: up to five keywords per page, SEO on each category and tag, products and services with their prices, your own structured data (JSON-LD), local business data, the log of pages not found, IndexNow and llms.txt. If the license ends, what is on keeps working. Paid: €49 a year per site + VAT.",
+        "it": "Di più per Vetta SEO: fino a cinque parole chiave per pagina, SEO di ogni categoria e tag, prodotti e servizi con i loro prezzi, dati strutturati propri (JSON-LD), dati dell'attività locale, registro delle pagine non trovate, IndexNow e llms.txt. Se la licenza scade, ciò che è acceso continua a funzionare. A pagamento: 49 € l'anno per sito + IVA."
       },
       "tags": [
         "seo",
@@ -60,6 +60,34 @@
         "licenseServer": "https://cleitext.com/api/v1/ext/store/v1"
       },
       "icon": "assets/vetta-pro.svg"
+    },
+    {
+      "type": "plugin",
+      "slug": "reklaim-pro",
+      "name": "Reklaim Pro",
+      "summary": {
+        "en": "More for Reklaim: other bars in order of priority, by anchor, address, language and dates; the page's own bar from the editor; the bar also on computers and at the top of the screen; clicks per bar. If the license ends, everything keeps working. Paid: €29 a year per site + VAT.",
+        "it": "Di più per Reklaim: altre barre in ordine di priorità, per ancora, indirizzo, lingua e date; la barra di ogni pagina dall'editor; la barra anche su computer e in alto; i clic per barra. Se la licenza scade, tutto continua a funzionare. A pagamento: 29 € l'anno per sito + IVA."
+      },
+      "tags": [
+        "call to action",
+        "conversions",
+        "mobile"
+      ],
+      "category": "tools",
+      "source": "private",
+      "requires": ">=0.122.0",
+      "paid": {
+        "price": {
+          "amount": 29,
+          "currency": "EUR",
+          "per": "site"
+        },
+        "updatesMonths": 12,
+        "purchaseUrl": "https://cleitext.com/plugins/reklaim-pro",
+        "licenseServer": "https://cleitext.com/api/v1/ext/store/v1"
+      },
+      "icon": "assets/reklaim-pro.svg"
     },
     {
       "type": "plugin",
@@ -272,8 +300,8 @@
       "slug": "vetta",
       "name": "Vetta SEO",
       "summary": {
-        "en": "SEO for every site, free: search titles and descriptions with variables, a content analysis with a score out of 100, social cards, schema.org, sitemap rules, breadcrumbs and robots.txt. Vetta SEO Pro adds more keywords, SEO on each term, local business data, the 404 log, IndexNow and llms.txt.",
-        "it": "SEO per ogni sito, gratis: titoli e descrizioni per i motori con variabili, un'analisi dei contenuti con punteggio su 100, schede social, schema.org, regole della sitemap, briciole di pane e robots.txt. Vetta SEO Pro aggiunge più parole chiave, SEO di categorie e tag, dati dell'attività locale, registro delle pagine non trovate, IndexNow e llms.txt."
+        "en": "SEO for every site, free: search titles and descriptions with variables, a content analysis with a score out of 100, social cards, schema.org, sitemap rules, breadcrumbs and robots.txt. Vetta SEO Pro adds more keywords, SEO on each term, products with their offers, your own JSON-LD, local business data, the 404 log, IndexNow and llms.txt.",
+        "it": "SEO per ogni sito, gratis: titoli e descrizioni per i motori con variabili, un'analisi dei contenuti con punteggio su 100, schede social, schema.org, regole della sitemap, briciole di pane e robots.txt. Vetta SEO Pro aggiunge più parole chiave, SEO di categorie e tag, prodotti con le loro offerte, JSON-LD proprio, dati dell'attività locale, registro delle pagine non trovate, IndexNow e llms.txt."
       },
       "tags": [
         "seo",
@@ -298,6 +326,22 @@
       ],
       "category": "editor",
       "icon": "assets/click-to-chat.svg"
+    },
+    {
+      "type": "plugin",
+      "slug": "reklaim",
+      "name": "Reklaim",
+      "summary": {
+        "en": "A call-to-action bar fixed at the bottom of the screen on phones: your text and button in every language, shown after some scrolling and hidden when the form it leads to is in view, with colors, pages without it, a click counter and the Google Analytics event. Reklaim Pro adds more bars by anchor, page and dates, a box per page, computers and the top of the screen.",
+        "it": "Una barra con l'invito all'azione fissa in basso sui telefoni: il tuo testo e il tuo pulsante in ogni lingua, che compare dopo un po' di scorrimento e si nasconde quando il modulo a cui porta è a schermo, con colori, pagine escluse, contatore dei clic ed evento di Google Analytics. Reklaim Pro aggiunge altre barre per ancora, pagina e date, un box per pagina, computer e la parte alta dello schermo."
+      },
+      "tags": [
+        "call to action",
+        "conversions",
+        "mobile"
+      ],
+      "category": "tools",
+      "icon": "assets/reklaim.svg"
     },
     {
       "type": "plugin",
