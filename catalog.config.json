@@ -1069,6 +1069,34 @@
     },
     {
       "type": "theme",
+      "slug": "vivila",
+      "name": "Vivila",
+      "source": "private",
+      "icon": "assets/vivila.svg",
+      "requires": ">=0.123.0",
+      "paid": {
+        "licenseServer": "https://cleitext.com/api/v1/ext/store/v1",
+        "price": {
+          "amount": 49,
+          "currency": "EUR",
+          "per": "site"
+        },
+        "purchaseUrl": "https://cleitext.com/themes/vivila",
+        "updatesMonths": 12
+      },
+      "summary": {
+        "en": "An elegant theme for services and boutique businesses: ivory pages, deep green and wine red, serif titles with an italic part, a full-height photo hero with the header over it, cards with flush borders, before and after, reviews and a contact card, all made of ordinary blocks. Paid: €49 a year + VAT; try the demo with Live Preview.",
+        "it": "Un tema elegante per servizi e attività boutique: pagine avorio, verde bosco e rosso vino, titoli serif con una parte in corsivo, hero fotografica a tutta altezza con l'intestazione sopra, schede a griglia, prima e dopo, recensioni e modulo di contatto, tutto con blocchi normali. A pagamento: 49 € l'anno + IVA; prova la demo con l'Anteprima dal vivo."
+      },
+      "tags": [
+        "business",
+        "services",
+        "real-estate",
+        "elegant"
+      ]
+    },
+    {
+      "type": "theme",
       "slug": "zenit",
       "name": "Zenit",
       "summary": {
