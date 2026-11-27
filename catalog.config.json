@@ -91,6 +91,35 @@
     },
     {
       "type": "plugin",
+      "slug": "drive",
+      "name": "Drive",
+      "summary": {
+        "en": "A guide to a territory for local and tourist portals: places with their venues, attractions and active deals, \"where to eat in…\" and \"nearby\" lists, a facts box on every venue (address, hours, services, links), structured data (Restaurant, Hotel, Museum…) and an optional nightly sync of the venues from any JSON or CSV source. Drive suite: €69 a year per site + VAT, with Drive Reviews and Drive Maps.",
+        "it": "Una guida del territorio per portali locali e turistici: luoghi con i loro locali, attrazioni e convenzioni attive, elenchi «dove mangiare a…» e «nei dintorni», un box dei dati su ogni locale (indirizzo, orari, servizi, link), dati strutturati (Restaurant, Hotel, Museum…) e una sincronizzazione notturna facoltativa dei locali da qualsiasi fonte JSON o CSV. Suite Drive: 69 € l'anno per sito + IVA, con Drive Recensioni e Drive Mappe."
+      },
+      "tags": [
+        "directory",
+        "tourism",
+        "local business",
+        "guide"
+      ],
+      "category": "tools",
+      "source": "private",
+      "requires": ">=0.124.0",
+      "paid": {
+        "price": {
+          "amount": 69,
+          "currency": "EUR",
+          "per": "site"
+        },
+        "updatesMonths": 12,
+        "purchaseUrl": "https://cleitext.com/plugins/drive",
+        "licenseServer": "https://cleitext.com/api/v1/ext/store/v1"
+      },
+      "icon": "assets/drive.svg"
+    },
+    {
+      "type": "plugin",
       "slug": "multilingual-pro",
       "name": "Multilingual Pro",
       "summary": {
